@@ -1,4 +1,4 @@
-import '@/style/globals.css'
+import '@/styles/globals.css'
 
 export const metadata = {
   title: 'Optimetable',
