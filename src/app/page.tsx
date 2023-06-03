@@ -1,3 +1,9 @@
+import TimeTableFrame from "@/components/timetable/TimeTableFrame"
+
 export default function Home() {
-  return <main></main>
+  return (
+    <main>
+      <TimeTableFrame />
+    </main>
+  )
 }
