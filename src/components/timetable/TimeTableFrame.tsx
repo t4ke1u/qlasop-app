@@ -1,37 +1,25 @@
-import { ReactNode } from "react"
-import TimeTableCell from "./TimeTableCell"
-import TimeTableLabel from "./TimeTableLabel"
+"use client"
 
-type TimeTableProps = {
-  children: ReactNode
-}
+import TimeTableDayLabel from "./TimeTableDayLabel"
+import TimeTablePeriodLabel from "./TimeTablePeriodLabel"
+import { useClientData } from "@/hooks/ClientDataContext"
 
 const TimeTableFrame = () => {
-  const days: Array<string> = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  const { clientData } = useClientData()
 
   return (
     <>
-      <div className="grid grid-cols-[0.5fr_1.5fr_1.5fr_1.5fr_1.5fr_1.5fr_1.5fr] gap-1">
-        <br />
-        {/* 曜日 */}
-        {days.map((day) => {
-          return (
-            <div key={day} className="p-1.5 text-center text-sm text-gray-600">
-              {day}
-            </div>
-          )
+      <div className="grid auto-rows-auto grid-cols-[0.5fr_repeat(6,_1fr)] gap-1">
+        <div className="col-start-1 row-start-1" />
+        {/* 曜日ラベル */}
+        {clientData.setting.dayLabels.map((day, index) => {
+          return <TimeTableDayLabel key={index} index={index} />
+        })}
+        {/* 時間割ラベル */}
+        {clientData.setting.periodLabels.map((period, index) => {
+          return <TimeTablePeriodLabel key={index} index={index} />
         })}
         {/* 1列目 */}
-        <TimeTableLabel period="1" startTime="8:50" endTime="10:30" />
-        <TimeTableCell />
-        <TimeTableCell />
-        <TimeTableCell />
-        <TimeTableCell />
-        <TimeTableCell />
-        <TimeTableCell />
-        {/* 2列目 */}
-        <TimeTableLabel period="2" startTime="10:40" endTime="12:20" />
-        <TimeTableCell />
       </div>
     </>
   )
