@@ -6,9 +6,10 @@ type TimeTableDayLabelProps = {
 
 const TimeTableDayLabel = ({ index }: TimeTableDayLabelProps) => {
   const { clientData } = useClientData()
+  const gridColStart = "col-start-" + String(index + 2)
 
   return (
-    <div className={`row-start-1 col-start-${index + 2} p-1.5 text-center text-sm text-gray-600`}>
+    <div className={`row-start-1 ${gridColStart} p-1.5 text-center text-sm text-gray-600`}>
       {clientData.setting.dayLabels[index]}
     </div>
   )
