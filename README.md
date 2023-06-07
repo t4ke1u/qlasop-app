@@ -9,6 +9,7 @@
 - Packege Manager: [Yarn](https://yarnpkg.com/) - v1.22.19
 - Framework: [Next.js](https://nextjs.org/) - v13.4.4
 - CSS Framework: [Tailwind CSS](https://tailwindcss.com/) - v3.3.2
+- Headless UI Framework: [Radix UI](https://www.radix-ui.com/)
 - Linter: [ESLint](https://eslint.org/) - v8.41.0
 - Formatter: [Prettier](https://prettier.io/) - v2.8.8
 
