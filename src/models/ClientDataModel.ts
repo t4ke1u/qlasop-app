@@ -8,6 +8,5 @@ export type ClientDataModel = {
   setting: {
     tableTitle: string
     periodLabels: Array<TimeTablePeriodLabelModel>
-    dayLabels: Array<string>
   }
 }

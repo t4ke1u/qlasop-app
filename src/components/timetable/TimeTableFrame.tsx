@@ -4,6 +4,7 @@ import { ReactElement, useEffect, useState } from "react"
 import TimeTableCell from "./TimeTableCell"
 import TimeTableDayLabel from "./TimeTableDayLabel"
 import TimeTablePeriodLabel from "./TimeTablePeriodLabel"
+import { TIMETABLE_DAYS } from "@/constants/timetable_days"
 import { useClientData } from "@/hooks/ClientDataContext"
 
 const TimeTableFrame = () => {
@@ -27,7 +28,7 @@ const TimeTableFrame = () => {
         filledPeriods.push(`${value.class.day}-${i}`)
       }
     })
-    for (let i = 0; i < clientData.setting.dayLabels.length; i++) {
+    for (let i = 0; i < Object.keys(TIMETABLE_DAYS.jp).length; i++) {
       for (let j = 0; j < clientData.setting.periodLabels.length; j++) {
         if (!filledPeriods.includes(`${i}-${j}`)) {
           cells.push(<TimeTableCell key={`${i}-${j}`} day={i} startPeriod={j} endPeriod={j} />)
@@ -45,7 +46,7 @@ const TimeTableFrame = () => {
         return <TimeTablePeriodLabel key={index} index={index} />
       })}
       {/* 曜日ラベル */}
-      {clientData.setting.dayLabels.map((value, index) => {
+      {Object.values(TIMETABLE_DAYS.en).map((value, index) => {
         return <TimeTableDayLabel key={index} index={index} />
       })}
       {/* 科目セル */}
