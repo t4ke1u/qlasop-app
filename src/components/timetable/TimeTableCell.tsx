@@ -1,4 +1,5 @@
 "use client"
+import { gray } from "@radix-ui/colors"
 
 import { TimeTableClassModel } from "@/models/timetable/TimeTableClassModel"
 
@@ -14,10 +15,17 @@ const TimeTableCell = ({ day, startPeriod, endPeriod, data }: TimeTableCellProps
 
   return (
     <button
-      className={`rounded-lg bg-gray-100 outline outline-1 outline-gray-200 transition-all hover:scale-95`}
-      style={{ gridColumnStart: day + 2, gridRow: `${startPeriod + 2} / ${endPeriod + 3}` }}
+      className={`rounded-lg outline outline-1 transition-all hover:scale-95`}
+      style={{
+        gridColumnStart: day + 2,
+        gridRow: `${startPeriod + 2} / ${endPeriod + 3}`,
+        backgroundColor: data === undefined ? gray.gray3 : gray.gray5,
+        outlineColor: data === undefined ? gray.gray5 : gray.gray7,
+      }}
     >
-      <div className="place-self-center text-sm">{data?.class.subjectName}</div>
+      <div className="place-self-center text-sm" style={{ color: gray.gray11 }}>
+        {data?.class.subjectName}
+      </div>
     </button>
   )
 }
