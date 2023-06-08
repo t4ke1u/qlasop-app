@@ -4,7 +4,7 @@ export type ClassModel = {
   startPeriod: number
   endPeriod: number
   teachers?: string
-  faculty?: number
+  faculty: number
   unit: number
   category: number
   link?: {
