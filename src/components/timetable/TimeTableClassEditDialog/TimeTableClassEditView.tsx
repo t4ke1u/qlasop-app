@@ -1,7 +1,5 @@
 "use client"
 
-import * as Dialog from "@radix-ui/react-dialog"
-
 import { TIMETABLE_DAYS } from "@/constants/timetable_days"
 import { TimeTableClassModel } from "@/models/timetable/TimeTableClassModel"
 
