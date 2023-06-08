@@ -14,14 +14,14 @@ const TimeTableFrame = () => {
   useEffect(() => {
     const filledPeriods: Array<string> = []
     const cells: Array<ReactElement> = []
-    clientData.classes.map((value, index) => {
+    clientData.classes.map((value) => {
       cells.push(
         <TimeTableCell
           key={`${value.class.day}-${value.class.startPeriod}-${value.class.subjectName}`}
           day={value.class.day}
           startPeriod={value.class.startPeriod}
           endPeriod={value.class.endPeriod}
-          data={value}
+          classData={value}
         />,
       )
       for (let i = value.class.startPeriod; i <= value.class.endPeriod; i++) {
