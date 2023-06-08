@@ -2,6 +2,7 @@
 
 import { gray } from "@radix-ui/colors"
 import * as Dialog from "@radix-ui/react-dialog"
+import { useState } from "react"
 
 import TimeTableClassDialog from "./dialogs/TimeTableClassDialog"
 import { TimeTableClassModel } from "@/models/timetable/TimeTableClassModel"
@@ -15,9 +16,17 @@ type Props = {
 
 const TimeTableCell = ({ day, startPeriod, endPeriod, classData }: Props) => {
   const color: string = classData === undefined ? "gray" : classData.color
+  const [isOpen, setOpen] = useState(false)
+  const [showEdit, setShowEdit] = useState(false)
+  const setConfirmEdit = (isOpen: boolean) => {
+    if (!isOpen && showEdit) {
+      setShowEdit(false)
+    }
+    setOpen(isOpen)
+  }
 
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpen} onOpenChange={setConfirmEdit}>
       <Dialog.Trigger
         className="rounded-lg outline outline-1 transition-all hover:scale-95"
         style={{
@@ -31,7 +40,12 @@ const TimeTableCell = ({ day, startPeriod, endPeriod, classData }: Props) => {
           {classData?.class.subjectName}
         </div>
       </Dialog.Trigger>
-      <TimeTableClassDialog time={{ day, startPeriod, endPeriod }} classData={classData} />
+      <TimeTableClassDialog
+        time={{ day, startPeriod, endPeriod }}
+        classData={classData}
+        showEdit={showEdit}
+        setShowEdit={setShowEdit}
+      />
     </Dialog.Root>
   )
 }
