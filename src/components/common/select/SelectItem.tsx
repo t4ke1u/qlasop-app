@@ -1,0 +1,23 @@
+import { CheckIcon } from "@radix-ui/react-icons"
+import * as SelectPrimitive from "@radix-ui/react-select"
+import { ReactNode, forwardRef } from "react"
+
+interface SelectItemProps extends SelectPrimitive.SelectItemProps {
+  className?: string
+  value: string
+  children?: ReactNode
+}
+
+export const SelectItem = forwardRef<HTMLDivElement, SelectItemProps>(function SelectItem(
+  { className, children, ...props },
+  forwardedRef,
+) {
+  return (
+    <SelectPrimitive.Item className={className} {...props} ref={forwardedRef}>
+      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+      <SelectPrimitive.ItemIndicator>
+        <CheckIcon />
+      </SelectPrimitive.ItemIndicator>
+    </SelectPrimitive.Item>
+  )
+})
