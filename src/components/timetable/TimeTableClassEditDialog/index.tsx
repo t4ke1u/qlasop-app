@@ -4,11 +4,12 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog"
 import { Dispatch, SetStateAction } from "react"
 
 import TimeTableClassEditView from "./TimeTableClassEditView"
+import { useClientData } from "@/hooks/ClientDataContext"
 import { TimeTableCellModel } from "@/models/timetable/TimeTableCellModel"
 import { ValidationClassModel, useClassEditForm } from "@/utils/useClassEditForm"
 
 type Props = {
-  cellData?: TimeTableCellModel
+  cellData: TimeTableCellModel
   openInfo: [boolean, Dispatch<SetStateAction<boolean>>]
   openEdit: [boolean, Dispatch<SetStateAction<boolean>>]
 }
@@ -21,9 +22,19 @@ const TimeTableClassEditDialog = ({ cellData, openInfo, openEdit }: Props) => {
     setOpenEdit(false)
     setOpenInfo(true)
   }
+  // Client Data
+  const { rewriteTimeTableCell } = useClientData()
   // Form
-  const { register, onSubmit, errors } = useClassEditForm((data: ValidationClassModel) => {
-    console.log(data)
+  const { register, handleSubmit, errors, convertFromData } = useClassEditForm()
+
+  const onSubmit = handleSubmit(async (data: ValidationClassModel) => {
+    const newCellData = convertFromData(data, cellData)
+    if (newCellData !== undefined) {
+      const result = rewriteTimeTableCell(cellData, newCellData)
+      console.log(result)
+      console.log(newCellData)
+    }
+    setOpenEdit(false)
   })
 
   return (
@@ -35,7 +46,7 @@ const TimeTableClassEditDialog = ({ cellData, openInfo, openEdit }: Props) => {
             科目編集
           </AlertDialog.Title>
           <form id="class-edit-form" onSubmit={onSubmit}>
-            <TimeTableClassEditView cellData={cellData!} form={{ register, errors }} />
+            <TimeTableClassEditView cellData={cellData} form={{ register, errors }} />
 
             <div className="mt-6 flex justify-end gap-2">
               <AlertDialog.Cancel
