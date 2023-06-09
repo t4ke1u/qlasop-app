@@ -77,7 +77,7 @@ export const useClassEditForm = () => {
     const endPeriod = !!formData.endPeriod
       ? Number(formData.endPeriod)
       : cellData?.class?.endPeriod!
-    console.log(`start: ${startPeriod}, end: ${endPeriod}`)
+
     if (startPeriod > endPeriod) {
       return false
     }

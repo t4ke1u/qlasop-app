@@ -1,5 +1,4 @@
 import TimeTableFrame from "@/components/timetable/TimeTableFrame"
-import TimeTablePeriodLabel from "@/components/timetable/TimeTablePeriodLabel"
 import { ClientDataProvider } from "@/hooks/ClientDataContext"
 import { ClientDataModel } from "@/models/ClientDataModel"
 
