@@ -8,9 +8,13 @@ import { TimeTableCellModel } from "@/models/timetable/TimeTableCellModel"
 type ClientDataContextProps = {
   clientData: ClientDataModel
   setClientData: Dispatch<SetStateAction<ClientDataModel>>
-  checkClassExit: (day: number, period: number) => Array<TimeTableCellModel>
   checkOverWrite: (classData: ClassModel) => Array<TimeTableCellModel>
   addTimeTableCell: (cellData: TimeTableCellModel, force?: boolean) => boolean
+  rewriteTimeTableCell: (
+    oldCell: TimeTableCellModel,
+    newCell: TimeTableCellModel,
+    force?: boolean,
+  ) => boolean
   removeTimeTableCell: (cellData: TimeTableCellModel) => boolean
 }
 
@@ -26,25 +30,19 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
   const [clientData, setClientData] = useState<ClientDataModel>(initialClientData)
 
   // タイムテーブルに授業を追加
-  const checkClassExit = (day: number, period: number): Array<TimeTableCellModel> => {
+  const checkOverWrite = (classData: ClassModel): Array<TimeTableCellModel> => {
     const list: Array<TimeTableCellModel> = []
     clientData.cells.map((cellData) => {
       if (
-        cellData.class.day === day &&
-        cellData.class.startPeriod <= period &&
-        cellData.class.endPeriod >= period
+        cellData.class.day === classData.day &&
+        ((cellData.class.startPeriod <= classData.startPeriod &&
+          classData.startPeriod <= cellData.class.endPeriod) ||
+          (cellData.class.startPeriod <= classData.endPeriod &&
+            classData.endPeriod <= cellData.class.endPeriod))
       ) {
         list.push(cellData)
       }
     })
-    return list
-  }
-
-  const checkOverWrite = (classData: ClassModel): Array<TimeTableCellModel> => {
-    const list: Array<TimeTableCellModel> = []
-    for (let i = classData.startPeriod; i <= classData.endPeriod; i++) {
-      list.push(...checkClassExit(classData.day, i))
-    }
     return list
   }
 
@@ -76,13 +74,49 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
     }
   }
 
+  const rewriteTimeTableCell = (
+    oldCell: TimeTableCellModel,
+    newCell: TimeTableCellModel,
+    force: boolean = false,
+  ): boolean => {
+    const removedList = clientData.cells.filter((cell) => {
+      return !(cell == oldCell)
+    })
+    const clashList: Array<TimeTableCellModel> = []
+    for (let i = newCell.class.startPeriod; i <= newCell.class.endPeriod; i++) {
+      removedList.map((cellData) => {
+        if (
+          cellData.class.day === newCell.class.day &&
+          ((cellData.class.startPeriod <= newCell.class.startPeriod &&
+            newCell.class.startPeriod <= cellData.class.endPeriod) ||
+            (cellData.class.startPeriod <= newCell.class.endPeriod &&
+              newCell.class.endPeriod <= cellData.class.endPeriod))
+        ) {
+          clashList.push(cellData)
+        }
+      })
+    }
+
+    if (clashList.length !== 0 && !force) {
+      return false
+    } else {
+      const newCells = removedList.filter((cell) => {
+        return !clashList.includes(cell)
+      })
+      newCells.push(newCell)
+      const { cells: oldCells, ...rest } = clientData
+      setClientData({ cells: newCells, ...rest })
+      return true
+    }
+  }
+
   const value: ClientDataContextProps = {
     clientData,
     setClientData,
-    checkClassExit,
     checkOverWrite,
     addTimeTableCell,
     removeTimeTableCell,
+    rewriteTimeTableCell,
   }
 
   return <ClientDataContext.Provider value={value}>{children}</ClientDataContext.Provider>
