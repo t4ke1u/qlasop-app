@@ -31,8 +31,6 @@ const TimeTableClassEditDialog = ({ cellData, openInfo, openEdit }: Props) => {
     const newCellData = convertFromData(data, cellData)
     if (newCellData !== undefined) {
       const result = rewriteTimeTableCell(cellData, newCellData)
-      console.log(result)
-      console.log(newCellData)
     }
     setOpenEdit(false)
   })
