@@ -1,6 +1,6 @@
 "use client"
 
-import { Control, FieldErrors, UseFormRegister } from "react-hook-form"
+import { FieldErrors, UseFormRegister } from "react-hook-form"
 
 import { Select, SelectItem } from "@/components/common/select"
 import { CATEGORIES } from "@/constants/categories"

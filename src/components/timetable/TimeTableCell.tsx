@@ -42,7 +42,7 @@ const TimeTableCell = ({ day, startPeriod, endPeriod, cellData }: Props) => {
         openEdit={[isOpenEdit, setOpenEdit]}
       />
       <TimeTableClassEditDialog
-        cellData={cellData}
+        cellData={cellData!}
         openInfo={[isOpenInfo, setOpenInfo]}
         openEdit={[isOpenEdit, setOpenEdit]}
       />

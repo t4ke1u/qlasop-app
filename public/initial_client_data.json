@@ -12,6 +12,19 @@
         "category": 40100000
       },
       "color": "gray"
+    },
+    {
+      "class": {
+        "subjectName": "量子情報理論",
+        "day": 0,
+        "startPeriod": 1,
+        "endPeriod": 1,
+        "teachers": "",
+        "faculty": 26,
+        "unit": 2,
+        "category": 40100000
+      },
+      "color": "gray"
     }
   ],
   "stagedClasses": [],
