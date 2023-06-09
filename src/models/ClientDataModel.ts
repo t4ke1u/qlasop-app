@@ -1,9 +1,9 @@
 import { ClassModel } from "./ClassModel"
-import { TimeTableClassModel } from "./timetable/TimeTableClassModel"
+import { TimeTableCellModel } from "./timetable/TimeTableCellModel"
 import { TimeTablePeriodLabelModel } from "./timetable/TimeTableLabelModel"
 
 export type ClientDataModel = {
-  classes: Array<TimeTableClassModel>
+  classes: Array<TimeTableCellModel>
   stagedClasses: Array<ClassModel>
   setting: {
     tableTitle: string

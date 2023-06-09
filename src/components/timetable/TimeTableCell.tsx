@@ -5,17 +5,17 @@ import { useState } from "react"
 
 import TimeTableClassEditDialog from "./TimeTableClassEditDialog"
 import TimeTableClassInfoDialog from "./TimeTableClassInfoDialog"
-import { TimeTableClassModel } from "@/models/timetable/TimeTableClassModel"
+import { TimeTableCellModel } from "@/models/timetable/TimeTableCellModel"
 
 type Props = {
   day: number
   startPeriod: number
   endPeriod: number
-  classData?: TimeTableClassModel
+  cellData?: TimeTableCellModel
 }
 
-const TimeTableCell = ({ day, startPeriod, endPeriod, classData }: Props) => {
-  const color: string = classData === undefined ? "gray" : classData.color
+const TimeTableCell = ({ day, startPeriod, endPeriod, cellData }: Props) => {
+  const color: string = cellData === undefined ? "gray" : cellData.color
   const [isOpenInfo, setOpenInfo] = useState(false)
   const [isOpenEdit, setOpenEdit] = useState(false)
 
@@ -26,23 +26,23 @@ const TimeTableCell = ({ day, startPeriod, endPeriod, classData }: Props) => {
         style={{
           gridColumnStart: day + 2,
           gridRow: `${startPeriod + 2} / ${endPeriod + 3}`,
-          backgroundColor: classData === undefined ? gray.gray3 : gray.gray5,
-          outlineColor: classData === undefined ? gray.gray5 : gray.gray7,
+          backgroundColor: cellData === undefined ? gray.gray3 : gray.gray5,
+          outlineColor: cellData === undefined ? gray.gray5 : gray.gray7,
         }}
         onClick={() => setOpenInfo(true)}
       >
         <div className="place-self-center text-sm" style={{ color: gray.gray11 }}>
-          {classData?.class.subjectName}
+          {cellData?.class.subjectName}
         </div>
       </button>
       <TimeTableClassInfoDialog
         time={{ day, startPeriod, endPeriod }}
-        classData={classData}
+        cellData={cellData}
         openInfo={[isOpenInfo, setOpenInfo]}
         openEdit={[isOpenEdit, setOpenEdit]}
       />
       <TimeTableClassEditDialog
-        classData={classData}
+        cellData={cellData}
         openInfo={[isOpenInfo, setOpenInfo]}
         openEdit={[isOpenEdit, setOpenEdit]}
       />

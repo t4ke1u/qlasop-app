@@ -1,6 +1,6 @@
 import { ClassModel } from "../ClassModel"
 
-export type TimeTableClassModel = {
+export type TimeTableCellModel = {
   class: ClassModel
   color: string
   clientMemo?: string
