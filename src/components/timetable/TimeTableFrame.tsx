@@ -14,7 +14,7 @@ const TimeTableFrame = () => {
   useEffect(() => {
     const filledPeriods: Array<string> = []
     const cells: Array<ReactElement> = []
-    clientData.classes.map((value) => {
+    clientData.cells.map((value) => {
       cells.push(
         <TimeTableCell
           key={`${value.class.day}-${value.class.startPeriod}-${value.class.subjectName}`}

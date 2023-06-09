@@ -3,7 +3,7 @@ import { TimeTableCellModel } from "./timetable/TimeTableCellModel"
 import { TimeTablePeriodLabelModel } from "./timetable/TimeTableLabelModel"
 
 export type ClientDataModel = {
-  classes: Array<TimeTableCellModel>
+  cells: Array<TimeTableCellModel>
   stagedClasses: Array<ClassModel>
   setting: {
     tableTitle: string
