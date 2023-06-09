@@ -1,12 +1,6 @@
 import TimeTableFrame from "@/components/timetable/TimeTableFrame"
 import { ClientDataProvider } from "@/hooks/ClientDataContext"
-import { ClientDataModel } from "@/models/ClientDataModel"
-
-const getClientData = async (): Promise<ClientDataModel> => {
-  const res = await fetch("http://localhost:3000/initial_client_data.json")
-  const data = await res.json()
-  return data
-}
+import { getClientData } from "@/utils/getClientData"
 
 const Home = async () => {
   const initialClientData = await getClientData()
