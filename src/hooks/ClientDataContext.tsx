@@ -33,16 +33,19 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
   // タイムテーブルに授業を追加
   const checkOverWrite = (classData: ClassModel): Array<TimeTableCellModel> => {
     const list: Array<TimeTableCellModel> = []
-    clientData.cells.map((cellData) => {
-      if (
-        cellData.class.day === classData.day &&
-        ((cellData.class.startPeriod <= classData.startPeriod &&
-          classData.startPeriod <= cellData.class.endPeriod) ||
-          (cellData.class.startPeriod <= classData.endPeriod &&
-            classData.endPeriod <= cellData.class.endPeriod))
-      ) {
-        list.push(cellData)
-      }
+    setClientData((prev) => {
+      prev.cells.map((cellData) => {
+        if (
+          cellData.class.day === classData.day &&
+          ((cellData.class.startPeriod <= classData.startPeriod &&
+            classData.startPeriod <= cellData.class.endPeriod) ||
+            (cellData.class.startPeriod <= classData.endPeriod &&
+              classData.endPeriod <= cellData.class.endPeriod))
+        ) {
+          list.push(cellData)
+        }
+      })
+      return prev
     })
     return list
   }
@@ -52,27 +55,34 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
     if (clashList.length !== 0 && !force) {
       return false
     } else {
-      const newCells = clientData.cells.filter((cell) => {
-        return !clashList.includes(cell)
+      setClientData((prev) => {
+        const newCells = prev.cells.filter((cell) => {
+          return !clashList.includes(cell)
+        })
+        newCells.push(cellData)
+        const { cells: oldCells, ...rest } = clientData
+        return { cells: newCells, ...rest }
       })
-      newCells.push(cellData)
-      const { cells: oldCells, ...rest } = clientData
-      setClientData({ cells: newCells, ...rest })
       return true
     }
   }
 
   const deleteTimeTableCell = (cellData: TimeTableCellModel): boolean => {
-    const { cells: oldCells, ...rest } = clientData
-    if (!oldCells.includes(cellData)) {
-      return false
-    } else {
-      const newCells = oldCells.filter((cell) => {
-        return !(cell == cellData)
-      })
-      setClientData({ cells: newCells, ...rest })
-      return true
-    }
+    let result: boolean = false
+    setClientData((prev) => {
+      const { cells: oldCells, ...rest } = prev
+      if (!oldCells.includes(cellData)) {
+        result = false
+        return prev
+      } else {
+        const newCells = oldCells.filter((cell) => {
+          return !(cell == cellData)
+        })
+        result = true
+        return { cells: newCells, ...rest }
+      }
+    })
+    return result
   }
 
   const rewriteTimeTableCell = (
@@ -80,35 +90,44 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
     newCell: TimeTableCellModel,
     force: boolean = false,
   ): boolean => {
-    const deletedList = clientData.cells.filter((cell) => {
-      return !(cell == oldCell)
-    })
+    let result: boolean = false
     const clashList: Array<TimeTableCellModel> = []
-    for (let i = newCell.class.startPeriod; i <= newCell.class.endPeriod; i++) {
-      deletedList.map((cellData) => {
-        if (
-          cellData.class.day === newCell.class.day &&
-          ((cellData.class.startPeriod <= newCell.class.startPeriod &&
-            newCell.class.startPeriod <= cellData.class.endPeriod) ||
-            (cellData.class.startPeriod <= newCell.class.endPeriod &&
-              newCell.class.endPeriod <= cellData.class.endPeriod))
-        ) {
-          clashList.push(cellData)
-        }
+    setClientData((prev) => {
+      const { cells: oldCells, ...rest } = prev
+      // oldCell を含む場合
+      if (!oldCells.includes(oldCell)) {
+        result = false
+        return prev
+      }
+      const deletedList = prev.cells.filter((cell) => {
+        return !(cell == oldCell)
       })
-    }
-
-    if (clashList.length !== 0 && !force) {
-      return false
-    } else {
+      for (let i = newCell.class.startPeriod; i <= newCell.class.endPeriod; i++) {
+        deletedList.map((cellData) => {
+          if (
+            cellData.class.day === newCell.class.day &&
+            ((cellData.class.startPeriod <= newCell.class.startPeriod &&
+              newCell.class.startPeriod <= cellData.class.endPeriod) ||
+              (cellData.class.startPeriod <= newCell.class.endPeriod &&
+                newCell.class.endPeriod <= cellData.class.endPeriod))
+          ) {
+            clashList.push(cellData)
+          }
+        })
+      }
+      // 上書きを許可しない場合
+      if (clashList.length !== 0 && !force) {
+        result = false
+        return prev
+      }
       const newCells = deletedList.filter((cell) => {
         return !clashList.includes(cell)
       })
       newCells.push(newCell)
-      const { cells: oldCells, ...rest } = clientData
-      setClientData({ cells: newCells, ...rest })
-      return true
-    }
+      result = false
+      return { cells: newCells, ...rest }
+    })
+    return result
   }
 
   const value: ClientDataContextProps = {
