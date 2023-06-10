@@ -15,6 +15,7 @@ export type DataBaseClassModel = {
   startPeriod(number):    開始時限
   endPeriod(number):      終了時限
   faculty(number):        学部コード
+  attribute(string):      所属
   unit(number):           単位数
   category(number):       科目区分
   campus?(number):        キャンパスコード
@@ -38,6 +39,7 @@ export type DataBaseClassModel = {
   startPeriod: number
   endPeriod: number
   faculty: number
+  attribute: string
   unit: number
   category: number
   campus?: number
