@@ -1,4 +1,4 @@
-import { TIMETABLE_DAYS } from "@/constants/timetableDays"
+import { TIMETABLE_DAYS } from "@/constants/days"
 
 type TimeTableDayLabelProps = {
   index: number

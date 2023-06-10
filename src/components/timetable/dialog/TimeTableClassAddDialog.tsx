@@ -7,7 +7,7 @@ import TimeTableClassOverwriteAlertDialog from "./alert/TimeTableClassOverwriteA
 import { Select, SelectItem } from "@/components/common/select"
 import { CATEGORIES } from "@/constants/categories"
 import { FACULTIES } from "@/constants/faculties"
-import { TIMETABLE_DAYS } from "@/constants/timetableDays"
+import { TIMETABLE_DAYS } from "@/constants/days"
 import { useClientData } from "@/hooks/ClientDataContext"
 import { TimeTableDialogCellModel } from "@/models/timetable/TimeTableDialogCellModel"
 import { ValidationClassModel, useClassEditForm } from "@/utils/useClassEditForm"

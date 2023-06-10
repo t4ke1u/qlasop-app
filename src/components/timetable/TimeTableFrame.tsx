@@ -4,7 +4,7 @@ import { ReactElement, useEffect, useState } from "react"
 import TimeTableCell from "./TimeTableCell"
 import TimeTableDayLabel from "./TimeTableDayLabel"
 import TimeTablePeriodLabel from "./TimeTablePeriodLabel"
-import { TIMETABLE_DAYS } from "@/constants/timetableDays"
+import { TIMETABLE_DAYS } from "@/constants/days"
 import { useClientData } from "@/hooks/ClientDataContext"
 
 const TimeTableFrame = () => {

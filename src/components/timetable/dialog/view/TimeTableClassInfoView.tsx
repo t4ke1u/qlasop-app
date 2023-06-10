@@ -8,7 +8,7 @@ import { TimeTableViewType } from "../TimeTableClassDialog"
 import TimeTableClassDeleteAlertDialog from "../alert/TimeTableClassDeleteAlertDialog"
 import { CATEGORIES } from "@/constants/categories"
 import { FACULTIES } from "@/constants/faculties"
-import { TIMETABLE_DAYS } from "@/constants/timetableDays"
+import { TIMETABLE_DAYS } from "@/constants/days"
 import { useClientData } from "@/hooks/ClientDataContext"
 import { TimeTableCellModel } from "@/models/timetable/TimeTableCellModel"
 
