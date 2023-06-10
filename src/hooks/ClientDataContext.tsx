@@ -16,7 +16,7 @@ type ClientDataContextProps = {
     newCell: TimeTableCellModel,
     force?: boolean,
   ) => boolean
-  removeTimeTableCell: (cellData: TimeTableCellModel) => boolean
+  deleteTimeTableCell: (cellData: TimeTableCellModel) => boolean
 }
 
 const ClientDataContext = createContext<ClientDataContextProps>({} as ClientDataContextProps)
@@ -62,7 +62,7 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
     }
   }
 
-  const removeTimeTableCell = (cellData: TimeTableCellModel): boolean => {
+  const deleteTimeTableCell = (cellData: TimeTableCellModel): boolean => {
     const { cells: oldCells, ...rest } = clientData
     if (!oldCells.includes(cellData)) {
       return false
@@ -80,12 +80,12 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
     newCell: TimeTableCellModel,
     force: boolean = false,
   ): boolean => {
-    const removedList = clientData.cells.filter((cell) => {
+    const deletedList = clientData.cells.filter((cell) => {
       return !(cell == oldCell)
     })
     const clashList: Array<TimeTableCellModel> = []
     for (let i = newCell.class.startPeriod; i <= newCell.class.endPeriod; i++) {
-      removedList.map((cellData) => {
+      deletedList.map((cellData) => {
         if (
           cellData.class.day === newCell.class.day &&
           ((cellData.class.startPeriod <= newCell.class.startPeriod &&
@@ -101,7 +101,7 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
     if (clashList.length !== 0 && !force) {
       return false
     } else {
-      const newCells = removedList.filter((cell) => {
+      const newCells = deletedList.filter((cell) => {
         return !clashList.includes(cell)
       })
       newCells.push(newCell)
@@ -116,7 +116,7 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
     setClientData,
     checkOverWrite,
     addTimeTableCell,
-    removeTimeTableCell,
+    deleteTimeTableCell,
     rewriteTimeTableCell,
   }
 
