@@ -26,6 +26,7 @@
 │   │       ├── layout.tsx  # [path] - レイアウト
 │   │       └── page.tsx    # [path] - ページ
 │   ├── components          # コンポーネント
+│   ├── constants           # 定数
 │   ├── libs                # ライブラリ
 │   ├── models              # カスタム型定義
 │   ├── styles              # 全体のスタイル
