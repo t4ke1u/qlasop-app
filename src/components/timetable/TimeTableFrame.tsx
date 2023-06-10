@@ -18,9 +18,11 @@ const TimeTableFrame = () => {
       cells.push(
         <TimeTableCell
           key={`${value.class.day}-${value.class.startPeriod}-${value.class.subjectName}`}
-          day={value.class.day}
-          startPeriod={value.class.startPeriod}
-          endPeriod={value.class.endPeriod}
+          time={{
+            day: value.class.day,
+            startPeriod: value.class.startPeriod,
+            endPeriod: value.class.endPeriod,
+          }}
           cellData={value}
         />,
       )
@@ -31,7 +33,9 @@ const TimeTableFrame = () => {
     for (let i = 0; i < Object.keys(TIMETABLE_DAYS.jp).length; i++) {
       for (let j = 0; j < clientData.setting.periodLabels.length; j++) {
         if (!filledPeriods.includes(`${i}-${j}`)) {
-          cells.push(<TimeTableCell key={`${i}-${j}`} day={i} startPeriod={j} endPeriod={j} />)
+          cells.push(
+            <TimeTableCell key={`${i}-${j}`} time={{ day: i, startPeriod: j, endPeriod: j }} />,
+          )
         }
       }
     }

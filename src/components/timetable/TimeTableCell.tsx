@@ -1,26 +1,25 @@
 "use client"
 
 import { gray } from "@radix-ui/colors"
-import { useState } from "react"
 
-import TimeTableClassEditDialog from "./TimeTableClassEditDialog"
-import TimeTableClassInfoDialog from "./TimeTableClassInfoDialog"
+import TimeTableClassDialog from "./dialog/TimeTableClassDialog"
 import { TimeTableCellModel } from "@/models/timetable/TimeTableCellModel"
 
 type Props = {
-  day: number
-  startPeriod: number
-  endPeriod: number
+  time: {
+    day: number
+    startPeriod: number
+    endPeriod: number
+  }
   cellData?: TimeTableCellModel
 }
 
-const TimeTableCell = ({ day, startPeriod, endPeriod, cellData }: Props) => {
+const TimeTableCell = ({ time, cellData }: Props) => {
+  const { day, startPeriod, endPeriod } = time
   const color: string = cellData === undefined ? "gray" : cellData.color
-  const [isOpenInfo, setOpenInfo] = useState(false)
-  const [isOpenEdit, setOpenEdit] = useState(false)
 
   return (
-    <>
+    <TimeTableClassDialog time={time} cellData={cellData}>
       <button
         className="rounded-lg outline outline-1 transition-all hover:scale-95"
         style={{
@@ -29,24 +28,12 @@ const TimeTableCell = ({ day, startPeriod, endPeriod, cellData }: Props) => {
           backgroundColor: cellData === undefined ? gray.gray3 : gray.gray5,
           outlineColor: cellData === undefined ? gray.gray5 : gray.gray7,
         }}
-        onClick={() => setOpenInfo(true)}
       >
         <div className="place-self-center text-sm" style={{ color: gray.gray11 }}>
           {cellData?.class.subjectName}
         </div>
       </button>
-      <TimeTableClassInfoDialog
-        time={{ day, startPeriod, endPeriod }}
-        cellData={cellData}
-        openInfo={[isOpenInfo, setOpenInfo]}
-        openEdit={[isOpenEdit, setOpenEdit]}
-      />
-      <TimeTableClassEditDialog
-        cellData={cellData!}
-        openInfo={[isOpenInfo, setOpenInfo]}
-        openEdit={[isOpenEdit, setOpenEdit]}
-      />
-    </>
+    </TimeTableClassDialog>
   )
 }
 
