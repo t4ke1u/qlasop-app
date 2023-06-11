@@ -7,10 +7,10 @@ export const CheckBox = ({ ...props }: Checkbox.CheckboxProps) => {
   return (
     <Checkbox.Root
       {...props}
-      className="flex h-6 w-6 items-center justify-center rounded bg-white outline outline-1 outline-gray-300 hover:bg-blue-100"
+      className="flex min-h-[24px] min-w-[24px] items-center justify-center rounded-sm bg-white outline outline-1 outline-gray-300 hover:bg-gray-50 data-[state=checked]:bg-gray-500 "
     >
-      <Checkbox.Indicator className="text-blue-600">
-        <CheckIcon />
+      <Checkbox.Indicator className="text-white">
+        <CheckIcon className="h-6 w-6" />
       </Checkbox.Indicator>
     </Checkbox.Root>
   )
