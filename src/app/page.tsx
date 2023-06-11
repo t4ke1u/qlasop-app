@@ -1,4 +1,6 @@
-import TimeTableFrame from "@/components/timetable/TimeTableFrame"
+"use client"
+
+import TabLayout from "./tab"
 import { ClientDataProvider } from "@/hooks/ClientDataContext"
 import { getClientData } from "@/utils/getClientData"
 
@@ -8,7 +10,7 @@ const Home = async () => {
   return (
     <main>
       <ClientDataProvider initialClientData={initialClientData}>
-        <TimeTableFrame />
+        <TabLayout />
       </ClientDataProvider>
     </main>
   )
