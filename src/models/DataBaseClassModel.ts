@@ -1,4 +1,4 @@
-export type DataBaseClassModel = {
+export type DatabaseClassModel = {
   /*
   subjectKey(string):     科目キー
   classCode(string):      科目クラスコード
