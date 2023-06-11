@@ -7,8 +7,8 @@ import { Dispatch, SetStateAction, useState } from "react"
 import { TimeTableViewType } from "../TimeTableClassDialog"
 import TimeTableClassDeleteAlertDialog from "../alert/TimeTableClassDeleteAlertDialog"
 import { CATEGORIES } from "@/constants/categories"
-import { FACULTIES } from "@/constants/faculties"
 import { TIMETABLE_DAYS } from "@/constants/days"
+import { FACULTIES } from "@/constants/faculties"
 import { useClientData } from "@/hooks/ClientDataContext"
 import { TimeTableCellModel } from "@/models/timetable/TimeTableCellModel"
 
@@ -59,13 +59,13 @@ const TimeTableClassInfoView = ({ time, cellData, setView }: Props) => {
           <div className="flex items-center gap-5 py-1">
             <div className="w-14 text-right text-sm text-gray-500">学部</div>
             <div className="inline-block h-9 w-full flex-1 items-center p-2 text-sm text-gray-800">
-              {FACULTIES[cellData.class.faculty]}
+              {FACULTIES.jp[cellData.class.faculty]}
             </div>
           </div>
           <div className="flex items-center gap-5 py-1">
             <div className="w-14 text-right text-sm text-gray-500">科目区分</div>
             <div className="inline-block h-9 w-full flex-1 items-center p-2 text-sm text-gray-800">
-              {CATEGORIES[cellData.class.category]}
+              {CATEGORIES.jp[cellData.class.category]}
             </div>
           </div>
           <div className="flex items-center gap-5 py-1">

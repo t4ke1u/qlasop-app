@@ -7,8 +7,8 @@ import { TimeTableViewType } from "../TimeTableClassDialog"
 import TimeTableClassOverwriteAlertDialog from "../alert/TimeTableClassOverwriteAlertDialog"
 import { Select, SelectItem } from "@/components/common/select"
 import { CATEGORIES } from "@/constants/categories"
-import { FACULTIES } from "@/constants/faculties"
 import { TIMETABLE_DAYS } from "@/constants/days"
+import { FACULTIES } from "@/constants/faculties"
 import { useClientData } from "@/hooks/ClientDataContext"
 import { TimeTableDialogCellModel } from "@/models/timetable/TimeTableDialogCellModel"
 import { ValidationClassModel, useClassEditForm } from "@/utils/useClassEditForm"
@@ -98,10 +98,10 @@ const TimeTableClassAddView = ({ cellData, setView }: Props) => {
             {...register("faculty")}
             defaultValue={`${cellData?.class?.faculty}`}
           >
-            {Object.keys(FACULTIES).map((value) => {
+            {Object.keys(FACULTIES.jp).map((value) => {
               return (
                 <SelectItem key={value} value={value}>
-                  {FACULTIES[Number(value)]}
+                  {FACULTIES.jp[Number(value)]}
                 </SelectItem>
               )
             })}
@@ -114,10 +114,10 @@ const TimeTableClassAddView = ({ cellData, setView }: Props) => {
             {...register("category")}
             defaultValue={`${cellData?.class?.category}`}
           >
-            {Object.keys(CATEGORIES).map((value) => {
+            {Object.keys(CATEGORIES.jp).map((value) => {
               return (
                 <SelectItem key={value} value={value}>
-                  {CATEGORIES[Number(value)]}
+                  {CATEGORIES.jp[Number(value)]}
                 </SelectItem>
               )
             })}
