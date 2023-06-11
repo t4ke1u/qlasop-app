@@ -124,7 +124,7 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
         return !clashList.includes(cell)
       })
       newCells.push(newCell)
-      result = false
+      result = true
       return { cells: newCells, ...rest }
     })
     return result
