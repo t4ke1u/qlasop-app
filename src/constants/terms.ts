@@ -1,4 +1,4 @@
-export const TERMS = {
+export const TERMS: TermsType = {
   jp: {
     1: "通年",
     12: "春学期",
@@ -23,4 +23,9 @@ export const TERMS = {
     83: "Fall Quarter",
     84: "Winter Quarter",
   },
+}
+
+type TermsType = {
+  jp: { [key: number]: string }
+  en: { [key: number]: string }
 }
