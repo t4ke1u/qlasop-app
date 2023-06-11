@@ -11,12 +11,6 @@ import { filterDatabaseClass } from "@/utils/filterDatabaseClass"
 import { getLocalClassData } from "@/utils/getLocalClassData"
 import { ValidationSearchFilterModel, useSearchFilterForm } from "@/utils/useSearchFIlterForm"
 
-type QueryType = {
-  faculty: string
-  grade: string
-  term: string
-}
-
 const SearchLayout = () => {
   const { register, handleSubmit, convertFormData } = useSearchFilterForm()
   const [databaseClassArray, setDatabaseClassArray] = useState<Array<DatabaseClassModel>>([])

@@ -1,4 +1,3 @@
-import { CheckBox } from "@/components/common/checkbox"
 import TimeTableClassAddDialog from "@/components/timetable/dialog/TimeTableClassAddDialog"
 import { CATEGORIES } from "@/constants/categories"
 import { DAYS } from "@/constants/days"
