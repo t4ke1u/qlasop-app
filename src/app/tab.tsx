@@ -34,10 +34,10 @@ const TabLayout = () => {
           検索
         </button>
       </div>
-      <div className={tab === "timetable" ? "" : "hidden"}>
+      <div className={tab === "timetable" ? "px-6" : "hidden"}>
         <TimeTableFrame />
       </div>
-      <div className={tab === "search" ? "" : "hidden"}>
+      <div className={tab === "search" ? "px-6" : "hidden"}>
         <SearchLayout />
       </div>
     </div>

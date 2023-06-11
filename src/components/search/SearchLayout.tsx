@@ -38,7 +38,7 @@ const SearchLayout = () => {
   })
 
   return (
-    <div className="flex flex-col gap-2 px-6">
+    <div className="flex flex-col gap-2">
       <form
         className="flex flex-col gap-4 rounded-md p-4 outline outline-1 outline-gray-200"
         onSubmit={onSubmit}
