@@ -1,32 +1,5 @@
 {
-  "cells": [
-    {
-      "class": {
-        "subjectName": "電子回路",
-        "day": 1,
-        "startPeriod": 1,
-        "endPeriod": 2,
-        "teachers": "戸川望",
-        "faculty": 26,
-        "unit": 2,
-        "category": 40100000
-      },
-      "color": "gray"
-    },
-    {
-      "class": {
-        "subjectName": "量子情報理論",
-        "day": 0,
-        "startPeriod": 1,
-        "endPeriod": 1,
-        "teachers": "",
-        "faculty": 26,
-        "unit": 2,
-        "category": 40100000
-      },
-      "color": "gray"
-    }
-  ],
+  "cells": [],
   "stagedClasses": [],
   "setting": {
     "tableTitle": "No Name",
