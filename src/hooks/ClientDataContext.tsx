@@ -37,10 +37,10 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
       prev.cells.map((cellData) => {
         if (
           cellData.class.day === classData.day &&
-          ((cellData.class.startPeriod <= classData.startPeriod &&
-            classData.startPeriod <= cellData.class.endPeriod) ||
-            (cellData.class.startPeriod <= classData.endPeriod &&
-              classData.endPeriod <= cellData.class.endPeriod))
+          !(
+            cellData.class.startPeriod > classData.endPeriod ||
+            classData.startPeriod > cellData.class.endPeriod
+          )
         ) {
           list.push(cellData)
         }
@@ -106,10 +106,10 @@ const ClientDataProvider = ({ initialClientData, children }: ClientDataProviderP
         deletedList.map((cellData) => {
           if (
             cellData.class.day === newCell.class.day &&
-            ((cellData.class.startPeriod <= newCell.class.startPeriod &&
-              newCell.class.startPeriod <= cellData.class.endPeriod) ||
-              (cellData.class.startPeriod <= newCell.class.endPeriod &&
-                newCell.class.endPeriod <= cellData.class.endPeriod))
+            !(
+              cellData.class.startPeriod > newCell.class.endPeriod ||
+              newCell.class.startPeriod > cellData.class.endPeriod
+            )
           ) {
             clashList.push(cellData)
           }
