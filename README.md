@@ -1,4 +1,4 @@
-# Optimetable
+# OpClass
 
 2023 年度 学士 4 年 太田岳 卒業研究 \
 量子アニーリングを用いた時間割最適化アプリ
@@ -8,8 +8,7 @@
 - Runtime: [Node.js](https://nodejs.org/ja) - v18.12.1
 - Packege Manager: [Yarn](https://yarnpkg.com/) - v1.22.19
 - Framework: [Next.js](https://nextjs.org/) - v13.4.4
-- CSS Framework: [Tailwind CSS](https://tailwindcss.com/) - v3.3.2
-- Headless UI Framework: [Radix UI](https://www.radix-ui.com/)
+- UI Framework: [Chakra UI](https://chakra-ui.com/) - v2.7.0
 - Linter: [ESLint](https://eslint.org/) - v8.41.0
 - Formatter: [Prettier](https://prettier.io/) - v2.8.8
 
@@ -30,6 +29,8 @@
 │   ├── libs                # ライブラリ
 │   ├── models              # カスタム型定義
 │   ├── styles              # 全体のスタイル
+│   ├── domain              # ドメイン層
+│   ├── infrastructure      # インフラ層
 │   └── utils               # ユーティリティロジック
 ├── README.md
 ├── next-env.d.ts
