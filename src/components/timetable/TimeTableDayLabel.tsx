@@ -1,16 +1,16 @@
-import { TIMETABLE_DAYS } from "@/constants/days"
+import { Center } from '@chakra-ui/react'
+
+import { TIMETABLE_DAYS } from '@/constants/days'
 
 type TimeTableDayLabelProps = {
   index: number
 }
 
 const TimeTableDayLabel = ({ index }: TimeTableDayLabelProps) => {
-  const gridColStart = "col-start-" + String(index + 2)
-
   return (
-    <div className={`row-start-1 ${gridColStart} p-1.5 text-center text-sm text-gray-600`}>
+    <Center gridRowStart={1} gridColumnStart={index + 2} p={1.5} color='gray.600' fontSize='sm'>
       {TIMETABLE_DAYS.en[index]}
-    </div>
+    </Center>
   )
 }
 

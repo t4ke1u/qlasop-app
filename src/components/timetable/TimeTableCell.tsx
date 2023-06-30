@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { gray } from "@radix-ui/colors"
+import { Button, useDisclosure } from '@chakra-ui/react'
 
-import TimeTableClassDialog from "./dialog/TimeTableClassDialog"
-import { TimeTableCellModel } from "@/models/timetable/TimeTableCellModel"
+import TimeTableClassModal from './modal/TimeTableClassModal'
+import { TimeTableCellModel } from '@/models/timetable/TimeTableCellModel'
 
 type Props = {
   time: {
@@ -16,24 +16,26 @@ type Props = {
 
 const TimeTableCell = ({ time, cellData }: Props) => {
   const { day, startPeriod, endPeriod } = time
-  const color: string = cellData === undefined ? "gray" : cellData.color
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
-    <TimeTableClassDialog time={time} cellData={cellData}>
-      <button
-        className="rounded-lg outline outline-1 transition-all hover:scale-95"
-        style={{
-          gridColumnStart: day + 2,
-          gridRow: `${startPeriod + 2} / ${endPeriod + 3}`,
-          backgroundColor: cellData === undefined ? gray.gray3 : gray.gray5,
-          outlineColor: cellData === undefined ? gray.gray5 : gray.gray7,
-        }}
+    <>
+      <Button
+        w='full'
+        h='full'
+        gridColumnStart={day + 2}
+        gridRow={`${startPeriod + 2} / ${endPeriod + 3}`}
+        outline='solid 0.5px'
+        outlineColor='gray.200'
+        fontWeight='medium'
+        color='gray.500'
+        onClick={onOpen}
       >
-        <div className="place-self-center text-sm" style={{ color: gray.gray11 }}>
-          {cellData?.class.subjectName}
-        </div>
-      </button>
-    </TimeTableClassDialog>
+        {cellData?.class.subjectName}
+      </Button>
+
+      <TimeTableClassModal isOpen={isOpen} onClose={onClose} time={time} cellData={cellData} />
+    </>
   )
 }
 
