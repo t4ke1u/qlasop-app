@@ -29,7 +29,8 @@
     "react-hook-form": "^7.44.3",
     "react-icons": "^4.10.1",
     "typescript": "5.0.4",
-    "zod": "^3.21.4"
+    "zod": "^3.21.4",
+    "zustand": "^4.3.8"
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.8.0",
