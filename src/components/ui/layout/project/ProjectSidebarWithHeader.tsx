@@ -119,7 +119,7 @@ const NavItem = ({ href, icon, children, ...rest }: NavItemProps) => {
         role='group'
         cursor='pointer'
         _hover={{
-          bg: 'cyan.400',
+          bg: 'gray.400',
           color: 'white',
         }}
         {...rest}
@@ -203,7 +203,6 @@ const Header = ({ onOpen, ...rest }: HeaderProps) => {
             >
               <MenuItem>Profile</MenuItem>
               <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
               <MenuDivider />
               <MenuItem>Sign out</MenuItem>
             </MenuList>
