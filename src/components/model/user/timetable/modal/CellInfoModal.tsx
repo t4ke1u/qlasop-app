@@ -24,7 +24,13 @@ export const CellInfoModal: React.FC<Props> = ({ isOpen, onClose, time, cell }) 
   const [view, setView] = useState<TimeTableViewType>('info')
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={view === 'info'}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered
+      closeOnOverlayClick={view === 'info'}
+      scrollBehavior='inside'
+    >
       <ModalOverlay />
       <ModalContent p={2} maxH='90vh' w='450px' maxW='90vw'>
         {view === 'info' && <CellInfoView time={time} cell={cell} setView={setView} />}

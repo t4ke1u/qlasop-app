@@ -22,6 +22,7 @@ export const useCellsStore = create<CellsState>((set, get) => ({
       creditCategory: '専門必修',
       credits: 2,
       color: 'gray',
+      clientMemo: 'サンプルメモ',
     },
   ],
 

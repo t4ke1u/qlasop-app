@@ -27,10 +27,13 @@ export const Cell: React.FC<Props> = ({ time, cell }) => {
         gridColumnStart={day + 2}
         gridRow={`${startPeriod + 2} / ${endPeriod + 3}`}
         bg={`${color}.100`}
+        p={0}
         outline='solid 0.5px'
         outlineColor={`${color}.200`}
+        fontSize={{ base: 'xs', md: 'sm' }}
         fontWeight='medium'
         color={`${color}.500`}
+        whiteSpace='normal'
         _hover={{ bg: `${color}.200` }}
         onClick={onOpen}
       >

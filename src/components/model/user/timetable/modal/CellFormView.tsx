@@ -20,6 +20,7 @@ import {
   Wrap,
   useDisclosure,
   ButtonProps,
+  Textarea,
 } from '@chakra-ui/react'
 
 import { useState } from 'react'
@@ -106,11 +107,11 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClo
             </FormControl>
 
             {/* 曜日 */}
-            <FormControl isRequired>
-              <Flex align='center' gap={2}>
+            <FormControl>
+              <Flex align='center' gap={5}>
                 <FormLabel
                   htmlFor='day'
-                  w='68px'
+                  w={14}
                   m={0}
                   textAlign='right'
                   fontSize='sm'
@@ -129,9 +130,9 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClo
             </FormControl>
 
             {/* 時限 */}
-            <FormControl isRequired isInvalid={!!errors.endPeriod}>
-              <Flex align='center' gap={2}>
-                <FormLabel w='68px' m={0} textAlign='right' fontSize='sm' color='gray.500'>
+            <FormControl isInvalid={!!errors.endPeriod}>
+              <Flex align='center' gap={5}>
+                <FormLabel w={14} m={0} textAlign='right' fontSize='sm' color='gray.500'>
                   時限
                 </FormLabel>
                 <Select id='startPeriod' {...SelectItemProps} {...register.startPeriod}>
@@ -170,11 +171,11 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClo
             </FormControl>
 
             {/* 単位区分 */}
-            <FormControl isRequired>
-              <Flex align='center' gap={2}>
+            <FormControl>
+              <Flex align='center' gap={5}>
                 <FormLabel
                   htmlFor='creditCategory'
-                  w='68px'
+                  w={14}
                   m={0}
                   textAlign='right'
                   fontSize='sm'
@@ -193,11 +194,11 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClo
             </FormControl>
 
             {/* 単位数 */}
-            <FormControl isRequired>
-              <Flex align='center' gap={2}>
+            <FormControl>
+              <Flex align='center' gap={5}>
                 <FormLabel
                   htmlFor='credits'
-                  w='68px'
+                  w={14}
                   m={0}
                   textAlign='right'
                   fontSize='sm'
@@ -220,6 +221,27 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClo
               defaultColor={cell?.color ?? 'gray'}
               handleChangeColor={handleChangeColor}
             />
+
+            {/* メモ */}
+            <FormControl>
+              <Flex align='start' gap={5}>
+                <Flex w={14} h={9} mt={1} align='center' justify='end'>
+                  <FormLabel w={14} textAlign='right' fontSize='sm' color='gray.500'>
+                    メモ
+                  </FormLabel>
+                </Flex>
+                <Textarea
+                  display='inline-block'
+                  minH={28}
+                  w='full'
+                  flex={1}
+                  p={2}
+                  fontSize='sm'
+                  overflowWrap='normal'
+                  {...register.clientMemo}
+                />
+              </Flex>
+            </FormControl>
           </Stack>
         </form>
       </ModalBody>

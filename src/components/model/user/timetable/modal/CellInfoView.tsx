@@ -20,7 +20,7 @@ import { RxTrash } from 'react-icons/rx'
 
 import { TimeTableViewType } from '@/components/model/user/timetable/modal/CellInfoModal'
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
-import { COLORS, PERIODS } from '@/constants'
+import { PERIODS } from '@/constants'
 import { TIMETABLE_DAYS } from '@/constants/days'
 import { CellColor, UserCell } from '@/models/user/type'
 import { useCellsStore } from '@/store/user/cellsStore'
@@ -70,6 +70,7 @@ export const CellInfoView: React.FC<Props> = ({ time, cell, setView }) => {
               {/* カラー */}
               <ColorItem color={cell.color} />
               {/* メモ */}
+              {cell.clientMemo && <MemoItem clientMemo={cell.clientMemo} />}
             </Stack>
           </ModalBody>
           <ModalFooter justifyContent='space-between'>
@@ -173,6 +174,31 @@ const ColorItem = ({ color }: { color: CellColor }) => {
       </Text>
       <Box display='inline-block' h={9} w='full' flex={1} p={2}>
         <Circle size={5} bg={`${color}.400`} />
+      </Box>
+    </Flex>
+  )
+}
+
+const MemoItem = ({ clientMemo }: { clientMemo?: string }) => {
+  return (
+    <Flex align='start' gap={5}>
+      <Flex w={14} h={9} align='center' justify='end'>
+        <Text w={14} textAlign='right' fontSize='sm' color='gray.600'>
+          メモ
+        </Text>
+      </Flex>
+      <Box
+        display='inline-block'
+        minH={9}
+        w='full'
+        flex={1}
+        p={2}
+        fontSize='sm'
+        fontWeight='medium'
+        color='gray.800'
+        overflowWrap='normal'
+      >
+        {clientMemo}
       </Box>
     </Flex>
   )
