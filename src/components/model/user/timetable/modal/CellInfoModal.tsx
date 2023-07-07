@@ -29,9 +29,16 @@ export const CellInfoModal: React.FC<Props> = ({ isOpen, onClose, time, cell }) 
       <ModalContent p={2} maxH='90vh' w='450px' maxW='90vw'>
         {view === 'info' && <CellInfoView time={time} cell={cell} setView={setView} />}
         {view === 'edit' && (
-          <CellFormView time={time} cell={cell!} backView={() => setView('info')} />
+          <CellFormView
+            time={time}
+            cell={cell!}
+            backView={() => setView('info')}
+            onModalClose={onClose}
+          />
         )}
-        {view === 'add' && <CellFormView time={time} backView={() => setView('info')} />}
+        {view === 'add' && (
+          <CellFormView time={time} backView={() => setView('info')} onModalClose={onClose} />
+        )}
       </ModalContent>
     </Modal>
   )

@@ -1,10 +1,12 @@
 'use client'
 
-import { FormControl, FormLabel, FormErrorMessage } from '@chakra-ui/form-control'
+import { FormControl, FormLabel } from '@chakra-ui/form-control'
 import { Flex, Stack } from '@chakra-ui/layout'
 import { ModalBody, ModalHeader, ModalFooter } from '@chakra-ui/modal'
 import {
   Button,
+  Box,
+  Circle,
   Input,
   InputProps,
   NumberDecrementStepper,
@@ -15,18 +17,23 @@ import {
   NumberInputStepper,
   Select,
   SelectProps,
+  Text,
+  Wrap,
   useDisclosure,
+  ButtonProps,
 } from '@chakra-ui/react'
 
+import { useState } from 'react'
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
-import { DEFAULT_CRESITS_CAGEGORIES, PERIODS, TIMETABLE_DAYS } from '@/constants'
-import { UserCell } from '@/models/user/type'
+import { COLORS, DEFAULT_CRESITS_CAGEGORIES, PERIODS, TIMETABLE_DAYS } from '@/constants'
+import { CellColor, UserCell } from '@/models/user/type'
 import { useCellsForm } from '@/usecases/user/cellsForm'
 
 type Props = {
   time?: { day: number; startPeriod: number; endPeriod: number }
   cell?: UserCell
   backView: () => void
+  onModalClose: () => void
 }
 
 const InputItemProps: InputProps & NumberInputFieldProps = {
@@ -54,20 +61,25 @@ const SelectItemProps: SelectProps = {
   color: 'gray.800',
 }
 
-export const CellFormView: React.FC<Props> = ({ time, cell, backView }) => {
+export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClose }) => {
   // Alert
   const { isOpen, onOpen, onClose } = useDisclosure()
   // cellsForm
-  const { register, onSubmit, onSubmitForce, reset, errors, isSubmitting } = useCellsForm(
-    time,
-    cell,
-    backView,
-    onOpen,
-    () => {
-      onClose()
-      backView()
-    },
-  )
+  const { register, onSubmit, onSubmitForce, reset, handleChangeColor, errors, isSubmitting } =
+    useCellsForm(
+      time,
+      cell,
+      () => {
+        onModalClose()
+        backView()
+      },
+      onOpen,
+      () => {
+        onModalClose()
+        onClose()
+        backView()
+      },
+    )
 
   return (
     <>
@@ -203,6 +215,12 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView }) => {
                 </NumberInput>
               </Flex>
             </FormControl>
+
+            {/* カラー */}
+            <ColorRadioGroup
+              defaultColor={cell?.color ?? 'gray'}
+              handleChangeColor={handleChangeColor}
+            />
           </Stack>
         </form>
       </ModalBody>
@@ -249,5 +267,61 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView }) => {
         action={onSubmitForce}
       />
     </>
+  )
+}
+
+type ColorRadioGroupProps = {
+  defaultColor: CellColor
+  handleChangeColor: (color: CellColor) => void
+}
+
+const ColorRadioGroup = ({ defaultColor, handleChangeColor }: ColorRadioGroupProps) => {
+  const [cellColor, setCellColor] = useState<CellColor>(defaultColor)
+
+  return (
+    <Flex align='start' gap={5}>
+      <Flex w={14} h={9} align='center' justify='end'>
+        <Text w={14} textAlign='right' fontSize='sm' color='gray.600'>
+          カラー
+        </Text>
+      </Flex>
+      <Box display='inline-block' minH={9} w='full' flex={1} p={2}>
+        <Wrap w='full' align='center' justify='start' gap={2}>
+          {COLORS.map((color, index) => (
+            <ColorRadioItem
+              key={index}
+              color={color}
+              selected={color === cellColor}
+              onClick={() => {
+                setCellColor(color)
+                handleChangeColor(color)
+              }}
+            />
+          ))}
+        </Wrap>
+      </Box>
+    </Flex>
+  )
+}
+
+type ColorRadioItemProps = {
+  color: CellColor
+  selected: boolean
+} & ButtonProps
+
+const ColorRadioItem = ({ color, selected, ...rest }: ColorRadioItemProps) => {
+  return (
+    <Button
+      size='xs'
+      minW={5}
+      h={5}
+      rounded='full'
+      bg={selected ? `${color}.400` : 'transparent'}
+      borderColor={selected ? 'transparent' : `${color}.400`}
+      borderWidth={2}
+      _focus={{ bg: selected ? `${color}.400` : 'transparent' }}
+      _hover={{ bg: selected ? `${color}.400` : `${color}.100` }}
+      {...rest}
+    />
   )
 }

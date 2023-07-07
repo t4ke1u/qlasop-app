@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Center,
+  Circle,
   Flex,
   Icon,
   ModalBody,
@@ -12,15 +13,16 @@ import {
   ModalHeader,
   Stack,
   Text,
+  Wrap,
   useDisclosure,
 } from '@chakra-ui/react'
 import { RxTrash } from 'react-icons/rx'
 
 import { TimeTableViewType } from '@/components/model/user/timetable/modal/CellInfoModal'
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
-import { PERIODS } from '@/constants'
+import { COLORS, PERIODS } from '@/constants'
 import { TIMETABLE_DAYS } from '@/constants/days'
-import { UserCell } from '@/models/user/type'
+import { CellColor, UserCell } from '@/models/user/type'
 import { useCellsStore } from '@/store/user/cellsStore'
 
 type Props = {
@@ -59,6 +61,8 @@ export const CellInfoView: React.FC<Props> = ({ time, cell, setView }) => {
               <ListItem label='教員' content={cell.instructor} />
               <ListItem label='単位区分' content={cell.creditCategory} />
               <ListItem label='単位数' content={cell.credits} />
+              {/* カラー */}
+              <ColorItemGroup cell={cell} />
             </Stack>
           </ModalBody>
           <ModalFooter justifyContent='space-between'>
@@ -151,5 +155,35 @@ const ListItem = ({ label, content }: { label: React.ReactNode; content: React.R
         {content}
       </Text>
     </Flex>
+  )
+}
+
+const ColorItemGroup = ({ cell }: { cell: UserCell }) => {
+  return (
+    <Flex align='start' gap={5}>
+      <Flex w={14} h={9} align='center' justify='end'>
+        <Text w={14} textAlign='right' fontSize='sm' color='gray.600'>
+          カラー
+        </Text>
+      </Flex>
+      <Box display='inline-block' minH={9} w='full' flex={1} p={2}>
+        <Wrap w='full' align='center' justify='start' gap={2}>
+          {COLORS.map((color, index) => (
+            <ColorItem key={index} color={color} selected={color === cell.color} />
+          ))}
+        </Wrap>
+      </Box>
+    </Flex>
+  )
+}
+
+const ColorItem = ({ color, selected }: { color: CellColor; selected: boolean }) => {
+  return (
+    <Circle
+      size={5}
+      bg={selected ? `${color}.400` : 'transparent'}
+      borderColor={selected ? 'transparent' : `${color}.400`}
+      borderWidth={2}
+    />
   )
 }

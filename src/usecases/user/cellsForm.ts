@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form'
 
-import { UserCell } from '@/models/user/type'
+import { CellColor, UserCell } from '@/models/user/type'
 import { useCellsStore } from '@/store/user'
 
 export const useCellsForm = (
@@ -36,6 +36,7 @@ export const useCellsForm = (
     handleSubmit,
     reset,
     getValues,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<UserCell>({ defaultValues })
 
@@ -74,5 +75,9 @@ export const useCellsForm = (
     }
   })
 
-  return { register, onSubmit, onSubmitForce, reset, errors, isSubmitting }
+  const handleChangeColor = (color: CellColor) => {
+    setValue('color', color)
+  }
+
+  return { register, onSubmit, onSubmitForce, reset, handleChangeColor, errors, isSubmitting }
 }

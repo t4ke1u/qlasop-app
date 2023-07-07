@@ -3,7 +3,7 @@
 import { Button, useDisclosure } from '@chakra-ui/react'
 
 import { CellInfoModal } from './modal/CellInfoModal'
-import { UserCell } from '@/models/user/type'
+import { CellColor, UserCell } from '@/models/user/type'
 
 type Props = {
   time: {
@@ -17,6 +17,7 @@ type Props = {
 export const Cell: React.FC<Props> = ({ time, cell }) => {
   const { day, startPeriod, endPeriod } = time
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const color: CellColor = cell?.color ?? 'gray'
 
   return (
     <>
@@ -25,10 +26,12 @@ export const Cell: React.FC<Props> = ({ time, cell }) => {
         h='full'
         gridColumnStart={day + 2}
         gridRow={`${startPeriod + 2} / ${endPeriod + 3}`}
+        bg={`${color}.100`}
         outline='solid 0.5px'
-        outlineColor='gray.200'
+        outlineColor={`${color}.200`}
         fontWeight='medium'
-        color='gray.500'
+        color={`${color}.500`}
+        _hover={{ bg: `${color}.200` }}
         onClick={onOpen}
       >
         {cell?.title}

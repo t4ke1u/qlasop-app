@@ -1,4 +1,4 @@
-export { DEFAULT_COLOR } from './color'
+export { DEFAULT_COLOR, COLORS } from './color'
 export { PERIODS, PERIODS_LENGTH } from './periods'
 export { TERMS } from './terms'
 export { FACULTIES } from './faculties'
