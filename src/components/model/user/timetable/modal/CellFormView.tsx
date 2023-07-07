@@ -6,7 +6,6 @@ import { ModalBody, ModalHeader, ModalFooter } from '@chakra-ui/modal'
 import {
   Button,
   Box,
-  Circle,
   Input,
   InputProps,
   NumberDecrementStepper,

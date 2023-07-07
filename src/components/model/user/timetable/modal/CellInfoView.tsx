@@ -48,8 +48,11 @@ export const CellInfoView: React.FC<Props> = ({ time, cell, setView }) => {
         <>
           <ModalBody>
             <Stack direction='column' gap={2}>
+              {/* 科目名 */}
               <ListItem label='科目名' content={cell.title} />
+              {/* 曜日 */}
               <ListItem label='曜日' content={TIMETABLE_DAYS.jp[cell.day]} />
+              {/* 時限 */}
               <ListItem
                 label='時限'
                 content={
@@ -58,11 +61,15 @@ export const CellInfoView: React.FC<Props> = ({ time, cell, setView }) => {
                     : `${PERIODS[cell.startPeriod]} - ${PERIODS[cell.endPeriod]} 限`
                 }
               />
+              {/* 教員 */}
               <ListItem label='教員' content={cell.instructor} />
+              {/* 単位区分 */}
               <ListItem label='単位区分' content={cell.creditCategory} />
+              {/* 単位数 */}
               <ListItem label='単位数' content={cell.credits} />
               {/* カラー */}
-              <ColorItemGroup cell={cell} />
+              <ColorItem color={cell.color} />
+              {/* メモ */}
             </Stack>
           </ModalBody>
           <ModalFooter justifyContent='space-between'>
@@ -158,32 +165,15 @@ const ListItem = ({ label, content }: { label: React.ReactNode; content: React.R
   )
 }
 
-const ColorItemGroup = ({ cell }: { cell: UserCell }) => {
+const ColorItem = ({ color }: { color: CellColor }) => {
   return (
-    <Flex align='start' gap={5}>
-      <Flex w={14} h={9} align='center' justify='end'>
-        <Text w={14} textAlign='right' fontSize='sm' color='gray.600'>
-          カラー
-        </Text>
-      </Flex>
-      <Box display='inline-block' minH={9} w='full' flex={1} p={2}>
-        <Wrap w='full' align='center' justify='start' gap={2}>
-          {COLORS.map((color, index) => (
-            <ColorItem key={index} color={color} selected={color === cell.color} />
-          ))}
-        </Wrap>
+    <Flex align='center' gap={5}>
+      <Text w={14} textAlign='right' fontSize='sm' color='gray.600'>
+        カラー
+      </Text>
+      <Box display='inline-block' h={9} w='full' flex={1} p={2}>
+        <Circle size={5} bg={`${color}.400`} />
       </Box>
     </Flex>
-  )
-}
-
-const ColorItem = ({ color, selected }: { color: CellColor; selected: boolean }) => {
-  return (
-    <Circle
-      size={5}
-      bg={selected ? `${color}.400` : 'transparent'}
-      borderColor={selected ? 'transparent' : `${color}.400`}
-      borderWidth={2}
-    />
   )
 }
