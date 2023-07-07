@@ -1,4 +1,4 @@
-import { Top } from '@/components/page/Top'
+import { Top } from '@/components/page/top'
 
 export const metadata = {
   title: 'opclass',
