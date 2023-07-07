@@ -1,4 +1,4 @@
-import { Timetable } from '@/components/page/project'
+import { Timetable } from '@/components/page/project/timetable'
 
 export const metadata = {
   title: 'opclass',
