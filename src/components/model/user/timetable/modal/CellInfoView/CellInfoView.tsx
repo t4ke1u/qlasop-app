@@ -4,17 +4,18 @@ import {
   Box,
   Button,
   Center,
+  Flex,
   Icon,
   ModalBody,
   ModalCloseButton,
   ModalFooter,
   ModalHeader,
   Stack,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react'
 import { RxTrash } from 'react-icons/rx'
 
-import { ListItem } from './ListItem'
 import { TimeTableViewType } from '@/components/model/user/timetable/modal/CellInfoModal'
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
 import { PERIODS } from '@/constants'
@@ -127,5 +128,28 @@ export const CellInfoView: React.FC<Props> = ({ time, cell, setView }) => {
         }}
       />
     </>
+  )
+}
+
+const ListItem = ({ label, content }: { label: React.ReactNode; content: React.ReactNode }) => {
+  return (
+    <Flex align='center' gap={5}>
+      <Text w={14} textAlign='right' fontSize='sm' color='gray.600'>
+        {label}
+      </Text>
+      <Text
+        display='inline-block'
+        h={9}
+        w='full'
+        flex={1}
+        align='left'
+        p={2}
+        fontSize='sm'
+        fontWeight='medium'
+        color='gray.800'
+      >
+        {content}
+      </Text>
+    </Flex>
   )
 }
