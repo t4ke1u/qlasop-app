@@ -1,10 +1,7 @@
-import { Project } from '@/components/page/project'
+import { redirect } from 'next/navigation'
 
-export const metadata = {
-  title: 'opclass',
-  description: '',
+const ProjectPage = () => {
+  redirect(`/project/timetable`)
 }
-
-const ProjectPage = () => <Project />
 
 export default ProjectPage

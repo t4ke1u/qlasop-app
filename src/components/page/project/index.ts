@@ -1,1 +1,1 @@
-export { Project } from './Project'
+export { Timetable } from './Timetable'
