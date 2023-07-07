@@ -25,19 +25,25 @@
 │   │       ├── layout.tsx  # [path] - レイアウト
 │   │       └── page.tsx    # [path] - ページ
 │   ├── components          # コンポーネント
+│   │   ├── page            # ページに対応するコンポーネント
+│   │   ├── model           # modelに関するコンポーネント
+│   │   ├── ui              # modelに関係のない見た目を伴うコンポーネント
+│   │   └── functional      # modelに関係のない見た目を伴わないコンポーネント
 │   ├── constants           # 定数
 │   ├── libs                # ライブラリ
-│   ├── models              # カスタム型定義
+│   ├── models              # modelレイヤー：ドメインモデル
+│   ├── repositories        # repositoryレイヤー：外部との通信を担う
 │   ├── styles              # 全体のスタイル
-│   ├── domain              # ドメイン層
-│   ├── infrastructure      # インフラ層
+│   ├── store               # Global State を管理
+│   ├── usecases            # usecaseレイヤー：ユーザが行う処理
 │   └── utils               # ユーティリティロジック
 ├── README.md
+├── .eslintrc.json
+├── .gitignore
+├── .prettierrc
 ├── next-env.d.ts
 ├── next.config.js
 ├── package.json
-├── postcss.config.js
-├── tailwind.config.js
 ├── tsconfig.json
 └── yarn.lock
 ```
