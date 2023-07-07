@@ -1,0 +1,1 @@
+export { useCellsStore } from './cellsStore'
