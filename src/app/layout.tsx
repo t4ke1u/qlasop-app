@@ -1,15 +1,18 @@
-import "@/styles/globals.css"
-import { notoSansJP, roboto } from "@/styles/font"
+import { ChakraProvider } from '@/libs/chakra'
 
 export const metadata = {
-  title: "Optimetable",
-  description: "",
+  title: 'opclass',
+  description: '',
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="ja" className={`${notoSansJP.variable} ${roboto.variable}`}>
-      <body>{children}</body>
+    <html lang='ja'>
+      <body>
+        <ChakraProvider>{children}</ChakraProvider>
+      </body>
     </html>
   )
 }
+
+export default RootLayout

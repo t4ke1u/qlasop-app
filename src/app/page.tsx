@@ -1,19 +1,10 @@
-"use client"
+import { Top } from '@/components/page/Top'
 
-import TabLayout from "./tab"
-import { ClientDataProvider } from "@/hooks/ClientDataContext"
-import { getClientData } from "@/utils/getClientData"
-
-const Home = async () => {
-  const initialClientData = await getClientData()
-
-  return (
-    <main>
-      <ClientDataProvider initialClientData={initialClientData}>
-        <TabLayout />
-      </ClientDataProvider>
-    </main>
-  )
+export const metadata = {
+  title: 'opclass',
+  description: '',
 }
 
-export default Home
+const TopPage = () => <Top />
+
+export default TopPage
