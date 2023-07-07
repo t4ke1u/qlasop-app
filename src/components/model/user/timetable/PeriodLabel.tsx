@@ -2,15 +2,14 @@
 
 import { Button, Circle, Flex, Text } from '@chakra-ui/react'
 
-import { useClientData } from '@/hooks/ClientDataContext'
+import { usePeriodLabelsStore } from '@/store/user'
 
-type TimeTablePeriodLabelProps = {
+type Props = {
   index: number
 }
 
-const TimeTablePeriodLabel = ({ index }: TimeTablePeriodLabelProps) => {
-  const { clientData } = useClientData()
-  const label = clientData.setting.periodLabels[index]
+export const PeriodLabel: React.FC<Props> = ({ index }) => {
+  const label = usePeriodLabelsStore((state) => state.labels[index])
 
   return (
     <Button
@@ -29,7 +28,7 @@ const TimeTablePeriodLabel = ({ index }: TimeTablePeriodLabelProps) => {
           {label.startTime}
         </Text>
         <Circle size={6} bg='gray.300' fontSize='xs' fontWeight='bold'>
-          {label.period}
+          {index + 1}
         </Circle>
         <Text fontSize={3} fontWeight='medium' color='gray.600'>
           {label.endTime}
@@ -38,5 +37,3 @@ const TimeTablePeriodLabel = ({ index }: TimeTablePeriodLabelProps) => {
     </Button>
   )
 }
-
-export default TimeTablePeriodLabel

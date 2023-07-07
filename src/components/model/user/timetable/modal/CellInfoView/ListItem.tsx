@@ -1,7 +1,7 @@
 import { Flex, Text } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
-const ListItem = ({ label, content }: { label: ReactNode; content: ReactNode }) => {
+export const ListItem = ({ label, content }: { label: ReactNode; content: ReactNode }) => {
   return (
     <Flex align='center' gap={5}>
       <Text w={14} textAlign='right' fontSize='sm' color='gray.600'>
@@ -23,5 +23,3 @@ const ListItem = ({ label, content }: { label: ReactNode; content: ReactNode }) 
     </Flex>
   )
 }
-
-export default ListItem

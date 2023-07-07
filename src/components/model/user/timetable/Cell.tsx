@@ -2,8 +2,8 @@
 
 import { Button, useDisclosure } from '@chakra-ui/react'
 
-import TimeTableClassModal from './modal/TimeTableClassModal'
-import { TimeTableCellModel } from '@/models/timetable/TimeTableCellModel'
+import { CellInfoModal } from './modal/CellInfoModal'
+import { UserCell } from '@/models/user/type'
 
 type Props = {
   time: {
@@ -11,10 +11,10 @@ type Props = {
     startPeriod: number
     endPeriod: number
   }
-  cellData?: TimeTableCellModel
+  cell?: UserCell
 }
 
-const TimeTableCell = ({ time, cellData }: Props) => {
+export const Cell: React.FC<Props> = ({ time, cell }) => {
   const { day, startPeriod, endPeriod } = time
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -31,12 +31,10 @@ const TimeTableCell = ({ time, cellData }: Props) => {
         color='gray.500'
         onClick={onOpen}
       >
-        {cellData?.class.subjectName}
+        {cell?.title}
       </Button>
 
-      <TimeTableClassModal isOpen={isOpen} onClose={onClose} time={time} cellData={cellData} />
+      <CellInfoModal isOpen={isOpen} onClose={onClose} time={time} cell={cell} />
     </>
   )
 }
-
-export default TimeTableCell
