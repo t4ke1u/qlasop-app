@@ -22,7 +22,7 @@ export type UserCell = {
   creditCategory: string
   credits: number
   link?: [string, string]
-  color: string
+  color: CellColor
   clientMemo?: string
 }
 
@@ -42,3 +42,15 @@ export type UserPeriodLabel = {
   startTime: string
   endTime: string
 }
+
+export type CellColor =
+  | 'gray'
+  | 'red'
+  | 'orange'
+  | 'yellow'
+  | 'green'
+  | 'teal'
+  | 'blue'
+  | 'cyan'
+  | 'purple'
+  | 'pink'
