@@ -1,36 +1,9 @@
 'use client'
 
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 
 import { UserCell } from '@/models/user/type'
 import { useCellsStore } from '@/store/user'
-
-export const cellsFormSchema = z
-  .object({
-    title: z.string().min(1, '入力が必須です'),
-    day: z.string().transform((val) => Number(val)),
-    startPeriod: z.string().transform((val) => Number(val)),
-    endPeriod: z.string().transform((val) => Number(val)),
-    instructor: z.string().transform((val) => (val === '' ? null : val)),
-    creditCategory: z.string().min(1, '入力が必須です'),
-    credits: z.string().transform((val) => Number(val)),
-    link: z.tuple([z.string(), z.string()]).optional(),
-    color: z.string(),
-    clientMemo: z.string().transform((val) => (val === '' ? undefined : val)),
-  })
-  .refine(
-    // バリデーションを追加
-    (cells) => {
-      const { startPeriod, endPeriod } = cells
-      return startPeriod > endPeriod
-    },
-    {
-      message: '終了時限が開始時限よりも前になっています',
-      path: ['endPeriod'],
-    },
-  )
 
 export const useCellsForm = (
   time?: { day: number; startPeriod: number; endPeriod: number },
