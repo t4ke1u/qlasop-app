@@ -13,7 +13,6 @@ import {
   ModalHeader,
   Stack,
   Text,
-  Wrap,
   useDisclosure,
 } from '@chakra-ui/react'
 import { RxTrash } from 'react-icons/rx'
