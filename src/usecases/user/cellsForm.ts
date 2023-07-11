@@ -6,9 +6,6 @@ import { useCellsStore } from '@/store/user'
 export const useCellsForm = (
   time?: { day: number; startPeriod: number; endPeriod: number },
   cell?: UserCell,
-  successAction?: () => void,
-  failAction?: () => void,
-  forceAction?: () => void,
 ) => {
   // cellsStore の利用
   const addCell = useCellsStore((state) => state.add)
@@ -57,25 +54,21 @@ export const useCellsForm = (
     clientMemo: basicRegister('clientMemo'),
   }
 
-  const onSubmit = handleSubmit((formCell: UserCell) => {
-    const result = mode === 'edit' ? editCell(cell!, formCell) : addCell(formCell)
-    if (!result && failAction !== undefined) {
-      failAction()
-    } else if (successAction !== undefined) {
-      successAction()
-    }
-  })
-
-  const onSubmitForce = handleSubmit((formCell: UserCell) => {
-    mode === 'edit' ? editCell(cell!, formCell, true) : addCell(formCell, true)
-    if (forceAction !== undefined) {
-      forceAction()
-    }
-  })
+  const onSubmit =
+    (force: boolean = false, successAction?: () => void, failAction?: () => void) =>
+    (e?: React.BaseSyntheticEvent) =>
+      handleSubmit((formCell: UserCell) => {
+        const result = mode === 'edit' ? editCell(cell!, formCell, force) : addCell(formCell, force)
+        if (!result && failAction !== undefined) {
+          failAction()
+        } else if (successAction !== undefined) {
+          successAction()
+        }
+      })(e)
 
   const handleChangeColor = (color: CellColor) => {
     setValue('color', color)
   }
 
-  return { register, onSubmit, onSubmitForce, reset, handleChangeColor, errors, isSubmitting }
+  return { register, onSubmit, reset, handleChangeColor, errors, isSubmitting }
 }

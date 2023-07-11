@@ -65,21 +65,10 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClo
   // Alert
   const { isOpen, onOpen, onClose } = useDisclosure()
   // cellsForm
-  const { register, onSubmit, onSubmitForce, reset, handleChangeColor, errors, isSubmitting } =
-    useCellsForm(
-      time,
-      cell,
-      () => {
-        onModalClose()
-        backView()
-      },
-      onOpen,
-      () => {
-        onModalClose()
-        onClose()
-        backView()
-      },
-    )
+  const { register, onSubmit, reset, handleChangeColor, errors, isSubmitting } = useCellsForm(
+    time,
+    cell,
+  )
 
   return (
     <>
@@ -274,7 +263,14 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClo
           color='green.800'
           _hover={{ bg: 'green.200' }}
           isLoading={isSubmitting}
-          onClick={onSubmit}
+          onClick={onSubmit(
+            false,
+            () => {
+              onModalClose()
+              backView()
+            },
+            onOpen,
+          )}
         >
           保存
         </Button>
@@ -285,7 +281,11 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClo
         onClose={onClose}
         title='上書きしますか？'
         description='保存する科目によって，既存の科目が消去させる可能性がありますが，それでも実行しますか？'
-        action={onSubmitForce}
+        action={onSubmit(true, () => {
+          onModalClose()
+          onClose()
+          backView()
+        })}
       />
     </>
   )
