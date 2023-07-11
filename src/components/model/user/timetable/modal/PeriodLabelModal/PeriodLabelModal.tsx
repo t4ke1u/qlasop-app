@@ -38,7 +38,7 @@ const InputItemProps: InputProps = {
 }
 
 export const PeriodLabelModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
-  const { register, onSubmit, reset, errors } = usePeriodLabelsForm(index)
+  const { register, onSubmit, reset, errors } = usePeriodLabelForm(index)
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={false}>
