@@ -1,2 +1,1 @@
-import { Frame as TimetableFrame } from './timetable/Frame'
-export { TimetableFrame }
+export { Frame as TimetableFrame } from './timetable/Frame'
