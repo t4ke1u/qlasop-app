@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { UserPeriodLabel } from '@/models/user/type'
 import { usePeriodLabelsStore } from '@/store/user'
 
-export const usePeriodLabelsForm = (index: number, action: () => void) => {
+export const usePeriodLabelsForm = (index: number) => {
   const label = usePeriodLabelsStore((state) => state.labels[index])
   const setLabel = usePeriodLabelsStore((state) => state.set)
 
@@ -19,10 +19,11 @@ export const usePeriodLabelsForm = (index: number, action: () => void) => {
     endTime: basicRegister('endTime', { required: '入力が必須です' }),
   }
 
-  const onSubmit = handleSubmit((periodLabel: UserPeriodLabel) => {
-    setLabel(index, periodLabel)
-    action()
-  })
+  const onSubmit = (action: () => void) => (e?: React.BaseSyntheticEvent) =>
+    handleSubmit((periodLabel: UserPeriodLabel) => {
+      setLabel(index, periodLabel)
+      action()
+    })(e)
 
   return { register, onSubmit, reset, errors }
 }

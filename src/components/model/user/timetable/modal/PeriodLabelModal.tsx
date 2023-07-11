@@ -38,7 +38,7 @@ const InputItemProps: InputProps = {
 }
 
 export const PeriodLabelModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
-  const { register, onSubmit, reset, errors } = usePeriodLabelsForm(index, onClose)
+  const { register, onSubmit, reset, errors } = usePeriodLabelsForm(index)
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={false}>
@@ -51,7 +51,7 @@ export const PeriodLabelModal: React.FC<Props> = ({ isOpen, onClose, index }) =>
           <form>
             <Stack direction='column' gap={2}>
               {/* 開始時刻 */}
-              <FormControl>
+              <FormControl isInvalid={!!errors.startTime}>
                 <Flex align='center' gap={5}>
                   <FormLabel
                     htmlFor='instructor'
@@ -68,7 +68,7 @@ export const PeriodLabelModal: React.FC<Props> = ({ isOpen, onClose, index }) =>
               </FormControl>
 
               {/* 終了時刻 */}
-              <FormControl>
+              <FormControl isInvalid={!!errors.endTime}>
                 <Flex align='center' gap={5}>
                   <FormLabel
                     htmlFor='instructor'
@@ -114,7 +114,7 @@ export const PeriodLabelModal: React.FC<Props> = ({ isOpen, onClose, index }) =>
             fontWeight='medium'
             color='green.800'
             _hover={{ bg: 'green.200' }}
-            onClick={onSubmit}
+            onClick={onSubmit(onClose)}
           >
             保存
           </Button>
