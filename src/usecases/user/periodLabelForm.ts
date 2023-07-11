@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { UserPeriodLabel } from '@/models/user/type'
 import { usePeriodLabelsStore } from '@/store/user'
 
-export const usePeriodLabelsForm = (index: number) => {
+export const usePeriodLabelForm = (index: number) => {
   const label = usePeriodLabelsStore((state) => state.labels[index])
   const setLabel = usePeriodLabelsStore((state) => state.set)
 

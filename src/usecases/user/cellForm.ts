@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { CellColor, UserCell } from '@/models/user/type'
 import { useCellsStore } from '@/store/user'
 
-export const useCellsForm = (
+export const useCellForm = (
   time?: { day: number; startPeriod: number; endPeriod: number },
   cell?: UserCell,
 ) => {

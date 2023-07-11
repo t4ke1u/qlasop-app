@@ -27,7 +27,7 @@ import { useState } from 'react'
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
 import { COLORS, DEFAULT_CRESITS_CAGEGORIES, PERIODS, TIMETABLE_DAYS } from '@/constants'
 import { CellColor, UserCell } from '@/models/user/type'
-import { useCellsForm } from '@/usecases/user/cellsForm'
+import { useCellForm } from '@/usecases/user/cellForm'
 
 type Props = {
   time?: { day: number; startPeriod: number; endPeriod: number }
@@ -65,7 +65,7 @@ export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClo
   // Alert
   const { isOpen, onOpen, onClose } = useDisclosure()
   // cellsForm
-  const { register, onSubmit, reset, handleChangeColor, errors, isSubmitting } = useCellsForm(
+  const { register, onSubmit, reset, handleChangeColor, errors, isSubmitting } = useCellForm(
     time,
     cell,
   )
