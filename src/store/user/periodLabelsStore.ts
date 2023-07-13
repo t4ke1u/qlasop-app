@@ -26,6 +26,6 @@ export const usePeriodLabelsStore = create<PeriodLabelsState>()(
         set({ labels })
       },
     }),
-    { name: 'user-period-label', storage: createJSONStorage(() => sessionStorage) },
+    { name: 'user-period-labels', storage: createJSONStorage(() => sessionStorage) },
   ),
 )
