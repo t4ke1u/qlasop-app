@@ -1,7 +1,7 @@
 'use client'
 
 import { Box, Grid } from '@chakra-ui/react'
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Cell } from './Cell'
 import { DayLabel } from './DayLabel'
@@ -13,7 +13,8 @@ import { useCellsStore } from '@/store/user/cellsStore'
 export const Frame = () => {
   const storedCells = useCellsStore((state) => state.cells)
 
-  const cells = useMemo(() => {
+  const [cells, setCells] = useState<Array<React.ReactNode>>([])
+  useEffect(() => {
     const filledPeriods: Array<string> = []
     const cells: Array<React.ReactNode> = []
     storedCells.map((storedCell) => {
@@ -39,7 +40,7 @@ export const Frame = () => {
         }
       }
     }
-    return cells
+    setCells(cells)
   }, [storedCells])
 
   return (

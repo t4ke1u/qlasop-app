@@ -32,11 +32,12 @@ import { RxTable, RxGear, RxRocket, RxMagnifyingGlass } from 'react-icons/rx'
 interface LinkItemProps {
   name: string
   icon: IconType
+  href?: string
 }
 const LinkItems: Array<LinkItemProps> = [
   { name: 'Dashboard', icon: RxRocket },
-  { name: 'Timetable', icon: RxTable },
-  { name: 'Search', icon: RxMagnifyingGlass },
+  { name: 'Timetable', icon: RxTable, href: '/project/timetable' },
+  { name: 'Search', icon: RxMagnifyingGlass, href: '/project/search' },
   { name: 'Auto Create', icon: GoCpu },
   { name: 'Settings', icon: RxGear },
 ]
@@ -91,7 +92,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} icon={link.icon} href={link.href}>
           {link.name}
         </NavItem>
       ))}
