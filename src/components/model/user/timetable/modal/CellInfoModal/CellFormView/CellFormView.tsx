@@ -27,7 +27,7 @@ import { useState } from 'react'
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
 import { COLORS, DEFAULT_CRESITS_CAGEGORIES, PERIODS, TIMETABLE_DAYS } from '@/constants'
 import { CellColor, UserCell } from '@/models/user/type'
-import { useCellForm } from '@/usecases/user/cellForm'
+import { useCellForm } from './CellFormView.hooks'
 
 type Props = {
   time?: { day: number; startPeriod: number; endPeriod: number }
