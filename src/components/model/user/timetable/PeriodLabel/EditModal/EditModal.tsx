@@ -16,7 +16,7 @@ import {
   Stack,
 } from '@chakra-ui/react'
 
-import { usePeriodLabelForm } from './PeriodLabelModal.hooks'
+import { usePeriodLabelForm } from './EditModal.hooks'
 
 type Props = {
   isOpen: boolean
