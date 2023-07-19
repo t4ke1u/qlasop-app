@@ -5,7 +5,7 @@ import { usePeriodLabels } from '@/store/user'
 
 export const usePeriodLabelForm = (index: number) => {
   const label = usePeriodLabels((state) => state.labels[index])
-  const setLabel = usePeriodLabels((state) => state.set)
+  const update = usePeriodLabels((state) => state.update)
 
   const {
     register: basicRegister,
@@ -21,7 +21,7 @@ export const usePeriodLabelForm = (index: number) => {
 
   const onSubmit = (action: () => void) => (e?: React.BaseSyntheticEvent) =>
     handleSubmit((periodLabel: UserPeriodLabel) => {
-      setLabel(index, periodLabel)
+      update(index, periodLabel)
       action()
     })(e)
 
