@@ -8,10 +8,10 @@ type CellsState = {
   checkOverlap: (cell: UserCell) => Array<UserCell>
   add: (cell: UserCell, force?: boolean) => boolean
   delete: (cell: UserCell) => boolean
-  edit: (oldCell: UserCell, newCell: UserCell, force?: boolean) => boolean
+  update: (oldCell: UserCell, newCell: UserCell, force?: boolean) => boolean
 }
 
-export const useCellsStore = create<CellsState>()(
+export const useCells = create<CellsState>()(
   persist(
     (set, get) => ({
       // 変数: セルの配列
@@ -76,7 +76,7 @@ export const useCellsStore = create<CellsState>()(
       },
 
       // セルを編集する関数
-      edit: (oldCell: UserCell, newCell: UserCell, force: boolean = false): boolean => {
+      update: (oldCell: UserCell, newCell: UserCell, force: boolean = false): boolean => {
         // セルを含まない場合
         if (!get().cells.includes(oldCell)) {
           return false

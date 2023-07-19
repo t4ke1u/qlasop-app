@@ -2,16 +2,17 @@
 
 import { Box, Grid } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 import { Cell } from './Cell'
 import { DayLabel } from './DayLabel'
 import { PeriodLabel } from './PeriodLabel'
 
 import { PERIODS, TIMETABLE_DAYS } from '@/constants'
-import { useCellsStore } from '@/store/user/cellsStore'
+import { useCells } from '@/store/user/cells.store'
 
 export const Frame = () => {
-  const storedCells = useCellsStore((state) => state.cells)
+  const storedCells = useCells((state) => state.cells)
 
   const [cells, setCells] = useState<Array<React.ReactNode>>([])
   useEffect(() => {
@@ -20,7 +21,7 @@ export const Frame = () => {
     storedCells.map((storedCell) => {
       cells.push(
         <Cell
-          key={`${storedCell.day}-${storedCell.startPeriod}-${storedCell.title}`}
+          key={uuidv4()}
           time={{
             day: storedCell.day,
             startPeriod: storedCell.startPeriod,
@@ -36,7 +37,7 @@ export const Frame = () => {
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 7; j++) {
         if (!filledPeriods.includes(`${i}-${j}`)) {
-          cells.push(<Cell key={`${i}-${j}`} time={{ day: i, startPeriod: j, endPeriod: j }} />)
+          cells.push(<Cell key={uuidv4()} time={{ day: i, startPeriod: j, endPeriod: j }} />)
         }
       }
     }

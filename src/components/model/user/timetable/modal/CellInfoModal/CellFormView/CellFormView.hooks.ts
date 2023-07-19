@@ -1,15 +1,15 @@
 import { useForm } from 'react-hook-form'
 
 import { CellColor, UserCell } from '@/models/user/type'
-import { useCellsStore } from '@/store/user'
+import { useCells } from '@/store/user'
 
 export const useCellForm = (
   time?: { day: number; startPeriod: number; endPeriod: number },
   cell?: UserCell,
 ) => {
   // cellsStore の利用
-  const addCell = useCellsStore((state) => state.add)
-  const editCell = useCellsStore((state) => state.edit)
+  const addCell = useCells((state) => state.add)
+  const updateCell = useCells((state) => state.update)
 
   // 初期値の設定
   const mode = cell ? 'edit' : 'add'
@@ -58,7 +58,8 @@ export const useCellForm = (
     (force: boolean = false, successAction?: () => void, failAction?: () => void) =>
     (e?: React.BaseSyntheticEvent) =>
       handleSubmit((formCell: UserCell) => {
-        const result = mode === 'edit' ? editCell(cell!, formCell, force) : addCell(formCell, force)
+        const result =
+          mode === 'edit' ? updateCell(cell!, formCell, force) : addCell(formCell, force)
         if (!result && failAction !== undefined) {
           failAction()
         } else if (successAction !== undefined) {

@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form'
 
 import { UserPeriodLabel } from '@/models/user/type'
-import { usePeriodLabelsStore } from '@/store/user'
+import { usePeriodLabels } from '@/store/user'
 
 export const usePeriodLabelForm = (index: number) => {
-  const label = usePeriodLabelsStore((state) => state.labels[index])
-  const setLabel = usePeriodLabelsStore((state) => state.set)
+  const label = usePeriodLabels((state) => state.labels[index])
+  const setLabel = usePeriodLabels((state) => state.set)
 
   const {
     register: basicRegister,

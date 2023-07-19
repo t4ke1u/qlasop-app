@@ -8,7 +8,7 @@ type PeriodLabelsState = {
   set: (index: number, time: UserPeriodLabel) => void
 }
 
-export const usePeriodLabelsStore = create<PeriodLabelsState>()(
+export const usePeriodLabels = create<PeriodLabelsState>()(
   persist(
     (set, get) => ({
       labels: DEFAULT_PERIOD_LABELS,

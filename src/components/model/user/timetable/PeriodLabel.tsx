@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 import { PeriodLabelModal } from './modal/PeriodLabelModal'
 import { UserPeriodLabel } from '@/models/user/type'
-import { usePeriodLabelsStore } from '@/store/user'
+import { usePeriodLabels } from '@/store/user'
 
 type Props = {
   index: number
@@ -15,7 +15,7 @@ export const PeriodLabel: React.FC<Props> = ({ index }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const [label, setLabel] = useState<UserPeriodLabel | undefined>()
-  const storedLabel = usePeriodLabelsStore((state) => state.labels[index])
+  const storedLabel = usePeriodLabels((state) => state.labels[index])
   useEffect(() => {
     setLabel(storedLabel)
   }, [storedLabel])

@@ -22,7 +22,7 @@ import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
 import { PERIODS } from '@/constants'
 import { TIMETABLE_DAYS } from '@/constants/days'
 import { CellColor, UserCell } from '@/models/user/type'
-import { useCellsStore } from '@/store/user/cellsStore'
+import { useCells } from '@/store/user/cells.store'
 
 type Props = {
   time: { day: number; startPeriod: number; endPeriod: number }
@@ -32,7 +32,7 @@ type Props = {
 
 export const CellInfoView: React.FC<Props> = ({ time, cell, setView }) => {
   // Cell Store
-  const deleteCell = useCellsStore((state) => state.delete)
+  const deleteCell = useCells((state) => state.delete)
   // Alert
   const { isOpen, onOpen, onClose } = useDisclosure()
 
