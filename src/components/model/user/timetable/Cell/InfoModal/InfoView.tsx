@@ -17,7 +17,7 @@ import {
 } from '@chakra-ui/react'
 import { RxTrash } from 'react-icons/rx'
 
-import { TimeTableViewType } from '@/components/model/user/timetable/modal/CellInfoModal'
+import { TimeTableViewType } from '@/components/model/user/timetable/Cell/InfoModal'
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
 import { PERIODS } from '@/constants'
 import { TIMETABLE_DAYS } from '@/constants/days'
@@ -30,7 +30,7 @@ type Props = {
   setView: React.Dispatch<React.SetStateAction<TimeTableViewType>>
 }
 
-export const CellInfoView: React.FC<Props> = ({ time, cell, setView }) => {
+export const InfoView: React.FC<Props> = ({ time, cell, setView }) => {
   // Cell Store
   const deleteCell = useCells((state) => state.delete)
   // Alert

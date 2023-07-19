@@ -37,7 +37,7 @@ const InputItemProps: InputProps = {
   color: 'gray.800',
 }
 
-export const PeriodLabelModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
+export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
   const { register, onSubmit, reset, errors } = usePeriodLabelForm(index)
 
   return (

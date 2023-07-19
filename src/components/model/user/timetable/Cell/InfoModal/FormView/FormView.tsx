@@ -24,7 +24,7 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
-import { useCellForm } from './CellFormView.hooks'
+import { useCellForm } from './FormView.hooks'
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
 import { COLORS, DEFAULT_CRESITS_CAGEGORIES, PERIODS, TIMETABLE_DAYS } from '@/constants'
 import { CellColor, UserCell } from '@/models/user/type'
@@ -61,7 +61,7 @@ const SelectItemProps: SelectProps = {
   color: 'gray.800',
 }
 
-export const CellFormView: React.FC<Props> = ({ time, cell, backView, onModalClose }) => {
+export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }) => {
   // Alert
   const { isOpen, onOpen, onClose } = useDisclosure()
   // cellsForm

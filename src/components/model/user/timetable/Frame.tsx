@@ -4,9 +4,9 @@ import { Box, Grid } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
-import { Cell } from './Cell'
+import { Cell } from './Cell/Cell'
 import { DayLabel } from './DayLabel'
-import { PeriodLabel } from './PeriodLabel'
+import { PeriodLabel } from './PeriodLabel/PeriodLabel'
 
 import { PERIODS, TIMETABLE_DAYS } from '@/constants'
 import { useCells } from '@/store/user/cells.store'

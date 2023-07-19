@@ -1,1 +1,0 @@
-export { PeriodLabelModal } from './PeriodLabelModal'

@@ -3,8 +3,8 @@
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
 import { useState } from 'react'
 
-import { CellFormView } from './CellFormView'
-import { CellInfoView } from './CellInfoView'
+import { FormView } from './FormView'
+import { InfoView } from './InfoView'
 import { UserCell } from '@/models/user/type'
 
 export type TimeTableViewType = 'info' | 'edit' | 'add'
@@ -20,7 +20,7 @@ type Props = {
   cell?: UserCell
 }
 
-export const CellInfoModal: React.FC<Props> = ({ isOpen, onClose, time, cell }) => {
+export const InfoModal: React.FC<Props> = ({ isOpen, onClose, time, cell }) => {
   const [view, setView] = useState<TimeTableViewType>('info')
 
   return (
@@ -33,9 +33,9 @@ export const CellInfoModal: React.FC<Props> = ({ isOpen, onClose, time, cell }) 
     >
       <ModalOverlay />
       <ModalContent p={2} maxH='90vh' w='450px' maxW='90vw'>
-        {view === 'info' && <CellInfoView time={time} cell={cell} setView={setView} />}
+        {view === 'info' && <InfoView time={time} cell={cell} setView={setView} />}
         {view === 'edit' && (
-          <CellFormView
+          <FormView
             time={time}
             cell={cell!}
             backView={() => setView('info')}
@@ -43,7 +43,7 @@ export const CellInfoModal: React.FC<Props> = ({ isOpen, onClose, time, cell }) 
           />
         )}
         {view === 'add' && (
-          <CellFormView time={time} backView={() => setView('info')} onModalClose={onClose} />
+          <FormView time={time} backView={() => setView('info')} onModalClose={onClose} />
         )}
       </ModalContent>
     </Modal>

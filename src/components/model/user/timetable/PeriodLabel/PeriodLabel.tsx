@@ -3,7 +3,7 @@
 import { Button, Circle, Flex, Text, useDisclosure } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 
-import { PeriodLabelModal } from './modal/PeriodLabelModal'
+import { EditModal } from './EditModal'
 import { UserPeriodLabel } from '@/models/user/type'
 import { usePeriodLabels } from '@/store/user'
 
@@ -47,7 +47,7 @@ export const PeriodLabel: React.FC<Props> = ({ index }) => {
         </Flex>
       </Button>
 
-      <PeriodLabelModal isOpen={isOpen} onClose={onClose} index={index} />
+      <EditModal isOpen={isOpen} onClose={onClose} index={index} />
     </>
   )
 }
