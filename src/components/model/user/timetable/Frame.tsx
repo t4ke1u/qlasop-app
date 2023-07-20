@@ -9,10 +9,10 @@ import { DayLabel } from './DayLabel'
 import { PeriodLabel } from './PeriodLabel/PeriodLabel'
 
 import { PERIODS, TIMETABLE_DAYS } from '@/constants'
-import { useCells } from '@/store/user/cells.store'
+import { useCellsStore } from '@/store/user/cells.store'
 
 export const Frame = () => {
-  const storedCells = useCells((state) => state.cells)
+  const { cells: storedCells } = useCellsStore()
 
   const [cells, setCells] = useState<Array<React.ReactNode>>([])
   useEffect(() => {

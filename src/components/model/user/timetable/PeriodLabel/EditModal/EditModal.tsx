@@ -16,7 +16,9 @@ import {
   Stack,
 } from '@chakra-ui/react'
 
-import { usePeriodLabelForm } from './EditModal.hooks'
+import { PeriodLabelSchemaType, usePeriodLabelForm } from './EditModal.hooks'
+import { usePeriodLabel } from '@/usecases/user/reader'
+import { usePeriodLabelsUsecase } from '@/usecases/user/usecase'
 
 type Props = {
   isOpen: boolean
@@ -38,7 +40,24 @@ const InputItemProps: InputProps = {
 }
 
 export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
-  const { register, onSubmit, reset, errors } = usePeriodLabelForm(index)
+  const { label } = usePeriodLabel(index)
+  const { updatePeriodLabel } = usePeriodLabelsUsecase()
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = usePeriodLabelForm(label)
+
+  const submit = async (data: PeriodLabelSchemaType) => {
+    try {
+      updatePeriodLabel(index, data)
+    } catch (e) {
+      console.log(e)
+    } finally {
+      onClose()
+    }
+  }
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={false}>
@@ -63,7 +82,12 @@ export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
                   >
                     開始時刻
                   </FormLabel>
-                  <Input id='instructor' type='time' {...InputItemProps} {...register.startTime} />
+                  <Input
+                    id='instructor'
+                    type='time'
+                    {...InputItemProps}
+                    {...register('startTime')}
+                  />
                 </Flex>
               </FormControl>
 
@@ -80,7 +104,7 @@ export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
                   >
                     終了時刻
                   </FormLabel>
-                  <Input id='instructor' type='time' {...InputItemProps} {...register.endTime} />
+                  <Input id='instructor' type='time' {...InputItemProps} {...register('endTime')} />
                 </Flex>
               </FormControl>
             </Stack>
@@ -98,8 +122,8 @@ export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
             color='gray.800'
             _hover={{ bg: 'gray.200' }}
             onClick={() => {
-              reset()
               onClose()
+              reset(label)
             }}
           >
             キャンセル
@@ -114,7 +138,7 @@ export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
             fontWeight='medium'
             color='green.800'
             _hover={{ bg: 'green.200' }}
-            onClick={onSubmit(onClose)}
+            onClick={handleSubmit(submit)}
           >
             保存
           </Button>

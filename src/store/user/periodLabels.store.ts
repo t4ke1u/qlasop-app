@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { DEFAULT_PERIOD_LABELS, UserPeriodLabel, UserPeriodLabels } from '@/models/user/type'
 
-type PeriodLabelsState = {
+export type PeriodLabelsState = {
   labels: UserPeriodLabels
   update: (index: number, time: UserPeriodLabel) => void
 }

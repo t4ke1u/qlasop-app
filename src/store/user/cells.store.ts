@@ -3,7 +3,7 @@ import { createJSONStorage, persist } from 'zustand/middleware'
 
 import { UserCell } from '@/models/user/type'
 
-type CellsState = {
+export type CellsState = {
   cells: Array<UserCell>
   set: (cells: Array<UserCell>) => void
   getOverlapCells: (cell: UserCell) => Array<UserCell>

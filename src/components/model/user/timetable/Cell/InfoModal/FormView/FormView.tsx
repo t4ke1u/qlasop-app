@@ -24,10 +24,11 @@ import {
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
-import { useCellForm } from './FormView.hooks'
+import { CellSchemaType, useCellForm } from './FormView.hooks'
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
 import { COLORS, DEFAULT_CRESITS_CAGEGORIES, PERIODS, TIMETABLE_DAYS } from '@/constants'
 import { CellColor, UserCell } from '@/models/user/type'
+import { useCellsUsecase } from '@/usecases/user/usecase'
 
 type Props = {
   time?: { day: number; startPeriod: number; endPeriod: number }
@@ -62,13 +63,27 @@ const SelectItemProps: SelectProps = {
 }
 
 export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }) => {
-  // Alert
   const { isOpen, onOpen, onClose } = useDisclosure()
-  // cellsForm
-  const { register, onSubmit, reset, handleChangeColor, errors, isSubmitting } = useCellForm(
-    time,
-    cell,
-  )
+  const { createCell, updateCell } = useCellsUsecase()
+  const {
+    register,
+    reset,
+    setValue,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useCellForm(time, cell)
+
+  const onChangeColor = (color: CellColor) => setValue('color', color)
+
+  const submit = (force: boolean) => async (data: CellSchemaType) => {
+    const result = cell ? updateCell(cell!, data, force) : createCell(data, force)
+    if (result) {
+      force && onClose()
+      onModalClose()
+    } else {
+      !force && onOpen()
+    }
+  }
 
   return (
     <>
@@ -91,7 +106,7 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
                 >
                   科目名
                 </FormLabel>
-                <Input id='title' {...InputItemProps} {...register.title} />
+                <Input id='title' {...InputItemProps} {...register('title')} />
               </Flex>
             </FormControl>
 
@@ -108,7 +123,7 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
                 >
                   曜日
                 </FormLabel>
-                <Select id='day' {...SelectItemProps} {...register.day}>
+                <Select id='day' {...SelectItemProps} {...register('day', { valueAsNumber: true })}>
                   {Object.keys(TIMETABLE_DAYS.jp).map((key, index) => (
                     <option key={index} value={index}>
                       {TIMETABLE_DAYS.jp[key]}
@@ -124,7 +139,11 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
                 <FormLabel w={14} m={0} textAlign='right' fontSize='sm' color='gray.500'>
                   時限
                 </FormLabel>
-                <Select id='startPeriod' {...SelectItemProps} {...register.startPeriod}>
+                <Select
+                  id='startPeriod'
+                  {...SelectItemProps}
+                  {...register('startPeriod', { valueAsNumber: true })}
+                >
                   {PERIODS.map((period, index) => (
                     <option key={index} value={index}>
                       {period}
@@ -132,7 +151,11 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
                   ))}
                 </Select>
                 <div>〜</div>
-                <Select id='endPeriod' {...SelectItemProps} {...register.endPeriod}>
+                <Select
+                  id='endPeriod'
+                  {...SelectItemProps}
+                  {...register('endPeriod', { valueAsNumber: true })}
+                >
                   {PERIODS.map((period, index) => (
                     <option key={index} value={index}>
                       {period}
@@ -155,7 +178,7 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
                 >
                   教員
                 </FormLabel>
-                <Input id='instructor' {...InputItemProps} {...register.instructor} />
+                <Input id='instructor' {...InputItemProps} {...register('instructor')} />
               </Flex>
             </FormControl>
 
@@ -172,7 +195,7 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
                 >
                   単位区分
                 </FormLabel>
-                <Select id='creditCategory' {...SelectItemProps} {...register.creditsCategory}>
+                <Select id='creditCategory' {...SelectItemProps} {...register('creditCategory')}>
                   {Object.values(DEFAULT_CRESITS_CAGEGORIES.jp).map((value, index) => (
                     <option key={index} value={value}>
                       {value}
@@ -196,7 +219,11 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
                   単位数
                 </FormLabel>
                 <NumberInput display='inline-block' flex={1} min={0}>
-                  <NumberInputField id='credits' {...InputItemProps} {...register.credits} />
+                  <NumberInputField
+                    id='credits'
+                    {...InputItemProps}
+                    {...register('credits', { valueAsNumber: true })}
+                  />
                   <NumberInputStepper>
                     <NumberIncrementStepper />
                     <NumberDecrementStepper />
@@ -206,10 +233,7 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
             </FormControl>
 
             {/* カラー */}
-            <ColorRadioGroup
-              defaultColor={cell?.color ?? 'gray'}
-              handleChangeColor={handleChangeColor}
-            />
+            <ColorRadioGroup defaultColor={cell?.color ?? 'gray'} onChange={onChangeColor} />
 
             {/* メモ */}
             <FormControl>
@@ -227,7 +251,7 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
                   p={2}
                   fontSize='sm'
                   overflowWrap='normal'
-                  {...register.clientMemo}
+                  {...register('clientMemo')}
                 />
               </Flex>
             </FormControl>
@@ -263,14 +287,7 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
           color='green.800'
           _hover={{ bg: 'green.200' }}
           isLoading={isSubmitting}
-          onClick={onSubmit(
-            false,
-            () => {
-              onModalClose()
-              backView()
-            },
-            onOpen,
-          )}
+          onClick={handleSubmit(submit(false))}
         >
           保存
         </Button>
@@ -281,23 +298,19 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
         onClose={onClose}
         title='上書きしますか？'
         description='保存する科目によって，既存の科目が消去させる可能性がありますが，それでも実行しますか？'
-        action={onSubmit(true, () => {
-          onModalClose()
-          onClose()
-          backView()
-        })}
+        action={handleSubmit(submit(true))}
       />
     </>
   )
 }
 
 type ColorRadioGroupProps = {
-  defaultColor: CellColor
-  handleChangeColor: (color: CellColor) => void
+  defaultColor?: CellColor
+  onChange?: (color: CellColor) => void
 }
 
-const ColorRadioGroup = ({ defaultColor, handleChangeColor }: ColorRadioGroupProps) => {
-  const [cellColor, setCellColor] = useState<CellColor>(defaultColor)
+const ColorRadioGroup = ({ defaultColor, onChange }: ColorRadioGroupProps) => {
+  const [cellColor, setCellColor] = useState<CellColor>(defaultColor ?? 'gray')
 
   return (
     <Flex align='start' gap={5}>
@@ -315,7 +328,7 @@ const ColorRadioGroup = ({ defaultColor, handleChangeColor }: ColorRadioGroupPro
               selected={color === cellColor}
               onClick={() => {
                 setCellColor(color)
-                handleChangeColor(color)
+                onChange && onChange(color)
               }}
             />
           ))}

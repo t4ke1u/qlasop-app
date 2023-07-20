@@ -1,29 +1,28 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useEffect, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 import { UserPeriodLabel } from '@/models/user/type'
-import { usePeriodLabels } from '@/store/user'
 
-export const usePeriodLabelForm = (index: number) => {
-  const label = usePeriodLabels((state) => state.labels[index])
-  const update = usePeriodLabels((state) => state.update)
+const schema = z.object({
+  startTime: z.string().nonempty(),
+  endTime: z.string().nonempty(),
+})
 
-  const {
-    register: basicRegister,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<UserPeriodLabel>({ defaultValues: label })
+export type PeriodLabelSchemaType = z.infer<typeof schema>
 
-  const register = {
-    startTime: basicRegister('startTime', { required: '入力が必須です' }),
-    endTime: basicRegister('endTime', { required: '入力が必須です' }),
-  }
+export const usePeriodLabelForm = (defaultValues: UserPeriodLabel) => {
+  const form = useForm<PeriodLabelSchemaType>({
+    defaultValues,
+    resolver: zodResolver(schema),
+    mode: 'onChange',
+    reValidateMode: 'onBlur',
+  })
 
-  const onSubmit = (action: () => void) => (e?: React.BaseSyntheticEvent) =>
-    handleSubmit((periodLabel: UserPeriodLabel) => {
-      update(index, periodLabel)
-      action()
-    })(e)
+  useEffect(() => {
+    form.reset(defaultValues)
+  }, [form, defaultValues])
 
-  return { register, onSubmit, reset, errors }
+  return form
 }
