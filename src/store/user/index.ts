@@ -1,2 +1,2 @@
-export { usePeriodLabels } from './periodLabels.store'
-export { useCells } from './cells.store'
+export { usePeriodLabelsStore } from './periodLabels.store'
+export { useCellsStore } from './cells.store'

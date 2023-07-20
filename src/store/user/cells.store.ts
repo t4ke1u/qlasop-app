@@ -5,13 +5,14 @@ import { UserCell } from '@/models/user/type'
 
 type CellsState = {
   cells: Array<UserCell>
-  checkOverlap: (cell: UserCell) => Array<UserCell>
-  add: (cell: UserCell, force?: boolean) => boolean
+  set: (cells: Array<UserCell>) => void
+  getOverlapCells: (cell: UserCell) => Array<UserCell>
+  create: (cell: UserCell, force?: boolean) => boolean
   delete: (cell: UserCell) => boolean
   update: (oldCell: UserCell, newCell: UserCell, force?: boolean) => boolean
 }
 
-export const useCells = create<CellsState>()(
+export const useCellsStore = create<CellsState>()(
   persist(
     (set, get) => ({
       // 変数: セルの配列
@@ -33,7 +34,7 @@ export const useCells = create<CellsState>()(
       set: (cells: Array<UserCell>) => set({ cells }),
 
       // 時間が重なるセルを探索する関数
-      checkOverlap: (cell: UserCell): Array<UserCell> => {
+      getOverlapCells: (cell: UserCell): Array<UserCell> => {
         const storedCells = get().cells
         const overlapedCells: Array<UserCell> = []
         for (const storedCell of storedCells) {
@@ -49,8 +50,8 @@ export const useCells = create<CellsState>()(
       },
 
       // セルを追加する関数
-      add: (cell: UserCell, force: boolean = false): boolean => {
-        const overlapedCells = get().checkOverlap(cell)
+      create: (cell: UserCell, force: boolean = false): boolean => {
+        const overlapedCells = get().getOverlapCells(cell)
         // 上書きを許可しない場合
         if (overlapedCells.length > 0 && !force) {
           return false
