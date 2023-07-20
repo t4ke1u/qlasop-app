@@ -30,6 +30,8 @@ export const InfoModal: React.FC<Props> = ({ isOpen, onClose, time, cell }) => {
       isCentered
       closeOnOverlayClick={view === 'info'}
       scrollBehavior='inside'
+      autoFocus={false}
+      allowPinchZoom={true}
     >
       <ModalOverlay />
       <ModalContent p={2} maxH='90vh' w='450px' maxW='90vw'>
