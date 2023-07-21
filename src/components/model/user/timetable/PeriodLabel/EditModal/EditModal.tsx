@@ -60,7 +60,14 @@ export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
   }
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered closeOnOverlayClick={false}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      isCentered
+      closeOnOverlayClick={false}
+      autoFocus={false}
+      allowPinchZoom={true}
+    >
       <ModalOverlay />
       <ModalContent p={2} maxH='90vh' w='450px' maxW='90vw'>
         <ModalHeader fontSize='md' fontWeight='medium' color='gray.800'>
