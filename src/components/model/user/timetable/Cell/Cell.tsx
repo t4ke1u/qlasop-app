@@ -2,7 +2,7 @@
 
 import { Button, useDisclosure } from '@chakra-ui/react'
 
-import { CellInfoModal } from './modal/CellInfoModal'
+import { InfoModal } from './InfoModal'
 import { CellColor, UserCell } from '@/models/user/type'
 
 type Props = {
@@ -40,7 +40,7 @@ export const Cell: React.FC<Props> = ({ time, cell }) => {
         {cell?.title}
       </Button>
 
-      <CellInfoModal isOpen={isOpen} onClose={onClose} time={time} cell={cell} />
+      <InfoModal isOpen={isOpen} onClose={onClose} time={time} cell={cell} />
     </>
   )
 }

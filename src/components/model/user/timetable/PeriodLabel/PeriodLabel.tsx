@@ -1,11 +1,9 @@
 'use client'
 
 import { Button, Circle, Flex, Text, useDisclosure } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
 
-import { PeriodLabelModal } from './modal/PeriodLabelModal'
-import { UserPeriodLabel } from '@/models/user/type'
-import { usePeriodLabelsStore } from '@/store/user'
+import { EditModal } from './EditModal'
+import { usePeriodLabel } from '@/usecases/user/reader'
 
 type Props = {
   index: number
@@ -14,11 +12,7 @@ type Props = {
 export const PeriodLabel: React.FC<Props> = ({ index }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const [label, setLabel] = useState<UserPeriodLabel | undefined>()
-  const storedLabel = usePeriodLabelsStore((state) => state.labels[index])
-  useEffect(() => {
-    setLabel(storedLabel)
-  }, [storedLabel])
+  const { label } = usePeriodLabel(index)
 
   return (
     <>
@@ -47,7 +41,7 @@ export const PeriodLabel: React.FC<Props> = ({ index }) => {
         </Flex>
       </Button>
 
-      <PeriodLabelModal isOpen={isOpen} onClose={onClose} index={index} />
+      <EditModal isOpen={isOpen} onClose={onClose} index={index} />
     </>
   )
 }
