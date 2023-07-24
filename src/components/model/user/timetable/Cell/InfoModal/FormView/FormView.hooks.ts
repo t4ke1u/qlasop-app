@@ -25,7 +25,9 @@ const schema = z
     color: z.custom<CellColor>(),
     clientMemo: z.string().optional(),
   })
-  .refine(({ startPeriod, endPeriod }) => startPeriod <= endPeriod)
+  .refine(({ startPeriod, endPeriod }) => startPeriod <= endPeriod, {
+    path: ['startPeriod', 'endPeriod'],
+  })
 
 export type CellSchemaType = z.infer<typeof schema>
 

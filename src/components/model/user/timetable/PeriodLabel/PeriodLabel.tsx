@@ -1,10 +1,8 @@
 'use client'
 
 import { Button, Circle, Flex, Text, useDisclosure } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
 
 import { EditModal } from './EditModal'
-import { UserPeriodLabel } from '@/models/user/type'
 import { usePeriodLabel } from '@/usecases/user/reader'
 
 type Props = {
