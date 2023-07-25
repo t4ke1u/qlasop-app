@@ -38,7 +38,6 @@ export type CourseClass = {
     objectives?(string): 授業目標
     syllabusUrlJp?(string): シラバスURL(日本語)
     syllabusUrlEn?(string): シラバスURL(英語)
-    evaluations(Array<number>): 評価
   */
 
   key: string
@@ -69,5 +68,4 @@ export type CourseClass = {
   objectives?: string
   syllabusUrlJp?: string
   syllabusUrlEn?: string
-  evaluations: Array<number>
 }
