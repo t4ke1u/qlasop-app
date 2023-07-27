@@ -3,11 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "run-p dev:*",
+    "dev:next": "next dev",
+    "dev:aspida": "aspida --watch",
+    "dev:path": "pathpida --ignorepath .gitignore --output ./src/generated",
+    "build": "run-s build:*",
+    "build:aspida": "aspida",
+    "build:path": "pathpida --ignorepath .gitignore --output ./src/generated",
+    "build:next": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint-fix": "yarn lint --fix",
+    "lint:fix": "yarn lint --fix",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'"
   },
   "dependencies": {
@@ -18,6 +24,7 @@
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.1.0",
     "@supabase/supabase-js": "^2.26.0",
+    "@t3-oss/env-nextjs": "^0.6.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
@@ -40,6 +47,7 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^8.8.0",
+    "npm-run-all": "^4.1.5",
     "pathpida": "^0.20.1",
     "prettier": "^2.8.8"
   }

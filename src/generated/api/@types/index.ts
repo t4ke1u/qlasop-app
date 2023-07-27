@@ -1,0 +1,31 @@
+export type CourseClassResponse = {
+  id: string
+  key: string
+  classCode: string
+  linkKey: string
+  titleJp: string
+  titleEn: string
+  classTitleJp?: string
+  classTitleEn?: string
+  year: number
+  term: number
+  day: number
+  startPeriod: number
+  endPeriod: number
+  faculty: number
+  courseCategoryJp: string
+  courseCategoryEn: string
+  creditCategoryJp: string
+  creditCategoryEn: string
+  credits: number
+  campusCode?: number
+  eligibleYear: number
+  modalityCategoryJp?: string
+  modalityCategoryEn?: string
+  instructorJp?: string
+  instructorEn?: string
+  outline?: string
+  objectives?: string
+  syllabusUrlJp?: string
+  syllabusUrlEn?: string
+}
