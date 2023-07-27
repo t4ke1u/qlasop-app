@@ -1,5 +1,6 @@
 export type CourseClass = {
   /*
+    id(string): ID
     key(string): 科目キー
     classCode(string): クラスコード
     linkKey(string): 科目実施キー
@@ -40,6 +41,7 @@ export type CourseClass = {
     syllabusUrlEn?(string): シラバスURL(英語)
   */
 
+  id: string
   key: string
   classCode: string
   linkKey: string
