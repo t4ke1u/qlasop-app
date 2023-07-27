@@ -24,7 +24,6 @@
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.1.0",
     "@supabase/supabase-js": "^2.26.0",
-    "@t3-oss/env-nextjs": "^0.6.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
