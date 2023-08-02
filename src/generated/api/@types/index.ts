@@ -1,31 +1,12 @@
-export type CourseClassResponse = {
-  id: string
-  key: string
-  classCode: string
-  linkKey: string
-  titleJp: string
-  titleEn: string
-  classTitleJp?: string
-  classTitleEn?: string
-  year: number
-  term: number
-  day: number
-  startPeriod: number
-  endPeriod: number
+import { CourseClass } from '@/models/courseClass/type'
+
+export type CourseClassResponse = CourseClass
+
+export type CourseClassQueryRequest = {
+  year?: number
+  term: Array<number>
   faculty: number
-  courseCategoryJp: string
-  courseCategoryEn: string
-  creditCategoryJp: string
-  creditCategoryEn: string
-  credits: number
-  campusCode?: number
-  eligibleYear: number
-  modalityCategoryJp?: string
-  modalityCategoryEn?: string
-  instructorJp?: string
-  instructorEn?: string
-  outline?: string
-  objectives?: string
-  syllabusUrlJp?: string
-  syllabusUrlEn?: string
+  courseCategoryJp?: string
+  courseCategoryEn?: string
+  eligibleYear: Array<number>
 }

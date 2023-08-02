@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@/libs/chakra'
+import { SWRProvider } from '@/libs/swr'
 
 export const metadata = {
   title: 'opclass',
@@ -9,7 +10,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang='ja'>
       <body>
-        <ChakraProvider>{children}</ChakraProvider>
+        <SWRProvider>
+          <ChakraProvider>{children}</ChakraProvider>
+        </SWRProvider>
       </body>
     </html>
   )

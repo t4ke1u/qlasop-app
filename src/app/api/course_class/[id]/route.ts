@@ -7,5 +7,11 @@ export const GET = async (_: NextRequest, { params }: { params: { id: string } }
 
   const { data } = await supabase.from('course-classes').select().eq('id', id)
 
-  return NextResponse.json({ data })
+  if (data?.length === 0) {
+    return NextResponse.json({ message: 'Invalid ID' }, { status: 404 })
+  }
+
+  const courseClass = data![0]
+
+  return NextResponse.json({ data: courseClass }, { status: 200 })
 }

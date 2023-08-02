@@ -1,5 +1,6 @@
 import type { AspidaClient, BasicHeaders } from 'aspida'
-import type { Methods as Methods0 } from './course_class/_id@string'
+import type { Methods as Methods0 } from './course_class'
+import type { Methods as Methods1 } from './course_class/_id@string'
 
 const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
   const prefix = (baseURL === undefined ? '' : baseURL).replace(/\/$/, '')
@@ -16,15 +17,26 @@ const api = <T>({ baseURL, fetch }: AspidaClient<T>) => {
            * @returns Successful Response
            */
           get: (option?: { config?: T | undefined } | undefined) =>
-            fetch<Methods0['get']['resBody'], BasicHeaders, Methods0['get']['status']>(prefix, prefix1, GET, option).json(),
+            fetch<Methods1['get']['resBody'], BasicHeaders, Methods1['get']['status']>(prefix, prefix1, GET, option).json(),
           /**
            * @returns Successful Response
            */
           $get: (option?: { config?: T | undefined } | undefined) =>
-            fetch<Methods0['get']['resBody'], BasicHeaders, Methods0['get']['status']>(prefix, prefix1, GET, option).json().then(r => r.body),
+            fetch<Methods1['get']['resBody'], BasicHeaders, Methods1['get']['status']>(prefix, prefix1, GET, option).json().then(r => r.body),
           $path: () => `${prefix}${prefix1}`
         }
-      }
+      },
+      /**
+       * @returns Successful Response
+       */
+      get: (option?: { config?: T | undefined } | undefined) =>
+        fetch<Methods0['get']['resBody'], BasicHeaders, Methods0['get']['status']>(prefix, PATH0, GET, option).json(),
+      /**
+       * @returns Successful Response
+       */
+      $get: (option?: { config?: T | undefined } | undefined) =>
+        fetch<Methods0['get']['resBody'], BasicHeaders, Methods0['get']['status']>(prefix, PATH0, GET, option).json().then(r => r.body),
+      $path: () => `${prefix}${PATH0}`
     }
   }
 }

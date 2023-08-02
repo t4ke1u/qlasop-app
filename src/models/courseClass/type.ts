@@ -29,7 +29,6 @@ export type CourseClass = {
     creditCategoryJp(string): 単位区分(日本語)
     creditCategoryEn(string): 単位区分(英語)
     credits(number): 単位数
-    campusCode?(number): キャンパスコード
     eligibleYear(number): 対象最低学年
     modalityCategoryJp?(string): 授業方法区分(日本語)
     modalityCategoryEn?(string): 授業方法区分(英語)
@@ -60,7 +59,6 @@ export type CourseClass = {
   creditCategoryJp: string
   creditCategoryEn: string
   credits: number
-  campusCode?: number
   eligibleYear: number
   modalityCategoryJp?: string
   modalityCategoryEn?: string
