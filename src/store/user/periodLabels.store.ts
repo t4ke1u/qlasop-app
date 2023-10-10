@@ -1,7 +1,9 @@
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
-import { DEFAULT_PERIOD_LABELS, UserPeriodLabel, UserPeriodLabels } from '@/models/user/type'
+import { DEFAULT_PERIOD_LABELS } from '@/models/user/type'
+
+import type { UserPeriodLabel, UserPeriodLabels } from '@/models/user/type'
 
 export type PeriodLabelsState = {
   labels: UserPeriodLabels

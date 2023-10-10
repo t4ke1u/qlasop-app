@@ -4,12 +4,13 @@ import { Box, Grid } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
+import { PERIODS, TIMETABLE_DAYS } from '@/constants'
+import { useCellsStore } from '@/store/user/cells.store'
+
 import { Cell } from './Cell/Cell'
 import { DayLabel } from './DayLabel'
 import { PeriodLabel } from './PeriodLabel/PeriodLabel'
 
-import { PERIODS, TIMETABLE_DAYS } from '@/constants'
-import { useCellsStore } from '@/store/user/cells.store'
 
 export const Frame = () => {
   const { cells: storedCells } = useCellsStore()
@@ -21,13 +22,13 @@ export const Frame = () => {
     storedCells.map((storedCell) => {
       cells.push(
         <Cell
+          cell={storedCell}
           key={uuidv4()}
           time={{
             day: storedCell.day,
-            startPeriod: storedCell.startPeriod,
             endPeriod: storedCell.endPeriod,
+            startPeriod: storedCell.startPeriod,
           }}
-          cell={storedCell}
         />,
       )
       for (let i = storedCell.startPeriod; i <= storedCell.endPeriod; i++) {
@@ -37,7 +38,7 @@ export const Frame = () => {
     for (let i = 0; i < 6; i++) {
       for (let j = 0; j < 7; j++) {
         if (!filledPeriods.includes(`${i}-${j}`)) {
-          cells.push(<Cell key={uuidv4()} time={{ day: i, startPeriod: j, endPeriod: j }} />)
+          cells.push(<Cell key={uuidv4()} time={{ day: i, endPeriod: j, startPeriod: j }} />)
         }
       }
     }
@@ -46,18 +47,18 @@ export const Frame = () => {
 
   return (
     <Grid
+      gap={1}
       gridTemplateColumns='0.5fr repeat(6, 1fr)'
       gridTemplateRows='auto repeat(7, minmax(100px,auto))'
-      gap={1}
     >
       <Box gridColumnStart={1} gridRowStart={1} />
       {/* 時間割ラベル */}
       {PERIODS.map((_, index) => {
-        return <PeriodLabel key={index} index={index} />
+        return <PeriodLabel index={index} key={index} />
       })}
       {/* 曜日ラベル */}
       {Object.keys(TIMETABLE_DAYS.jp).map((_, index) => {
-        return <DayLabel key={index} index={index} />
+        return <DayLabel index={index} key={index} />
       })}
       {/* 科目セル */}
       {cells}

@@ -1,4 +1,16 @@
 export const DEFAULT_CRESITS_CAGEGORIES = {
+  en: [
+    '',
+    'Compulsory Subjects',
+    'Elective Compulsory Subjects',
+    'Elective Subjects',
+    'Foreign Language',
+    'Foreign Language Seminar',
+    'Mathematics',
+    'Natural Science',
+    'Non-degree Subjects',
+    'information Subjects',
+  ],
   jp: [
     '',
     '基礎科目 選択必修',
@@ -30,17 +42,5 @@ export const DEFAULT_CRESITS_CAGEGORIES = {
     '自然科学 生命科学',
     '自然科学 生命科学 必修',
     '領域コース 必修',
-  ],
-  en: [
-    '',
-    'Compulsory Subjects',
-    'Elective Compulsory Subjects',
-    'Elective Subjects',
-    'Foreign Language',
-    'Foreign Language Seminar',
-    'Mathematics',
-    'Natural Science',
-    'Non-degree Subjects',
-    'information Subjects',
   ],
 }

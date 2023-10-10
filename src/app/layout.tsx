@@ -1,8 +1,8 @@
 import { ChakraProvider } from '@/libs/chakra'
 
 export const metadata = {
-  title: 'opclass',
   description: '',
+  title: 'opclass',
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

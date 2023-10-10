@@ -3,21 +3,24 @@
 import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
 import { useState } from 'react'
 
+
+
 import { FormView } from './FormView'
 import { InfoView } from './InfoView'
-import { UserCell } from '@/models/user/type'
+
+import type { UserCell } from '@/models/user/type'
 
 export type TimeTableViewType = 'info' | 'edit' | 'add'
 
 type Props = {
-  isOpen: boolean
-  onClose: () => void
+  cell?: UserCell,
+  isOpen: boolean,
+  onClose: () => void,
   time: {
     day: number
+    endPeriod: number,
     startPeriod: number
-    endPeriod: number
   }
-  cell?: UserCell
 }
 
 export const InfoModal: React.FC<Props> = ({ isOpen, onClose, time, cell }) => {
@@ -25,27 +28,27 @@ export const InfoModal: React.FC<Props> = ({ isOpen, onClose, time, cell }) => {
 
   return (
     <Modal
+      allowPinchZoom={true}
+      autoFocus={false}
+      closeOnOverlayClick={view === 'info'}
+      isCentered
       isOpen={isOpen}
       onClose={onClose}
-      isCentered
-      closeOnOverlayClick={view === 'info'}
       scrollBehavior='inside'
-      autoFocus={false}
-      allowPinchZoom={true}
     >
       <ModalOverlay />
-      <ModalContent p={2} maxH='90vh' w='450px' maxW='90vw'>
-        {view === 'info' && <InfoView time={time} cell={cell} setView={setView} />}
+      <ModalContent maxH='90vh' maxW='90vw' p={2} w='450px'>
+        {view === 'info' && <InfoView cell={cell} setView={setView} time={time} />}
         {view === 'edit' && (
           <FormView
-            time={time}
-            cell={cell!}
             backView={() => setView('info')}
+            cell={cell!}
             onModalClose={onClose}
+            time={time}
           />
         )}
         {view === 'add' && (
-          <FormView time={time} backView={() => setView('info')} onModalClose={onClose} />
+          <FormView backView={() => setView('info')} onModalClose={onClose} time={time} />
         )}
       </ModalContent>
     </Modal>

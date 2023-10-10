@@ -1,4 +1,4 @@
-import { CellColor } from '@/models/user/type'
+import type { CellColor } from '@/models/user/type'
 
 export const DEFAULT_COLOR = 'gray'
 

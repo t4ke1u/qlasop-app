@@ -1,4 +1,20 @@
 export type CourseClass = {
+
+  campusCode?: number,
+  classCode: string
+  classTitleEn?: string,
+  classTitleJp?: string,
+  courseCategoryEn: string,
+  courseCategoryJp: string,
+  creditCategoryEn: string,
+  creditCategoryJp: string,
+  credits: number,
+  day: number
+  eligibleYear: number,
+  endPeriod: number
+  faculty: number
+  instructorEn?: string,
+  instructorJp?: string,
   /*
     key(string): 科目キー
     classCode(string): クラスコード
@@ -39,33 +55,17 @@ export type CourseClass = {
     syllabusUrlJp?(string): シラバスURL(日本語)
     syllabusUrlEn?(string): シラバスURL(英語)
   */
-
-  key: string
-  classCode: string
-  linkKey: string
-  titleJp: string
-  titleEn: string
-  classTitleJp?: string
-  classTitleEn?: string
+  key: string,
+  linkKey: string,
+  modalityCategoryEn?: string,
+  modalityCategoryJp?: string,
+  objectives?: string,
+  outline?: string,
+  startPeriod: number,
+  syllabusUrlEn?: string,
+  syllabusUrlJp?: string,
+  term: number,
+  titleEn: string,
+  titleJp: string,
   year: number
-  term: number
-  day: number
-  startPeriod: number
-  endPeriod: number
-  faculty: number
-  courseCategoryJp: string
-  courseCategoryEn: string
-  creditCategoryJp: string
-  creditCategoryEn: string
-  credits: number
-  campusCode?: number
-  eligibleYear: number
-  modalityCategoryJp?: string
-  modalityCategoryEn?: string
-  instructorJp?: string
-  instructorEn?: string
-  outline?: string
-  objectives?: string
-  syllabusUrlJp?: string
-  syllabusUrlEn?: string
 }

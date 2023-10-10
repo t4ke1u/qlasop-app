@@ -1,5 +1,6 @@
 'use client'
 
+
 import { FormControl, FormLabel } from '@chakra-ui/form-control'
 import { Flex, Stack } from '@chakra-ui/layout'
 import { ModalBody, ModalHeader, ModalFooter } from '@chakra-ui/modal'
@@ -7,59 +8,64 @@ import {
   Button,
   Box,
   Input,
-  InputProps,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
   NumberInputField,
-  NumberInputFieldProps,
   NumberInputStepper,
   Select,
-  SelectProps,
   Text,
   Wrap,
   useDisclosure,
-  ButtonProps,
   Textarea,
 } from '@chakra-ui/react'
 import { useState } from 'react'
 
-import { CellSchemaType, useCellForm } from './FormView.hooks'
+
 import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
 import { COLORS, DEFAULT_CRESITS_CAGEGORIES, PERIODS, TIMETABLE_DAYS } from '@/constants'
-import { CellColor, UserCell } from '@/models/user/type'
 import { useCellsUsecase } from '@/usecases/user/usecase'
 
+import { useCellForm } from './FormView.hooks'
+
+import type { CellSchemaType} from './FormView.hooks';
+import type { CellColor, UserCell } from '@/models/user/type'
+import type {
+  InputProps,
+  NumberInputFieldProps,
+  SelectProps,
+  ButtonProps} from '@chakra-ui/react';
+
 type Props = {
-  time?: { day: number; startPeriod: number; endPeriod: number }
+  backView: () => void,
   cell?: UserCell
-  backView: () => void
-  onModalClose: () => void
+  onModalClose: () => void,
+  time?: { day: number; endPeriod: number, startPeriod: number; }
 }
 
 const InputItemProps: InputProps & NumberInputFieldProps = {
-  display: 'inline-block',
-  h: 9,
-  w: 'full',
-  flex: 1,
   alignContent: 'center',
-  rounded: 'base',
-  p: 4,
+  color: 'gray.800',
+  display: 'inline-block',
+  flex: 1,
   fontSize: 'sm',
   fontWeight: 'medium',
-  color: 'gray.800',
+  h: 9,
+  p: 4,
+  rounded: 'base',
+  w: 'full',
 }
 
 const SelectItemProps: SelectProps = {
-  display: 'inline-block',
-  h: 9,
-  w: 'full',
-  flex: 1,
   alignContent: 'center',
-  rounded: 'base',
+  color: 'gray.800',
+  display: 'inline-block',
+  flex: 1,
   fontSize: 'sm',
   fontWeight: 'medium',
-  color: 'gray.800',
+  h: 9,
+  rounded: 'base',
+  w: 'full',
 }
 
 export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }) => {
@@ -87,22 +93,22 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
 
   return (
     <>
-      <ModalHeader fontSize='md' fontWeight='medium' color='gray.800'>
+      <ModalHeader color='gray.800' fontSize='md' fontWeight='medium'>
         科目編集
       </ModalHeader>
       <ModalBody>
         <form>
           <Stack direction='column' gap={2}>
             {/* 科目名 */}
-            <FormControl isRequired isInvalid={!!errors.title}>
+            <FormControl isInvalid={!!errors.title} isRequired>
               <Flex align='center' gap={2}>
                 <FormLabel
+                  color='gray.500'
+                  fontSize='sm'
                   htmlFor='title'
-                  w='68px'
                   m={0}
                   textAlign='right'
-                  fontSize='sm'
-                  color='gray.500'
+                  w='68px'
                 >
                   科目名
                 </FormLabel>
@@ -114,12 +120,12 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
             <FormControl>
               <Flex align='center' gap={5}>
                 <FormLabel
+                  color='gray.500'
+                  fontSize='sm'
                   htmlFor='day'
-                  w={14}
                   m={0}
                   textAlign='right'
-                  fontSize='sm'
-                  color='gray.500'
+                  w={14}
                 >
                   曜日
                 </FormLabel>
@@ -136,7 +142,7 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
             {/* 時限 */}
             <FormControl isInvalid={!!errors.endPeriod}>
               <Flex align='center' gap={5}>
-                <FormLabel w={14} m={0} textAlign='right' fontSize='sm' color='gray.500'>
+                <FormLabel color='gray.500' fontSize='sm' m={0} textAlign='right' w={14}>
                   時限
                 </FormLabel>
                 <Select
@@ -169,12 +175,12 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
             <FormControl>
               <Flex align='center' gap={5}>
                 <FormLabel
+                  color='gray.500'
+                  fontSize='sm'
                   htmlFor='instructor'
-                  w={14}
                   m={0}
                   textAlign='right'
-                  fontSize='sm'
-                  color='gray.500'
+                  w={14}
                 >
                   教員
                 </FormLabel>
@@ -186,12 +192,12 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
             <FormControl>
               <Flex align='center' gap={5}>
                 <FormLabel
+                  color='gray.500'
+                  fontSize='sm'
                   htmlFor='creditCategory'
-                  w={14}
                   m={0}
                   textAlign='right'
-                  fontSize='sm'
-                  color='gray.500'
+                  w={14}
                 >
                   単位区分
                 </FormLabel>
@@ -209,12 +215,12 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
             <FormControl>
               <Flex align='center' gap={5}>
                 <FormLabel
+                  color='gray.500'
+                  fontSize='sm'
                   htmlFor='credits'
-                  w={14}
                   m={0}
                   textAlign='right'
-                  fontSize='sm'
-                  color='gray.500'
+                  w={14}
                 >
                   単位数
                 </FormLabel>
@@ -238,19 +244,19 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
             {/* メモ */}
             <FormControl>
               <Flex align='start' gap={5}>
-                <Flex w={14} h={9} mt={1} align='center' justify='end'>
-                  <FormLabel w={14} textAlign='right' fontSize='sm' color='gray.500'>
+                <Flex align='center' h={9} justify='end' mt={1} w={14}>
+                  <FormLabel color='gray.500' fontSize='sm' textAlign='right' w={14}>
                     メモ
                   </FormLabel>
                 </Flex>
                 <Textarea
                   display='inline-block'
-                  minH={28}
-                  w='full'
                   flex={1}
-                  p={2}
                   fontSize='sm'
+                  minH={28}
                   overflowWrap='normal'
+                  p={2}
+                  w='full'
                   {...register('clientMemo')}
                 />
               </Flex>
@@ -258,47 +264,47 @@ export const FormView: React.FC<Props> = ({ time, cell, backView, onModalClose }
           </Stack>
         </form>
       </ModalBody>
-      <ModalFooter justifyContent='end' gap={2}>
+      <ModalFooter gap={2} justifyContent='end'>
         <Button
-          display='inline-flex'
-          h={9}
+          _hover={{ bg: 'gray.200' }}
           bg='gray.100'
-          px={5}
-          py={1}
+          color='gray.800'
+          display='inline-flex'
           fontSize='sm'
           fontWeight='medium'
-          color='gray.800'
-          _hover={{ bg: 'gray.200' }}
+          h={9}
           onClick={() => {
             reset()
             backView()
           }}
+          px={5}
+          py={1}
         >
           キャンセル
         </Button>
         <Button
-          display='inline-flex'
-          h={9}
+          _hover={{ bg: 'green.200' }}
           bg='green.100'
-          px={5}
-          py={1}
+          color='green.800'
+          display='inline-flex'
           fontSize='sm'
           fontWeight='medium'
-          color='green.800'
-          _hover={{ bg: 'green.200' }}
+          h={9}
           isLoading={isSubmitting}
           onClick={handleSubmit(submit(false))}
+          px={5}
+          py={1}
         >
           保存
         </Button>
       </ModalFooter>
 
       <SimpleAlertDialog
+        action={handleSubmit(submit(true))}
+        description='保存する科目によって，既存の科目が消去させる可能性がありますが，それでも実行しますか？'
         isOpen={isOpen}
         onClose={onClose}
         title='上書きしますか？'
-        description='保存する科目によって，既存の科目が消去させる可能性がありますが，それでも実行しますか？'
-        action={handleSubmit(submit(true))}
       />
     </>
   )
@@ -314,22 +320,22 @@ const ColorRadioGroup = ({ defaultColor, onChange }: ColorRadioGroupProps) => {
 
   return (
     <Flex align='start' gap={5}>
-      <Flex w={14} h={9} align='center' justify='end'>
-        <Text w={14} textAlign='right' fontSize='sm' color='gray.600'>
+      <Flex align='center' h={9} justify='end' w={14}>
+        <Text color='gray.600' fontSize='sm' textAlign='right' w={14}>
           カラー
         </Text>
       </Flex>
-      <Box display='inline-block' minH={9} w='full' flex={1} p={2}>
-        <Wrap w='full' align='center' justify='start' gap={2}>
+      <Box display='inline-block' flex={1} minH={9} p={2} w='full'>
+        <Wrap align='center' gap={2} justify='start' w='full'>
           {COLORS.map((color, index) => (
             <ColorRadioItem
-              key={index}
               color={color}
-              selected={color === cellColor}
+              key={index}
               onClick={() => {
                 setCellColor(color)
                 onChange && onChange(color)
               }}
+              selected={color === cellColor}
             />
           ))}
         </Wrap>
@@ -346,15 +352,15 @@ type ColorRadioItemProps = {
 const ColorRadioItem = ({ color, selected, ...rest }: ColorRadioItemProps) => {
   return (
     <Button
-      size='xs'
-      minW={5}
-      h={5}
-      rounded='full'
+      _focus={{ bg: selected ? `${color}.400` : 'transparent' }}
+      _hover={{ bg: selected ? `${color}.400` : `${color}.100` }}
       bg={selected ? `${color}.400` : 'transparent'}
       borderColor={selected ? 'transparent' : `${color}.400`}
       borderWidth={2}
-      _focus={{ bg: selected ? `${color}.400` : 'transparent' }}
-      _hover={{ bg: selected ? `${color}.400` : `${color}.100` }}
+      h={5}
+      minW={5}
+      rounded='full'
+      size='xs'
       {...rest}
     />
   )

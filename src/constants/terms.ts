@@ -1,16 +1,4 @@
 export const TERMS: TermsType = {
-  jp: {
-    1: '通年',
-    12: '春学期',
-    13: '秋学期',
-    64: '集中講義（春）',
-    65: '集中講義（秋）',
-    66: '集中講義（春・秋）',
-    81: '春クォーター',
-    82: '夏クォーター',
-    83: '秋クォーター',
-    84: '冬クォーター',
-  },
   en: {
     1: 'All Year',
     12: 'Spring Term',
@@ -23,9 +11,21 @@ export const TERMS: TermsType = {
     83: 'Fall Quarter',
     84: 'Winter Quarter',
   },
+  jp: {
+    1: '通年',
+    12: '春学期',
+    13: '秋学期',
+    64: '集中講義（春）',
+    65: '集中講義（秋）',
+    66: '集中講義（春・秋）',
+    81: '春クォーター',
+    82: '夏クォーター',
+    83: '秋クォーター',
+    84: '冬クォーター',
+  },
 }
 
 type TermsType = {
+  en: { [key: number]: string },
   jp: { [key: number]: string }
-  en: { [key: number]: string }
 }

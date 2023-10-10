@@ -1,5 +1,6 @@
 'use client'
 
+
 import { Button } from '@chakra-ui/button'
 import {
   AlertDialog,
@@ -9,15 +10,16 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay,
 } from '@chakra-ui/modal'
-import { FocusableElement } from '@chakra-ui/utils'
 import { useRef } from 'react'
 
+import type { FocusableElement } from '@chakra-ui/utils'
+
 type Props = {
-  isOpen: boolean
-  onClose: () => void
+  action: () => void,
+  description?: string,
+  isOpen: boolean,
+  onClose: () => void,
   title: string
-  description?: string
-  action: () => void
 }
 
 export const SimpleAlertDialog: React.FC<Props> = ({
@@ -31,49 +33,49 @@ export const SimpleAlertDialog: React.FC<Props> = ({
 
   return (
     <AlertDialog
+      closeOnOverlayClick={false}
+      isCentered
       isOpen={isOpen}
       leastDestructiveRef={cancelRef}
       onClose={onClose}
-      isCentered
-      closeOnOverlayClick={false}
     >
       <AlertDialogOverlay>
-        <AlertDialogContent p={2} maxH='90vh' w='450px' maxW='90vw'>
-          <AlertDialogHeader fontSize='md' fontWeight='medium' color='gray.800'>
+        <AlertDialogContent maxH='90vh' maxW='90vw' p={2} w='450px'>
+          <AlertDialogHeader color='gray.800' fontSize='md' fontWeight='medium'>
             {title}
           </AlertDialogHeader>
-          <AlertDialogBody fontSize='sm' fontWeight='medium' color='gray.500'>
+          <AlertDialogBody color='gray.500' fontSize='sm' fontWeight='medium'>
             {description}
           </AlertDialogBody>
-          <AlertDialogFooter justifyContent='end' gap={2}>
+          <AlertDialogFooter gap={2} justifyContent='end'>
             <Button
-              display='inline-flex'
-              h={9}
+              _hover={{ bg: 'gray.200' }}
               bg='gray.100'
-              px={5}
-              py={1}
+              color='gray.800'
+              display='inline-flex'
               fontSize='sm'
               fontWeight='medium'
-              color='gray.800'
-              _hover={{ bg: 'gray.200' }}
+              h={9}
               onClick={onClose}
+              px={5}
+              py={1}
             >
               キャンセル
             </Button>
             <Button
-              display='inline-flex'
-              h={9}
+              _hover={{ bg: 'red.200' }}
               bg='red.100'
-              px={5}
-              py={1}
+              color='red.800'
+              display='inline-flex'
               fontSize='sm'
               fontWeight='medium'
-              color='red.800'
-              _hover={{ bg: 'red.200' }}
+              h={9}
               onClick={() => {
                 onClose()
                 action()
               }}
+              px={5}
+              py={1}
             >
               実行
             </Button>

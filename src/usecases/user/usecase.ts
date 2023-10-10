@@ -1,8 +1,10 @@
 import { useMemo } from 'react'
 
 import { useCellsStore } from '@/store/user'
-import { CellsState } from '@/store/user/cells.store'
-import { PeriodLabelsState, usePeriodLabelsStore } from '@/store/user/periodLabels.store'
+import { usePeriodLabelsStore } from '@/store/user/periodLabels.store'
+
+import type { CellsState } from '@/store/user/cells.store'
+import type { PeriodLabelsState} from '@/store/user/periodLabels.store';
 
 // Cells
 export const createCellsUsecase = ({ store }: { store: CellsState }) => ({

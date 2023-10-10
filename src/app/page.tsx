@@ -1,8 +1,8 @@
 import { Top } from '@/components/page/top'
 
 export const metadata = {
-  title: 'opclass',
   description: '',
+  title: 'opclass',
 }
 
 const TopPage = () => <Top />

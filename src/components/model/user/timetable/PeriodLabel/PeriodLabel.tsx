@@ -2,8 +2,9 @@
 
 import { Button, Circle, Flex, Text, useDisclosure } from '@chakra-ui/react'
 
-import { EditModal } from './EditModal'
 import { usePeriodLabel } from '@/usecases/user/reader'
+
+import { EditModal } from './EditModal'
 
 type Props = {
   index: number
@@ -17,31 +18,31 @@ export const PeriodLabel: React.FC<Props> = ({ index }) => {
   return (
     <>
       <Button
-        w='full'
-        h='full'
+        bg='gray.100'
         gridColumnStart={1}
         gridRowStart={index + 2}
-        rounded='lg'
-        p={1.5}
-        bg='gray.100'
+        h='full'
+        onClick={onOpen}
         outline='solid 0.5px'
         outlineColor='gray.200'
-        onClick={onOpen}
+        p={1.5}
+        rounded='lg'
+        w='full'
       >
-        <Flex w='full' direction='column' align='center' justify='center' gap={2}>
-          <Text fontSize={3} fontWeight='medium' color='gray.600'>
+        <Flex align='center' direction='column' gap={2} justify='center' w='full'>
+          <Text color='gray.600' fontSize={3} fontWeight='medium'>
             {label?.startTime}
           </Text>
-          <Circle size={6} bg='gray.300' fontSize='xs' fontWeight='bold'>
+          <Circle bg='gray.300' fontSize='xs' fontWeight='bold' size={6}>
             {index + 1}
           </Circle>
-          <Text fontSize={3} fontWeight='medium' color='gray.600'>
+          <Text color='gray.600' fontSize={3} fontWeight='medium'>
             {label?.endTime}
           </Text>
         </Flex>
       </Button>
 
-      <EditModal isOpen={isOpen} onClose={onClose} index={index} />
+      <EditModal index={index} isOpen={isOpen} onClose={onClose} />
     </>
   )
 }

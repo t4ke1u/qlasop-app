@@ -6,7 +6,6 @@ import {
   FormControl,
   FormLabel,
   Input,
-  InputProps,
   Modal,
   ModalBody,
   ModalContent,
@@ -16,27 +15,33 @@ import {
   Stack,
 } from '@chakra-ui/react'
 
-import { PeriodLabelSchemaType, usePeriodLabelForm } from './EditModal.hooks'
+
 import { usePeriodLabel } from '@/usecases/user/reader'
 import { usePeriodLabelsUsecase } from '@/usecases/user/usecase'
 
+import { usePeriodLabelForm } from './EditModal.hooks'
+
+import type { PeriodLabelSchemaType} from './EditModal.hooks';
+import type {
+  InputProps} from '@chakra-ui/react';
+
 type Props = {
-  isOpen: boolean
+  index: number,
+  isOpen: boolean,
   onClose: () => void
-  index: number
 }
 
 const InputItemProps: InputProps = {
-  display: 'inline-block',
-  h: 9,
-  w: 'full',
-  flex: 1,
   alignContent: 'center',
-  rounded: 'base',
-  p: 4,
+  color: 'gray.800',
+  display: 'inline-block',
+  flex: 1,
   fontSize: 'sm',
   fontWeight: 'medium',
-  color: 'gray.800',
+  h: 9,
+  p: 4,
+  rounded: 'base',
+  w: 'full',
 }
 
 export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
@@ -61,16 +66,16 @@ export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
 
   return (
     <Modal
+      allowPinchZoom={true}
+      autoFocus={false}
+      closeOnOverlayClick={false}
+      isCentered
       isOpen={isOpen}
       onClose={onClose}
-      isCentered
-      closeOnOverlayClick={false}
-      autoFocus={false}
-      allowPinchZoom={true}
     >
       <ModalOverlay />
-      <ModalContent p={2} maxH='90vh' w='450px' maxW='90vw'>
-        <ModalHeader fontSize='md' fontWeight='medium' color='gray.800'>
+      <ModalContent maxH='90vh' maxW='90vw' p={2} w='450px'>
+        <ModalHeader color='gray.800' fontSize='md' fontWeight='medium'>
           時間編集
         </ModalHeader>
         <ModalBody>
@@ -80,12 +85,12 @@ export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
               <FormControl isInvalid={!!errors.startTime}>
                 <Flex align='center' gap={5}>
                   <FormLabel
+                    color='gray.500'
+                    fontSize='sm'
                     htmlFor='instructor'
-                    w={14}
                     m={0}
                     textAlign='right'
-                    fontSize='sm'
-                    color='gray.500'
+                    w={14}
                   >
                     開始時刻
                   </FormLabel>
@@ -102,12 +107,12 @@ export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
               <FormControl isInvalid={!!errors.endTime}>
                 <Flex align='center' gap={5}>
                   <FormLabel
+                    color='gray.500'
+                    fontSize='sm'
                     htmlFor='instructor'
-                    w={14}
                     m={0}
                     textAlign='right'
-                    fontSize='sm'
-                    color='gray.500'
+                    w={14}
                   >
                     終了時刻
                   </FormLabel>
@@ -117,35 +122,35 @@ export const EditModal: React.FC<Props> = ({ isOpen, onClose, index }) => {
             </Stack>
           </form>
         </ModalBody>
-        <ModalFooter justifyContent='end' gap={2}>
+        <ModalFooter gap={2} justifyContent='end'>
           <Button
-            display='inline-flex'
-            h={9}
+            _hover={{ bg: 'gray.200' }}
             bg='gray.100'
-            px={5}
-            py={1}
+            color='gray.800'
+            display='inline-flex'
             fontSize='sm'
             fontWeight='medium'
-            color='gray.800'
-            _hover={{ bg: 'gray.200' }}
+            h={9}
             onClick={() => {
               onClose()
               reset(label)
             }}
+            px={5}
+            py={1}
           >
             キャンセル
           </Button>
           <Button
-            display='inline-flex'
-            h={9}
+            _hover={{ bg: 'green.200' }}
             bg='green.100'
-            px={5}
-            py={1}
+            color='green.800'
+            display='inline-flex'
             fontSize='sm'
             fontWeight='medium'
-            color='green.800'
-            _hover={{ bg: 'green.200' }}
+            h={9}
             onClick={handleSubmit(submit)}
+            px={5}
+            py={1}
           >
             保存
           </Button>

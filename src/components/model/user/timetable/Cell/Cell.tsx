@@ -3,15 +3,17 @@
 import { Button, useDisclosure } from '@chakra-ui/react'
 
 import { InfoModal } from './InfoModal'
-import { CellColor, UserCell } from '@/models/user/type'
+
+import type { CellColor, UserCell } from '@/models/user/type'
+
 
 type Props = {
+  cell?: UserCell,
   time: {
     day: number
+    endPeriod: number,
     startPeriod: number
-    endPeriod: number
   }
-  cell?: UserCell
 }
 
 export const Cell: React.FC<Props> = ({ time, cell }) => {
@@ -22,25 +24,25 @@ export const Cell: React.FC<Props> = ({ time, cell }) => {
   return (
     <>
       <Button
-        w='full'
-        h='full'
-        gridColumnStart={day + 2}
-        gridRow={`${startPeriod + 2} / ${endPeriod + 3}`}
+        _hover={{ bg: `${color}.200` }}
         bg={`${color}.100`}
-        p={0}
-        outline='solid 0.5px'
-        outlineColor={`${color}.200`}
+        color={`${color}.500`}
         fontSize={{ base: 'xs', md: 'sm' }}
         fontWeight='medium'
-        color={`${color}.500`}
-        whiteSpace='normal'
-        _hover={{ bg: `${color}.200` }}
+        gridColumnStart={day + 2}
+        gridRow={`${startPeriod + 2} / ${endPeriod + 3}`}
+        h='full'
         onClick={onOpen}
+        outline='solid 0.5px'
+        outlineColor={`${color}.200`}
+        p={0}
+        w='full'
+        whiteSpace='normal'
       >
         {cell?.title}
       </Button>
 
-      <InfoModal isOpen={isOpen} onClose={onClose} time={time} cell={cell} />
+      <InfoModal cell={cell} isOpen={isOpen} onClose={onClose} time={time} />
     </>
   )
 }

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 
-import { DEFAULT_PERIOD_LABELS, UserCell, UserPeriodLabel } from '@/models/user/type'
+import { DEFAULT_PERIOD_LABELS } from '@/models/user/type'
 import { useCellsStore, usePeriodLabelsStore } from '@/store/user'
+
+import type { UserCell, UserPeriodLabel } from '@/models/user/type'
 
 // Cells
 export const useCells = () => {

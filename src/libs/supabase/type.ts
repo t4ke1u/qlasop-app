@@ -1,14 +1,14 @@
 export type Query = {
+  campusCode?: Array<number>,
+  courseCategoryEn?: Array<string>,
+  courseCategoryJp?: Array<string>,
+  creditCategoryJp?: Array<string>,
+  crefitCategoryEn?: Array<string>,
+  day?: Array<number>,
+  eligibleYear?: Array<number>,
+  faculty?: Array<number>,
+  keyword?: string,
+  period?: Array<number>,
+  term?: Array<number>,
   year?: Array<number>
-  term?: Array<number>
-  day?: Array<number>
-  period?: Array<number>
-  faculty?: Array<number>
-  courseCategoryJp?: Array<string>
-  courseCategoryEn?: Array<string>
-  creditCategoryJp?: Array<string>
-  crefitCategoryEn?: Array<string>
-  campusCode?: Array<number>
-  eligibleYear?: Array<number>
-  keyword?: string
 }

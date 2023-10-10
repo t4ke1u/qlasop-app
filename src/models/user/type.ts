@@ -1,4 +1,14 @@
 export type UserCell = {
+
+  clientMemo?: string,
+  color: CellColor,
+  creditCategory: string,
+  credits: number,
+  day: number,
+  endPeriod: number,
+  instructor?: string,
+  link?: [string, string]
+  startPeriod: number,
   /*
     title(string): 科目名
     day(number): 曜日
@@ -13,17 +23,7 @@ export type UserCell = {
     color(string): セルの色
     clientMemo?(string): メモ
   */
-
   title: string
-  day: number
-  startPeriod: number
-  endPeriod: number
-  instructor?: string
-  creditCategory: string
-  credits: number
-  link?: [string, string]
-  color: CellColor
-  clientMemo?: string
 }
 
 export type UserPeriodLabels = [
@@ -38,9 +38,9 @@ export type UserPeriodLabels = [
 ]
 
 export type UserPeriodLabel = {
+  endTime: string,
   // 各時限の開始時間と終了時間
   startTime: string
-  endTime: string
 }
 
 export type CellColor =
@@ -56,11 +56,11 @@ export type CellColor =
   | 'pink'
 
 export const DEFAULT_PERIOD_LABELS: UserPeriodLabels = [
-  { startTime: '08:50', endTime: '10:30' },
-  { startTime: '10:40', endTime: '12:20' },
-  { startTime: '13:10', endTime: '14:50' },
-  { startTime: '15:05', endTime: '16:45' },
-  { startTime: '17:00', endTime: '18:40' },
-  { startTime: '18:55', endTime: '20:35' },
-  { startTime: '20:45', endTime: '21:35' },
+  { endTime: '10:30', startTime: '08:50' },
+  { endTime: '12:20', startTime: '10:40' },
+  { endTime: '14:50', startTime: '13:10' },
+  { endTime: '16:45', startTime: '15:05' },
+  { endTime: '18:40', startTime: '17:00' },
+  { endTime: '20:35', startTime: '18:55' },
+  { endTime: '21:35', startTime: '20:45' },
 ]

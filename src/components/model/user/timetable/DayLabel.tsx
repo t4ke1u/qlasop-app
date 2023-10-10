@@ -8,7 +8,7 @@ type Props = {
 
 export const DayLabel: React.FC<Props> = ({ index }) => {
   return (
-    <Center gridRowStart={1} gridColumnStart={index + 2} p={1.5} color='gray.600' fontSize='sm'>
+    <Center color='gray.600' fontSize='sm' gridColumnStart={index + 2} gridRowStart={1} p={1.5}>
       {TIMETABLE_DAYS.en[index]}
     </Center>
   )
