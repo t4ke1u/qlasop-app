@@ -26,6 +26,7 @@ module.exports = {
           'index',
         ],
         pathGroupsExcludedImportTypes: ['builtin'],
+        'newlines-between': 'always',
         alphabetize: { order: 'asc', caseInsensitive: true },
         pathGroups: [],
       },
