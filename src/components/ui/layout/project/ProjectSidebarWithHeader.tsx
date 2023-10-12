@@ -21,8 +21,6 @@ import {
   MenuItem,
   MenuList,
 } from '@chakra-ui/react'
-
-// eslint-disable-next-line import/named
 import { FiMenu, FiChevronDown } from 'react-icons/fi'
 import { GoCpu } from 'react-icons/go'
 import { RxTable, RxGear, RxRocket, RxMagnifyingGlass } from 'react-icons/rx'

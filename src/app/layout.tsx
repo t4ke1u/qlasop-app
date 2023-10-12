@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@/libs/chakra'
+import { NextAuthProvider } from '@/libs/nextauth'
 
 export const metadata = {
   description: '',
@@ -9,7 +10,9 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang='ja'>
       <body>
-        <ChakraProvider>{children}</ChakraProvider>
+        <NextAuthProvider>
+          <ChakraProvider>{children}</ChakraProvider>
+        </NextAuthProvider>
       </body>
     </html>
   )
