@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "pathpida && next build",
+    "build": "next build",
     "build:path": "pathpida --ignorepath .gitignore --output ./src/generated",
     "start": "next start",
     "lint": "next lint",
