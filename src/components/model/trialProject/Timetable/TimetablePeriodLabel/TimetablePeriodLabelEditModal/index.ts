@@ -1,0 +1,1 @@
+export { TimetablePeriodLabelEditModal } from './TimetablePeriodLabelEditModal'

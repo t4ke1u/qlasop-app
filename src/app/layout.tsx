@@ -3,7 +3,7 @@ import { NextAuthProvider } from '@/libs/nextauth'
 
 export const metadata = {
   description: '',
-  title: 'opclass',
+  title: 'Qlasop',
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {

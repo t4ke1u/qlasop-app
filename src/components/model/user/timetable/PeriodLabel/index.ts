@@ -1,1 +1,0 @@
-export { PeriodLabel } from './PeriodLabel'

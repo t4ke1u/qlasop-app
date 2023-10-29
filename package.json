@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pathpida && next build",
+    "build:path": "pathpida --ignorepath .gitignore --output ./src/generated",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "yarn lint --fix",
@@ -43,6 +44,7 @@
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-typescript-sort-keys": "^3.0.0",
     "eslint-plugin-unused-imports": "^3.0.0",
+    "pathpida": "^0.22.0",
     "prettier": "^2.8.8"
   }
 }
