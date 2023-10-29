@@ -51,6 +51,7 @@ export const Timetable = () => {
       gap={1}
       gridTemplateColumns='0.5fr repeat(6, 1fr)'
       gridTemplateRows='auto repeat(7, minmax(100px,auto))'
+      w='full'
     >
       <Box gridColumnStart={1} gridRowStart={1} />
       {/* 時間割ラベル */}

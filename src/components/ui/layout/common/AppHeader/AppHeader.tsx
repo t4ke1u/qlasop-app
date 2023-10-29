@@ -1,4 +1,5 @@
 'use client'
+
 import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Text } from '@chakra-ui/react'
 import Link from 'next/link'
 import React from 'react'
@@ -18,8 +19,8 @@ type Props = {
 
 export const AppHeader: React.FC<Props> = ({ children, breadcrumbs, uid }) => {
   return (
-    <Box bg='white' minH='100vh'>
-      <Flex align='center' minW='100vw'>
+    <Box minH='100vh'>
+      <Flex align='center' borderBottom='1px' borderBottomColor='gray.300' minW='100vw'>
         <Text fontSize='lg' px='72px' py={7}>
           Qlasop
         </Text>
