@@ -17,8 +17,8 @@ import {
 } from '@chakra-ui/react'
 import { RxTrash } from 'react-icons/rx'
 
-import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
-import { TIMETABLE_DAYS, PERIODS } from '@/constants/project'
+import { SimpleAlertDialog } from '@/components/ui/SimpleAlertDialog'
+import { TIMETABLE_DAYS } from '@/constants/project'
 import { useTrialProject } from '@/usecases/trialProject/reader'
 import { useTrialProjectUsecase } from '@/usecases/trialProject/usecase'
 
@@ -60,8 +60,8 @@ export const TimetableCellInfoView: React.FC<Props> = ({ time, cell, setView }) 
               <ListItem
                 content={
                   cell.startPeriod === cell.endPeriod
-                    ? `${PERIODS[cell.startPeriod]} 限`
-                    : `${PERIODS[cell.startPeriod]} - ${PERIODS[cell.endPeriod]} 限`
+                    ? `${cell.startPeriod + 1} 限`
+                    : `${cell.startPeriod + 1} - ${cell.endPeriod + 1} 限`
                 }
                 label='時限'
               />

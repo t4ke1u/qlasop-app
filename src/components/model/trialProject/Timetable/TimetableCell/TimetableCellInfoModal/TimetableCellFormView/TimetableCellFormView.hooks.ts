@@ -3,9 +3,11 @@ import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import { PERIODS_LENGTH } from '@/constants/project'
+import { DEFAULT_PERIODS } from '@/constants/project'
 
 import type { Cell, CellColor } from '@/models/trialProject/type'
+
+const PERIODS_LENGTH = DEFAULT_PERIODS.length
 
 const schema = z
   .object({

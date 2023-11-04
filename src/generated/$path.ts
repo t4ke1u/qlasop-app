@@ -27,6 +27,21 @@ export const pagesPath = {
       path: `/trial-project${buildSuffix(url)}`,
       pathname: '/trial-project' as const,
     }),
+    search: {
+      $url: (url?: { hash?: string }) => ({
+        hash: url?.hash,
+        path: `/trial-project/search${buildSuffix(url)}`,
+        pathname: '/trial-project/search' as const,
+      }),
+      _courseId: (courseId: string | number) => ({
+        $url: (url?: { hash?: string }) => ({
+          hash: url?.hash,
+          path: `/trial-project/search/${courseId}${buildSuffix(url)}`,
+          pathname: '/trial-project/search/[courseId]' as const,
+          query: { courseId },
+        }),
+      }),
+    },
     timetable: {
       $url: (url?: { hash?: string }) => ({
         hash: url?.hash,

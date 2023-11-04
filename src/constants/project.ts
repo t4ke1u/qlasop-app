@@ -39,10 +39,6 @@ export const FACULTIES: FacultyType = {
 
 type FacultyType = { en: { [key: number]: string }; jp: { [key: number]: string } }
 
-export const PERIODS_LENGTH = 7
-
-export const PERIODS = [1, 2, 3, 4, 5, 6, 7]
-
 export const DEFAULT_PERIODS: Array<PeriodLabel> = [
   { endTime: '10:30', index: 0, startTime: '08:50' },
   { endTime: '12:20', index: 1, startTime: '10:40' },

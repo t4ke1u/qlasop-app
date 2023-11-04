@@ -18,3 +18,23 @@ export type Course = {
   startPeriod: number
   title: string
 }
+
+export type DetailCourse = {
+  campus?: string
+  classRoom?: string
+  course: Course
+  credit: string
+  creditCategory?: string
+  day: string
+  eligibleYear: string
+  faculty: string
+  id: string
+  instructor?: string
+  objective?: string
+  outline?: string
+  period: string
+  term: string
+  title: string
+  url: string
+  year: string
+}

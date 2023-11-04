@@ -5,19 +5,18 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
-import type { Url } from 'next/dist/shared/lib/router/router'
 import type { IconType } from 'react-icons'
 
 type Props = {
   color: string
-  href?: Url
+  href?: string
   icon: IconType
   name: string
 }
 
 export const SidebarItem: React.FC<Props> = ({ icon, name, href, color }) => {
   const pathname = usePathname()
-  const selected = pathname === href
+  const selected = href ? pathname.includes(href) : false
 
   const item = (
     <HStack

@@ -14,10 +14,11 @@ import {
   Select,
   useDisclosure,
   Textarea,
+  useToast,
 } from '@chakra-ui/react'
 
-import { SimpleAlertDialog } from '@/components/ui/alert/SimpleAlertDialog'
-import { PERIODS, TIMETABLE_DAYS } from '@/constants/project'
+import { SimpleAlertDialog } from '@/components/ui/SimpleAlertDialog'
+import { DEFAULT_PERIODS, TIMETABLE_DAYS } from '@/constants/project'
 import { useTrialProjectUsecase } from '@/usecases/trialProject/usecase'
 
 import { ColorRadioGroup } from './ColorRadioGroup'
@@ -61,6 +62,7 @@ const SelectItemProps: SelectProps = {
 
 export const TimetableCellFormView: React.FC<Props> = ({ time, cell, backView, onModalClose }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const toast = useToast()
   const onChangeColor = (color: CellColor) => setValue('color', color)
 
   const {
@@ -78,6 +80,13 @@ export const TimetableCellFormView: React.FC<Props> = ({ time, cell, backView, o
     if (result) {
       force && onClose()
       onModalClose()
+      toast({
+        isClosable: true,
+        position: 'bottom-right',
+        status: 'success',
+        title: `${data.title} を追加しました`,
+        variant: 'subtle',
+      })
     } else {
       !force && onOpen()
     }
@@ -142,9 +151,9 @@ export const TimetableCellFormView: React.FC<Props> = ({ time, cell, backView, o
                   {...SelectItemProps}
                   {...register('startPeriod', { valueAsNumber: true })}
                 >
-                  {PERIODS.map((period, index) => (
-                    <option key={index} value={index}>
-                      {period}
+                  {DEFAULT_PERIODS.sort((a, b) => a.index - b.index).map((period) => (
+                    <option key={period.index} value={period.index}>
+                      {period.index}
                     </option>
                   ))}
                 </Select>
@@ -154,9 +163,9 @@ export const TimetableCellFormView: React.FC<Props> = ({ time, cell, backView, o
                   {...SelectItemProps}
                   {...register('endPeriod', { valueAsNumber: true })}
                 >
-                  {PERIODS.map((period, index) => (
-                    <option key={index} value={index}>
-                      {period}
+                  {DEFAULT_PERIODS.sort((a, b) => a.index - b.index).map((period) => (
+                    <option key={period.index} value={period.index}>
+                      {period.index}
                     </option>
                   ))}
                 </Select>
