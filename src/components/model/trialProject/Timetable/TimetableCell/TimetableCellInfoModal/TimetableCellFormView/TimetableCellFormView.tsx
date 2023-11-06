@@ -84,7 +84,7 @@ export const TimetableCellFormView: React.FC<Props> = ({ time, cell, backView, o
         isClosable: true,
         position: 'bottom-right',
         status: 'success',
-        title: `${data.title} を追加しました`,
+        title: cell ? `${data.title} を更新しました` : `${data.title} を追加しました`,
         variant: 'subtle',
       })
     } else {
@@ -153,7 +153,7 @@ export const TimetableCellFormView: React.FC<Props> = ({ time, cell, backView, o
                 >
                   {DEFAULT_PERIODS.sort((a, b) => a.index - b.index).map((period) => (
                     <option key={period.index} value={period.index}>
-                      {period.index}
+                      {period.index + 1}
                     </option>
                   ))}
                 </Select>
@@ -165,7 +165,7 @@ export const TimetableCellFormView: React.FC<Props> = ({ time, cell, backView, o
                 >
                   {DEFAULT_PERIODS.sort((a, b) => a.index - b.index).map((period) => (
                     <option key={period.index} value={period.index}>
-                      {period.index}
+                      {period.index + 1}
                     </option>
                   ))}
                 </Select>

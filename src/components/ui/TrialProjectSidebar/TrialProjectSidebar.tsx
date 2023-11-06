@@ -8,7 +8,14 @@ import { SidebarItem } from './SidebarItem'
 
 export const TrialProjectSidebar = () => {
   return (
-    <Stack borderRight='1px' borderRightColor='gray.300' gap='8px' h='100vh' p='20px' w='200px'>
+    <Stack
+      borderRight='1px'
+      borderRightColor='gray.300'
+      gap='8px'
+      h='calc(100vh - 80px)'
+      p='20px'
+      w='200px'
+    >
       <Stack gap='8px' py='8px'>
         <Text fontSize='xs' fontWeight='bold' px='10px'>
           Trial Project

@@ -19,8 +19,8 @@ type Props = {
 
 export const AppHeader: React.FC<Props> = ({ children, breadcrumbs, uid }) => {
   return (
-    <Box minH='100vh'>
-      <Flex align='center' borderBottom='1px' borderBottomColor='gray.300' minW='100vw'>
+    <Box maxH='100vh'>
+      <Flex align='center' borderBottom='1px' borderBottomColor='gray.300' h='80px' minW='100vw'>
         <Text fontSize='lg' px='72px' py={7}>
           Qlasop
         </Text>
@@ -43,7 +43,9 @@ export const AppHeader: React.FC<Props> = ({ children, breadcrumbs, uid }) => {
           ))}
         </Breadcrumb>
       </Flex>
-      {children}
+      <Box minH='calc(100vh - 80px)' w='full'>
+        {children}
+      </Box>
     </Box>
   )
 }

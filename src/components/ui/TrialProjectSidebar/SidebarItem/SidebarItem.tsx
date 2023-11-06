@@ -34,5 +34,5 @@ export const SidebarItem: React.FC<Props> = ({ icon, name, href, color }) => {
     </HStack>
   )
 
-  return href && !selected ? <Link href={href}>{item}</Link> : item
+  return href ? <Link href={href}>{item}</Link> : item
 }

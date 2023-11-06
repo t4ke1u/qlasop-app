@@ -38,3 +38,19 @@ export type DetailCourse = {
   url: string
   year: string
 }
+
+export type DetailCourseGetResponse = { detailCourse?: DetailCourse }
+
+export type AbstractCourse = {
+  creditCategory: string
+  credits: string
+  day: string
+  faculty: string
+  id: string
+  instructor: string
+  period: string
+  term: string
+  title: string
+}
+
+export type CoursesGetResponse = { courses: AbstractCourse[] }

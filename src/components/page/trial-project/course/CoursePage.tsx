@@ -1,8 +1,9 @@
 'use client'
-import { HStack, Stack, Text, Link as ChakraLink } from '@chakra-ui/react'
+import { HStack, Stack, Text, Link as ChakraLink, Icon } from '@chakra-ui/react'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import React from 'react'
+import { RxExternalLink } from 'react-icons/rx'
 
 import { LoadingView } from '@/components/ui/LoadingView'
 import { NotFoundView } from '@/components/ui/NotFoundView'
@@ -13,6 +14,7 @@ import { AddCourseTimetableButton } from './AddCourseTimetableButton'
 export const CoursePage = () => {
   const { courseId } = useParams()
   const { data } = useCourse(typeof courseId !== 'object' ? courseId : courseId[0])
+  console.log(data)
 
   if (!data) {
     return <LoadingView />
@@ -23,7 +25,7 @@ export const CoursePage = () => {
   }
 
   return (
-    <Stack spacing='8px'>
+    <Stack maxH='calc(100vh - 80px)' overflow='auto' p='20px' spacing='8px'>
       <Text color='gray.500' fontSize='sm' fontWeight='bold'>
         {data.detailCourse.year}
       </Text>
@@ -75,15 +77,18 @@ export const CoursePage = () => {
             {data.detailCourse.classRoom}
           </Text>
         </HStack>
-        <ChakraLink
-          _visited={{ color: 'purple.500' }}
-          as={Link}
-          color='blue.500'
-          href={data.detailCourse.url}
-          target='_blank'
-        >
-          {data.detailCourse.url}
-        </ChakraLink>
+        {data.detailCourse.url && (
+          <ChakraLink
+            _visited={{ color: 'purple.500' }}
+            as={Link}
+            color='blue.500'
+            href={data.detailCourse.url}
+            isExternal
+          >
+            {data.detailCourse.url}
+            <Icon as={RxExternalLink} mx='2px' />
+          </ChakraLink>
+        )}
       </Stack>
       <Text color='gray.500' fontSize='sm' fontWeight='bold'>
         授業概要

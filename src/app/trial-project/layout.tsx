@@ -6,9 +6,9 @@ import { TrialProjectSidebar } from '@/components/ui/TrialProjectSidebar'
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <AppHeader>
-      <Flex w='full'>
+      <Flex minH='full' w='full'>
         <TrialProjectSidebar />
-        <Box p={8} w='full'>
+        <Box maxH='full' w='full'>
           {children}
         </Box>
       </Flex>

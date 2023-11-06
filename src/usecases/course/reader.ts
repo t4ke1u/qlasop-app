@@ -4,15 +4,23 @@ import { useCourseRepository } from '@/repositories/course/repository'
 
 import { courseCacheKeyGenerator } from './cache'
 
-import type { DetailCourse } from '@/models/course/type'
-
-export type CourseGetResponse = { detailCourse?: DetailCourse }
+import type { CoursesGetResponse, DetailCourseGetResponse } from '@/models/course/type'
+import type { CourseQuery } from '@/models/courseQuery/type'
 
 export const useCourse = (id?: string) => {
   const repository = useCourseRepository()
 
-  return useSWR<CourseGetResponse>(
+  return useSWR<DetailCourseGetResponse>(
     id ? courseCacheKeyGenerator.generateItemKey(id) : null,
     id ? () => repository.get(id) : null,
+  )
+}
+
+export const useCourseList = (query?: CourseQuery) => {
+  const repository = useCourseRepository()
+
+  return useSWR<CoursesGetResponse>(
+    query ? courseCacheKeyGenerator.generateListKey(query) : null,
+    query ? () => repository.list(query) : null,
   )
 }
