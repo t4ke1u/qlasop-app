@@ -1,22 +1,20 @@
 'use client'
 
 import { Box, HStack } from '@chakra-ui/react'
-import { useState } from 'react'
 
 import { LoadingView } from '@/components/ui/LoadingView'
 import { useCourseList } from '@/usecases/course/reader'
-import { useCourseQuery } from '@/usecases/courseQuery/reader'
+import { useCourseQuery, useCourseQueryCache } from '@/usecases/courseQuery/reader'
+import { useCourseQueryCacheUsecase } from '@/usecases/courseQuery/usecase'
 
 import { CourseList } from './CourseList'
 import { CourseQueryFormView } from './CourseQueryFormView'
 
-import type { CourseQuery } from '@/models/courseQuery/type'
-
 export const SearchPage = () => {
-  const [query, setQuery] = useState<CourseQuery | undefined>()
-
+  const { courseQuery } = useCourseQueryCache()
+  const { updateCourseQueryCache } = useCourseQueryCacheUsecase()
   const { data: queryData } = useCourseQuery()
-  const { data: coursesData, isLoading } = useCourseList(query)
+  const { data: coursesData, isLoading } = useCourseList(courseQuery)
 
   if (!queryData) {
     return <LoadingView />
@@ -24,7 +22,7 @@ export const SearchPage = () => {
 
   return (
     <HStack align='start' maxH='full' p='20px' spacing='md'>
-      <CourseQueryFormView data={queryData} isLoading={isLoading} setQuery={setQuery} />
+      <CourseQueryFormView data={queryData} isLoading={isLoading} />
       <Box h='full' w='full'>
         {isLoading ? <LoadingView /> : <CourseList data={coursesData} />}
       </Box>

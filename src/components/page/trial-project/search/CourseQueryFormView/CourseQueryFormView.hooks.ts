@@ -3,7 +3,7 @@ import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import type { CourseQueryGetResponse } from '@/models/courseQuery/type'
+import type { CourseQuery, CourseQueryGetResponse } from '@/models/courseQuery/type'
 
 const schema = z.object({
   campus: z.string(),
@@ -21,23 +21,26 @@ const schema = z.object({
 
 export type CourseQuerySchemaType = z.infer<typeof schema>
 
-export const useCourseQueryForm = (courseQueryGetResponse: CourseQueryGetResponse) => {
+export const useCourseQueryForm = (
+  courseQueryGetResponse: CourseQueryGetResponse,
+  courseQuery?: CourseQuery,
+) => {
   // 初期値の設定
   const defaultValues: CourseQuerySchemaType = useMemo(() => {
     return {
-      campus: '',
-      courseCategory: '',
-      creditCategory: '',
-      day: '',
-      eligibleYear: '',
-      faculty: '',
-      keyword: '',
-      mainLang: '',
-      period: '',
-      term: '',
-      year: courseQueryGetResponse.years[0].value,
+      campus: courseQuery?.campus ?? '',
+      courseCategory: courseQuery?.courseCategory ?? '',
+      creditCategory: courseQuery?.creditCategory ?? '',
+      day: courseQuery?.day ?? '',
+      eligibleYear: courseQuery?.eligibleYear ?? '',
+      faculty: courseQuery?.faculty ?? '',
+      keyword: courseQuery?.keyword ?? '',
+      mainLang: courseQuery?.mainLang ?? '',
+      period: courseQuery?.period ?? '',
+      term: courseQuery?.term ?? '',
+      year: courseQuery?.year ?? courseQueryGetResponse.years[0].value,
     }
-  }, [courseQueryGetResponse])
+  }, [courseQueryGetResponse, courseQuery])
 
   const form = useForm<CourseQuerySchemaType>({
     defaultValues,

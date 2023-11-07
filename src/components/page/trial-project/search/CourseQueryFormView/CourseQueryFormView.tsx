@@ -1,12 +1,14 @@
 import { FormLabel, HStack, Select, Stack, Text, Input, Button } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect } from 'react'
+
+import { useCourseQueryCache } from '@/usecases/courseQuery/reader'
+import { useCourseQueryCacheUsecase } from '@/usecases/courseQuery/usecase'
 
 import { useCourseQueryForm } from './CourseQueryFormView.hooks'
 
 import type { CourseQuerySchemaType } from './CourseQueryFormView.hooks'
-import type { CourseQuery, CourseQueryGetResponse } from '@/models/courseQuery/type'
+import type { CourseQueryGetResponse } from '@/models/courseQuery/type'
 import type { InputProps, SelectProps } from '@chakra-ui/react'
-import type { Dispatch, SetStateAction } from 'react'
 
 const SelectItemProps: SelectProps = {
   alignContent: 'center',
@@ -33,22 +35,29 @@ const InputItemProps: InputProps = {
 type Props = {
   data: CourseQueryGetResponse
   isLoading: boolean
-  setQuery: Dispatch<SetStateAction<CourseQuery | undefined>>
 }
 
-export const CourseQueryFormView: React.FC<Props> = ({ data, setQuery, isLoading }) => {
+export const CourseQueryFormView: React.FC<Props> = ({ data, isLoading }) => {
+  const { courseQuery } = useCourseQueryCache()
+  const { updateCourseQueryCache } = useCourseQueryCacheUsecase()
   const {
     register,
     watch,
-    reset,
     handleSubmit,
+    setValue,
+    reset,
     formState: { isSubmitting },
-  } = useCourseQueryForm(data)
+  } = useCourseQueryForm(data, courseQuery)
   const watchFaculty = watch('faculty')
 
-  const submit = async (query: CourseQuerySchemaType) => {
-    setQuery(query)
-  }
+  useEffect(() => {
+    if (watchFaculty !== courseQuery?.faculty) {
+      setValue('courseCategory', '')
+      setValue('creditCategory', '')
+    }
+  }, [watchFaculty, setValue, courseQuery])
+
+  const submit = async (query: CourseQuerySchemaType) => updateCourseQueryCache(query)
 
   return (
     <Stack
@@ -199,8 +208,28 @@ export const CourseQueryFormView: React.FC<Props> = ({ data, setQuery, isLoading
         <Input id='keyword' {...InputItemProps} {...register('keyword')} />
       </HStack>
       <HStack justify='end' py='20px' spacing='20px'>
-        <Button colorScheme='blackAlpha' onClick={() => reset()} size='md' variant='outline'>
-          リセット
+        <Button
+          colorScheme='blackAlpha'
+          onClick={() => {
+            updateCourseQueryCache(undefined)
+            reset({
+              campus: '',
+              courseCategory: '',
+              creditCategory: '',
+              day: '',
+              eligibleYear: '',
+              faculty: '',
+              keyword: '',
+              mainLang: '',
+              period: '',
+              term: '',
+              year: data.years[0].value,
+            })
+          }}
+          size='md'
+          variant='outline'
+        >
+          クリア
         </Button>
         <Button
           _hover={{ backgroundColor: 'green.200' }}

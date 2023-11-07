@@ -26,6 +26,7 @@ export const POST = async (request: NextRequest) => {
       'id, title_jp, faculty, term, day, start_period, end_period, instructor_jp, credit_category, credits',
     )
     .or(`and(${query})`)
+    .limit(5000)
 
   if (!coursesData) {
     return NextResponse.json({ courses: [] })
