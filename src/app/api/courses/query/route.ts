@@ -1,3 +1,5 @@
+import { NextResponse } from 'next/server'
+
 import { supabase } from '@/libs/supabase'
 
 import type { CourseQueryItem } from '@/models/courseQuery/type'
@@ -68,7 +70,7 @@ export const GET = async () => {
   }))
   eligibleYears.unshift({ display: '', value: '' })
 
-  return Response.json({
+  return NextResponse.json({
     campuses,
     courseCategories,
     creditCategories,
