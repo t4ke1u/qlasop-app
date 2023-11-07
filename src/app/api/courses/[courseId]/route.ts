@@ -84,5 +84,5 @@ export const GET = async (request: Request, { params }: { params: { courseId: st
     year: `${year}年度`,
   }
 
-  return Response.json({ detailCourse })
+  return NextResponse.json({ detailCourse })
 }
