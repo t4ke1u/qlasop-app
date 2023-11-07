@@ -1,0 +1,1 @@
+export { TimetableCellInfoView } from './TimetableCellInfoView'

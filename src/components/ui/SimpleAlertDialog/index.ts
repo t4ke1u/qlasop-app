@@ -1,0 +1,1 @@
+export { SimpleAlertDialog } from './SimpleAlertDialog'

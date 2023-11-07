@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:path": "pathpida --ignorepath .gitignore --output ./src/generated",
     "start": "next start",
     "lint": "next lint",
-    "lint-fix": "yarn lint --fix",
+    "lint:fix": "yarn lint --fix",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json}'"
   },
   "dependencies": {
@@ -16,18 +17,19 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.1.0",
-    "@supabase/supabase-js": "^2.26.0",
+    "@supabase/supabase-js": "^2.38.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",
-    "encoding": "^0.1.13",
     "@types/uuid": "^9.0.2",
+    "encoding": "^0.1.13",
     "eslint": "8.41.0",
-    "eslint-config-next": "13.4.4",
+    "eslint-config-next": "^14.0.1",
     "framer-motion": "^10.12.17",
-    "next": "13.4.4",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "^14.0.1",
+    "next-auth": "^4.23.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.44.3",
     "react-icons": "^4.10.1",
     "swr": "^2.2.0",
@@ -37,7 +39,12 @@
     "zustand": "^4.3.8"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
     "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-sort-keys-fix": "^1.1.2",
+    "eslint-plugin-typescript-sort-keys": "^3.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "pathpida": "^0.22.0",
     "prettier": "^2.8.8"
   }
 }

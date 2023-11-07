@@ -1,15 +1,18 @@
-# Opclass
+# Qlasop
 
 2023 年度 学士 4 年 太田岳 卒業研究 \
 量子アニーリングを用いた時間割最適化アプリ \
-[https://opclass.vercel.app/](https://opclass.vercel.app/)
+[https://qlasop.vercel.app/](https://qlasop.vercel.app/)
 
 ## Environment
 
-- Runtime: [Node.js](https://nodejs.org/ja) - v18.12.1
-- Packege Manager: [Yarn](https://yarnpkg.com/) - v1.22.19
-- Framework: [Next.js](https://nextjs.org/) - v13.4.4
-- UI Framework: [Chakra UI](https://chakra-ui.com/) - v2.7.0
+- Runtime: [Node.js](https://nodejs.org/ja)
+- Packege Manager: [Yarn](https://yarnpkg.com/)
+- Framework: [Next.js](https://nextjs.org/) - v14
+- UI Framework: [Chakra UI](https://chakra-ui.com/) - v2.7
+- Database: [Supabase](https://supabase.com/)
+- Auth: [NextAuth](https://next-auth.js.org/)
+- Global State Management: [Zustand](https://github.com/pmndrs/zustand)
 - Linter: [ESLint](https://eslint.org/) - v8.41.0
 - Formatter: [Prettier](https://prettier.io/) - v2.8.8
 
@@ -39,9 +42,10 @@
 │   ├── usecases            # usecaseレイヤー：ユーザが行う処理
 │   └── utils               # ユーティリティロジック
 ├── README.md
-├── .eslintrc.json
+├── .eslintrc.js
+├── .eslintignore
 ├── .gitignore
-├── .prettierrc
+├── .prettierrc.js
 ├── next-env.d.ts
 ├── next.config.js
 ├── package.json

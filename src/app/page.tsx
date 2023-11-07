@@ -1,10 +1,10 @@
 import { Top } from '@/components/page/top'
 
 export const metadata = {
-  title: 'opclass',
   description: '',
+  title: 'Qlasop',
 }
 
-const TopPage = () => <Top />
+const Page = () => <Top />
 
-export default TopPage
+export default Page

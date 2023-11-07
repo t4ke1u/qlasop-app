@@ -1,1 +1,0 @@
-export { ProjectSidebarWithHeader } from './ProjectSidebarWithHeader'

@@ -1,0 +1,1 @@
+export { CourseCell } from './CourseCell'
