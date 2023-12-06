@@ -8,7 +8,6 @@ export const createCourseRepository = () => ({
     const { detailCourse } = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/courses/${id}`,
     ).then((r) => r.json())
-    console.log(detailCourse)
     return { detailCourse }
   },
 

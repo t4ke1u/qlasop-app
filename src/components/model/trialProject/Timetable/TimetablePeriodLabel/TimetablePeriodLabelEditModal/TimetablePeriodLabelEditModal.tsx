@@ -58,8 +58,6 @@ export const TimetablePeriodLabelEditModal: React.FC<Props> = ({
   const submit = async (data: PeriodLabelSchemaType) => {
     try {
       updatePeriodLabel(data)
-    } catch (e) {
-      console.log(e)
     } finally {
       onClose()
     }
