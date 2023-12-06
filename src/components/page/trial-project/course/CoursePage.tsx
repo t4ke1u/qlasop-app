@@ -14,7 +14,6 @@ import { AddCourseTimetableButton } from './AddCourseTimetableButton'
 export const CoursePage = () => {
   const { courseId } = useParams()
   const { data } = useCourse(typeof courseId !== 'object' ? courseId : courseId[0])
-  console.log(data)
 
   if (!data) {
     return <LoadingView />
