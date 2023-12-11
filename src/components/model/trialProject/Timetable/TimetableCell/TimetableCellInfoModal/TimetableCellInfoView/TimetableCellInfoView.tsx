@@ -34,10 +34,8 @@ type Props = {
 export const TimetableCellInfoView: React.FC<Props> = ({ time, cell, setView }) => {
   // Delete Cell Logic
   const { trialProject } = useTrialProject()
-  const { updateTrialProject } = useTrialProjectUsecase()
-  const deleteCell = () => {
-    updateTrialProject({ ...trialProject, cells: trialProject.cells.filter((c) => c !== cell) })
-  }
+  const { updateTrialProject, deleteCell } = useTrialProjectUsecase()
+
   // Alert
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -135,7 +133,7 @@ export const TimetableCellInfoView: React.FC<Props> = ({ time, cell, setView }) 
       )}
 
       <SimpleAlertDialog
-        action={deleteCell}
+        action={() => deleteCell(cell!)}
         description='削除すると，元に戻せませんが，それでも実行しますか？'
         isOpen={isOpen}
         onClose={onClose}

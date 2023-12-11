@@ -16,7 +16,7 @@ export const POST = async (request: NextRequest) => {
     body.faculty !== '' ? `, faculty.eq.${body.faculty}` : ''
   }${body.keyword !== '' ? `, title_jp.like.%${body.keyword}%` : ''}${
     body.mainLang !== '' ? `, main_language.eq.${body.mainLang}` : ''
-  }${body.period !== '' ? `, period.eq.${body.period}` : ''}${
+  }${body.period !== '' ? `, start_period.lte.${body.period}, end_period.gte.${body.period}` : ''}${
     body.term !== '' ? `, term.eq.${body.term}` : ''
   }`
   // 日本語
@@ -26,7 +26,7 @@ export const POST = async (request: NextRequest) => {
       'id, title_jp, faculty, term, day, start_period, end_period, instructor_jp, credit_category, credits',
     )
     .or(`and(${query})`)
-    .limit(5000)
+    .limit(2500)
 
   if (!coursesData) {
     return NextResponse.json({ courses: [] })
@@ -40,6 +40,17 @@ export const POST = async (request: NextRequest) => {
     .from('course-credit-category')
     .select('id, jp')
   const courses: AbstractCourse[] = coursesData.map((courseData) => ({
+    course: {
+      creditCategory: courseData.credit_category
+        ? creditCategoryData?.filter((d) => d.id === courseData.credit_category)[0].jp
+        : '',
+      credits: courseData.credits,
+      day: courseData.day,
+      endPeriod: courseData.end_period,
+      instructor: courseData.instructor_jp,
+      startPeriod: courseData.start_period,
+      title: courseData.title_jp,
+    },
     creditCategory: courseData.credit_category
       ? creditCategoryData?.filter((d) => d.id === courseData.credit_category)[0].jp
       : '',

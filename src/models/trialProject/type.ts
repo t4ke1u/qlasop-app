@@ -3,7 +3,7 @@ import type { Course } from '@/models/course/type'
 export type TrialProject = {
   cells: Cell[]
   periodLabels: PeriodLabel[]
-  staged: Course[]
+  stage: Course[]
 }
 
 export type Cell = Course & {

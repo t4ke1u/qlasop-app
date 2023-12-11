@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 
 import { useTrialProjectStore, type TrialProjectState } from '@/store/trialProject'
 
+import type { Course } from '@/models/course/type'
 import type { Cell, PeriodLabel } from '@/models/trialProject/type'
 
 export const createTrialProjectUsecase = ({ store }: { store: TrialProjectState }) => {
@@ -24,7 +25,7 @@ export const createTrialProjectUsecase = ({ store }: { store: TrialProjectState 
   }
 
   // セルを追加する関数
-  const createCell = (cell: Cell, force: boolean = false): boolean => {
+  const addCell = (cell: Cell, force: boolean = false): boolean => {
     const overlapedCells = getOverlapCells(cell)
     // 上書きを許可しない場合
     if (overlapedCells.length > 0 && !force) {
@@ -86,7 +87,39 @@ export const createTrialProjectUsecase = ({ store }: { store: TrialProjectState 
     }
   }
 
-  return { createCell, deleteCell, updateCell, updatePeriodLabel, updateTrialProject }
+  const addStageCourses = (courses: Course[]) => {
+    store.update({ ...store, stage: [...store.stage, ...courses] })
+    return true
+  }
+
+  const removeStageCourse = (course: Course) => {
+    if (!store.stage.includes(course)) {
+      return false
+    }
+    store.update({ ...store, stage: store.stage.filter((c) => c !== course) })
+    return true
+  }
+
+  const updateStageCourse = (oldCourse: Course, newCourse: Course) => {
+    if (!store.stage.includes(oldCourse)) {
+      return false
+    }
+    const filteredCourses = store.stage.filter((c) => c !== oldCourse)
+    store.update({ ...store, stage: [...filteredCourses, newCourse] })
+    return true
+  }
+
+  return {
+    addCell,
+    addStageCourses,
+    deleteCell,
+    getOverlapCells,
+    removeStageCourse,
+    updateCell,
+    updatePeriodLabel,
+    updateStageCourse,
+    updateTrialProject,
+  }
 }
 
 export const useTrialProjectUsecase = () => {

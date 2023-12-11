@@ -14,7 +14,7 @@ export const useTrialProjectStore = create<TrialProjectState>()(
     (set) => ({
       cells: [],
       periodLabels: DEFAULT_PERIODS,
-      staged: [],
+      stage: [],
 
       update: (trialProject) => set({ ...trialProject }),
     }),
