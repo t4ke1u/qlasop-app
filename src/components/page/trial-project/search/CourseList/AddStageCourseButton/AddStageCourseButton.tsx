@@ -41,10 +41,10 @@ export const AddStageCourseButton: React.FC<Props> = ({
   return (
     <>
       <Button
-        _hover={{ background: isDisabled ? 'gray.200' : 'purple.200' }}
-        bg={isDisabled ? 'gray.200' : 'purple.100'}
-        border={isDisabled ? 'gray.200' : 'purple.100'}
-        color={isDisabled ? 'gray.50' : 'purple.500'}
+        _hover={{ background: isDisabled ? 'gray.200' : 'blue.200' }}
+        bg={isDisabled ? 'gray.200' : 'blue.100'}
+        border={isDisabled ? 'gray.200' : 'blue.100'}
+        color={isDisabled ? 'gray.50' : 'blue.500'}
         h='32px'
         isDisabled={isDisabled}
         onClick={onOpen}

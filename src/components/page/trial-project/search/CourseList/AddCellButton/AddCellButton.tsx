@@ -19,22 +19,21 @@ export const AddCellButton: React.FC<Props> = ({
   courses,
   onProcessed,
 }) => {
-  const { getOverlapCells, addCell } = useTrialProjectUsecase()
+  const { addCells } = useTrialProjectUsecase()
   const toast = useToast()
 
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const addCells = () => {
-    if (
+  const addCellsProcess = () => {
+    const result = addCells(
       selectedIndexes
         .map((i) => courses[i])
         .filter((course) => course.day !== -1)
-        .every((course) => getOverlapCells({ ...course, color: 'gray' }).length === 0)
-    ) {
-      selectedIndexes
-        .map((i) => courses[i])
-        .filter((course) => course.day !== -1)
-        .forEach((course) => addCell({ ...course, color: 'gray' }))
+        .map((course) => {
+          return { ...course, color: 'gray' }
+        }),
+    )
+    if (result) {
       toast({
         isClosable: true,
         position: 'bottom-right',
@@ -59,10 +58,10 @@ export const AddCellButton: React.FC<Props> = ({
   return (
     <>
       <Button
-        _hover={{ background: isDisabled ? 'gray.200' : 'red.200' }}
-        bg={isDisabled ? 'gray.200' : 'red.100'}
-        border={isDisabled ? 'gray.200' : 'red.100'}
-        color={isDisabled ? 'gray.50' : 'red.500'}
+        _hover={{ background: isDisabled ? 'gray.200' : 'purple.200' }}
+        bg={isDisabled ? 'gray.200' : 'purple.100'}
+        border={isDisabled ? 'gray.200' : 'purple.100'}
+        color={isDisabled ? 'gray.50' : 'purple.500'}
         h='32px'
         isDisabled={isDisabled}
         ml='20px'
@@ -74,7 +73,7 @@ export const AddCellButton: React.FC<Props> = ({
         時間割に追加
       </Button>
       <SimpleAlertDialog
-        action={addCells}
+        action={addCellsProcess}
         isOpen={isOpen}
         onClose={onClose}
         title={`${
