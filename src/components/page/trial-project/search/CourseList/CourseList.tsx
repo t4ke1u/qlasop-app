@@ -1,7 +1,5 @@
-import { Button, HStack, Stack, Text, Wrap, WrapItem } from '@chakra-ui/react'
+import { Button, HStack, Stack, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
-
-import { useTrialProjectUsecase } from '@/usecases/trialProject/usecase'
 
 import { AddCellButton } from './AddCellButton'
 import { AddStageCourseButton } from './AddStageCourseButton'
@@ -18,8 +16,6 @@ type Props = {
 type ViewMode = 'link' | 'select'
 
 export const CourseList: React.FC<Props> = ({ data }) => {
-  const { addStageCourses } = useTrialProjectUsecase()
-
   const [mode, setMode] = useState<ViewMode>('link')
   const [selectedIndexes, setSelectedIndexes] = useState<number[]>([])
   const toggleMode = () => {
@@ -97,35 +93,30 @@ export const CourseList: React.FC<Props> = ({ data }) => {
         </HStack>
       </HStack>
       {mode === 'link' ? (
-        <Wrap maxH='calc(100vh - 170px)' overflow='auto' py='10px'>
+        <HStack maxH='calc(100vh - 170px)' overflow='auto' py='10px' wrap='wrap'>
           {data.courses.map((course, index) => {
-            return (
-              <WrapItem key={index}>
-                <CourseCell course={course} />
-              </WrapItem>
-            )
+            return <CourseCell course={course} key={index} />
           })}
-        </Wrap>
+        </HStack>
       ) : (
-        <Wrap maxH='calc(100vh - 170px)' overflow='auto' py='10px'>
+        <HStack maxH='calc(100vh - 170px)' overflow='auto' py='10px' wrap='wrap'>
           {data.courses.map((course, index) => {
             return (
-              <WrapItem key={index}>
-                <CourseCellButton
-                  course={course}
-                  isSelected={selectedIndexes.includes(index)}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    if (e.target.checked) {
-                      setSelectedIndexes((prev) => [...prev, index])
-                    } else {
-                      setSelectedIndexes((prev) => prev.filter((i) => i !== index))
-                    }
-                  }}
-                />
-              </WrapItem>
+              <CourseCellButton
+                course={course}
+                isSelected={selectedIndexes.includes(index)}
+                key={index}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  if (e.target.checked) {
+                    setSelectedIndexes((prev) => [...prev, index])
+                  } else {
+                    setSelectedIndexes((prev) => prev.filter((i) => i !== index))
+                  }
+                }}
+              />
             )
           })}
-        </Wrap>
+        </HStack>
       )}
     </Stack>
   )

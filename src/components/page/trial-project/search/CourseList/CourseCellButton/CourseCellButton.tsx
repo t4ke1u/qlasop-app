@@ -2,12 +2,11 @@ import { Checkbox, HStack, Stack, Text } from '@chakra-ui/react'
 import React from 'react'
 
 import type { AbstractCourse } from '@/models/course/type'
-import type { ChangeEvent } from 'react'
 
 type Props = {
   course: AbstractCourse
   isSelected: boolean
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const CourseCellButton: React.FC<Props> = ({ course, isSelected, onChange }) => {
