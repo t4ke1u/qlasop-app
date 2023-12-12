@@ -18,6 +18,9 @@ export const useTrialProjectStore = create<TrialProjectState>()(
 
       update: (trialProject) => set({ ...trialProject }),
     }),
-    { name: 'trial-project', storage: createJSONStorage(() => sessionStorage) },
+    {
+      name: 'trial-project',
+      storage: createJSONStorage(() => sessionStorage),
+    },
   ),
 )

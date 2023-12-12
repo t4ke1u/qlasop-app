@@ -38,6 +38,34 @@ export const createTrialProjectUsecase = ({ store }: { store: TrialProjectState 
     return true
   }
 
+  // 複数のセルを追加する関数
+  const addCells = (cells: Cell[]): boolean => {
+    const storedCells = store.cells
+    for (let i = 0; i < cells.length; i++) {
+      for (let j = i + 1; j < cells.length; j++) {
+        if (
+          cells[i].day === cells[j].day &&
+          !(cells[i].startPeriod > cells[j].endPeriod || cells[i].endPeriod < cells[j].startPeriod)
+        ) {
+          return false
+        }
+      }
+      for (const storedCell of storedCells) {
+        if (
+          cells[i].day === storedCell.day &&
+          !(
+            cells[i].startPeriod > storedCell.endPeriod ||
+            cells[i].endPeriod < storedCell.startPeriod
+          )
+        ) {
+          return false
+        }
+      }
+    }
+    store.update({ ...store, cells: [...storedCells, ...cells] })
+    return true
+  }
+
   // セルを削除する関数
   const deleteCell = (cell: Cell): boolean => {
     // セルを含まない場合
@@ -88,11 +116,11 @@ export const createTrialProjectUsecase = ({ store }: { store: TrialProjectState 
   }
 
   const addStageCourses = (courses: Course[]) => {
-    store.update({ ...store, stage: [...store.stage, ...courses] })
+    store.update({ ...store, stage: [...courses, ...store.stage] })
     return true
   }
 
-  const removeStageCourse = (course: Course) => {
+  const deleteStageCourse = (course: Course) => {
     if (!store.stage.includes(course)) {
       return false
     }
@@ -100,21 +128,27 @@ export const createTrialProjectUsecase = ({ store }: { store: TrialProjectState 
     return true
   }
 
+  const deleteStageCourses = (courses: Course[]) => {
+    store.update({ ...store, stage: store.stage.filter((c) => !courses.includes(c)) })
+    return true
+  }
+
   const updateStageCourse = (oldCourse: Course, newCourse: Course) => {
     if (!store.stage.includes(oldCourse)) {
       return false
     }
-    const filteredCourses = store.stage.filter((c) => c !== oldCourse)
-    store.update({ ...store, stage: [...filteredCourses, newCourse] })
+    store.update({ ...store, stage: [newCourse, ...store.stage.filter((c) => c !== oldCourse)] })
     return true
   }
 
   return {
     addCell,
+    addCells,
     addStageCourses,
     deleteCell,
+    deleteStageCourse,
+    deleteStageCourses,
     getOverlapCells,
-    removeStageCourse,
     updateCell,
     updatePeriodLabel,
     updateStageCourse,
