@@ -1,10 +1,12 @@
 'use client'
 
-import { Button, HStack, Stack, Text } from '@chakra-ui/react'
+import { Button, Center, HStack, Icon, Stack, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import { RxMagnifyingGlass } from 'react-icons/rx'
 
 import { useTrialProject } from '@/usecases/trialProject/reader'
 
+import { AddStageCourseButton } from './AddStageCourseButton'
 import { DeleteStageCourseButton } from './DeleteStageCourseButton'
 import { StageCourseCell } from './StageCourseCell'
 import { StageCourseCellButton } from './StageCourseCellButton'
@@ -60,7 +62,7 @@ export const StageCourseList: React.FC<Props> = () => {
   }, [mode, trialProject.stage, selectedIndexes])
 
   return (
-    <Stack maxH='calc(100vh - 120px)' px='20px'>
+    <Stack maxH='calc(100vh - 185px)' px='20px'>
       <HStack align='center' justify='space-between'>
         <Text color='gray.400' fontSize='sm' fontWeight='bold' h='50px' py='16px' w='180px'>
           科目候補 - {stageCourseLength}件
@@ -114,11 +116,23 @@ export const StageCourseList: React.FC<Props> = () => {
             onProcessed={toggleMode}
             selectedIndexes={selectedIndexes}
           />
+          <AddStageCourseButton />
         </HStack>
       </HStack>
-      <HStack maxH='calc(100vh - 170px)' overflow='auto' py='10px' wrap='wrap'>
-        {stageCourseList}
-      </HStack>
+      {stageCourseLength !== 0 ? (
+        <HStack maxH='calc(100vh - 235px)' overflow='auto' py='10px' wrap='wrap'>
+          {stageCourseList}
+        </HStack>
+      ) : (
+        <Center h='100px' w='full'>
+          <HStack align='center' fontWeight='semibold' gap='5px' px='10px' py='14px'>
+            <Icon as={RxMagnifyingGlass} color='gray.500' size='14px' />
+            <Text color='gray.500' cursor='pointer' fontSize='sm'>
+              Search で科目候補を追加できます
+            </Text>
+          </HStack>
+        </Center>
+      )}
     </Stack>
   )
 }
