@@ -19,20 +19,24 @@ import React, { useState } from 'react'
 
 import { FreetimeSettingView } from './FreetimeSettingView'
 import { RequiredCreditFormView } from './RequiredCreditFormView'
+import { SolverSelectView } from './SolverSelectView'
 import { StageCourseList } from './StageCourseList'
 
 import type { RequiredCreditRequestSchemaType } from './RequiredCreditFormView/RequiredCreditFormView.hooks'
-import type { RequiredCredit } from '@/models/optimization/type'
+import type { FreetimePeriods, RequiredCredit, SolverType } from '@/models/optimization/type'
 
 export const OptimizePage = () => {
   const steps = [
     { description: '科目候補 & 必要単位数', title: 'Step 1' },
     { description: '空きコマ', title: 'Step 2' },
     { description: 'ソルバー', title: 'Step 3' },
+    { description: '最適化結果', title: 'Step 4' },
   ]
 
   const { activeStep, setActiveStep } = useSteps({ count: steps.length, index: 0 })
   const [requiredCredit, setRequiredCredit] = useState<RequiredCredit>([])
+  const [freetimePeriods, setFreetimePeriods] = useState<FreetimePeriods>([])
+  const [solverType, setSolverType] = useState<SolverType>('AMPLIFY_AE')
 
   return (
     <Stack>
@@ -70,8 +74,22 @@ export const OptimizePage = () => {
             <StageCourseList />
           </Box>
         </HStack>
+      ) : activeStep === 1 ? (
+        <FreetimeSettingView
+          freetimePeriods={freetimePeriods}
+          onClickBack={() => setActiveStep(0)}
+          onProcessed={() => setActiveStep(2)}
+          setFreetimePeriods={setFreetimePeriods}
+        />
+      ) : activeStep === 2 ? (
+        <SolverSelectView
+          onClickBack={() => setActiveStep(1)}
+          onProcessed={() => setActiveStep(3)}
+          setSolverType={setSolverType}
+          solverType={solverType}
+        />
       ) : (
-        <FreetimeSettingView />
+        <></>
       )}
     </Stack>
   )

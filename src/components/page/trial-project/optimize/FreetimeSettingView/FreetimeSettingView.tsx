@@ -1,5 +1,5 @@
 import { Box, Button, Grid, HStack, Stack, Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { TIMETABLE_DAYS } from '@/constants/project'
@@ -12,10 +12,20 @@ import { TimetablePeriodLabel } from './TimetablePeriodLabel'
 
 import type { FreetimePeriods } from '@/models/optimization/type'
 
-export const FreetimeSettingView = () => {
-  const { trialProject } = useTrialProject()
+type Props = {
+  freetimePeriods: FreetimePeriods
+  onClickBack: () => void
+  onProcessed: () => void
+  setFreetimePeriods: React.Dispatch<React.SetStateAction<FreetimePeriods>>
+}
 
-  const [freetimePeriods, setFreetimePeriods] = useState<FreetimePeriods>([])
+export const FreetimeSettingView: React.FC<Props> = ({
+  onClickBack,
+  onProcessed,
+  freetimePeriods,
+  setFreetimePeriods,
+}) => {
+  const { trialProject } = useTrialProject()
 
   const [cells, setCells] = useState<Array<React.ReactNode>>([])
   useEffect(() => {
@@ -59,14 +69,14 @@ export const FreetimeSettingView = () => {
       }
     }
     setCells(cells)
-  }, [trialProject.cells, freetimePeriods])
+  }, [trialProject.cells, freetimePeriods, setFreetimePeriods])
 
   return (
     <Stack maxH='calc(100vh - 185px)' px='50px' py='20px'>
       <Stack spacing='sm'>
         <Text>科目を入れない時限を選択してください</Text>
         <HStack py='20px' spacing='20px'>
-          <Button colorScheme='blackAlpha' size='md' variant='outline'>
+          <Button colorScheme='blackAlpha' onClick={onClickBack} size='md' variant='outline'>
             戻る
           </Button>
           <Button
@@ -74,6 +84,7 @@ export const FreetimeSettingView = () => {
             bg='blue.100'
             color='blue.400'
             minW='100px'
+            onClick={onProcessed}
             size='md'
           >
             次へ

@@ -62,7 +62,9 @@ export const RequiredCreditFormView: React.FC<Props> = ({ onProcessed }) => {
                 textOverflow='ellipsis'
                 whiteSpace='nowrap'
               >
-                {creditRange.creditCategory}
+                {creditRange.creditCategory !== ''
+                  ? creditRange.creditCategory
+                  : '（単位区分なし）'}
               </FormLabel>
             </Tooltip>
             <HStack align='center' spacing='5px'>
