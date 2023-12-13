@@ -9,10 +9,10 @@ const schema = z.object({
   data: z.array(z.object({ creditCategory: z.string(), credits: z.number() })),
 })
 
-export type RequiredCreditRequestSchemaType = z.infer<typeof schema>
+export type RequiredCreditsRequestSchemaType = z.infer<typeof schema>
 
-export const useRequiredCreditRequestForm = (creditRanges: CreditRanges) => {
-  const defaultValues: RequiredCreditRequestSchemaType = useMemo(() => {
+export const useRequiredCreditsRequestForm = (creditRanges: CreditRanges) => {
+  const defaultValues: RequiredCreditsRequestSchemaType = useMemo(() => {
     return {
       data: creditRanges.map((creditRange) => {
         return { creditCategory: creditRange.creditCategory, credits: creditRange.current }
@@ -20,7 +20,7 @@ export const useRequiredCreditRequestForm = (creditRanges: CreditRanges) => {
     }
   }, [creditRanges])
 
-  const form = useForm<RequiredCreditRequestSchemaType>({
+  const form = useForm<RequiredCreditsRequestSchemaType>({
     defaultValues,
     mode: 'onChange',
     reValidateMode: 'onBlur',

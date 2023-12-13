@@ -1,7 +1,7 @@
 import { Button, HStack, Radio, RadioGroup, Stack, Text } from '@chakra-ui/react'
 import React from 'react'
 
-import type { SolverType } from '@/models/optimization/type'
+import type { SolverType } from '@/models/solver/type'
 
 type Props = {
   onClickBack: () => void

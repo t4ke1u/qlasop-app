@@ -10,7 +10,7 @@ import { TimetableCell } from './TimetableCell'
 import { TimetableDayLabel } from './TimetableDayLabel'
 import { TimetablePeriodLabel } from './TimetablePeriodLabel'
 
-import type { FreetimePeriods } from '@/models/optimization/type'
+import type { FreetimePeriods } from '@/models/solver/type'
 
 type Props = {
   freetimePeriods: FreetimePeriods

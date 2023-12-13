@@ -22,8 +22,8 @@ import { RequiredCreditFormView } from './RequiredCreditFormView'
 import { SolverSelectView } from './SolverSelectView'
 import { StageCourseList } from './StageCourseList'
 
-import type { RequiredCreditRequestSchemaType } from './RequiredCreditFormView/RequiredCreditFormView.hooks'
-import type { FreetimePeriods, RequiredCredit, SolverType } from '@/models/optimization/type'
+import type { RequiredCreditsRequestSchemaType } from './RequiredCreditFormView/RequiredCreditFormView.hooks'
+import type { FreetimePeriods, RequiredCredits, SolverType } from '@/models/solver/type'
 
 export const OptimizePage = () => {
   const steps = [
@@ -34,7 +34,7 @@ export const OptimizePage = () => {
   ]
 
   const { activeStep, setActiveStep } = useSteps({ count: steps.length, index: 0 })
-  const [requiredCredit, setRequiredCredit] = useState<RequiredCredit>([])
+  const [requiredCredits, setRequiredCredits] = useState<RequiredCredits>([])
   const [freetimePeriods, setFreetimePeriods] = useState<FreetimePeriods>([])
   const [solverType, setSolverType] = useState<SolverType>('AMPLIFY_AE')
 
@@ -65,8 +65,8 @@ export const OptimizePage = () => {
       {activeStep === 0 ? (
         <HStack align='start' maxH='full' p='20px' spacing='md'>
           <RequiredCreditFormView
-            onProcessed={(data: RequiredCreditRequestSchemaType) => {
-              setRequiredCredit(data.data)
+            onProcessed={(data: RequiredCreditsRequestSchemaType) => {
+              setRequiredCredits(data.data)
               setActiveStep(1)
             }}
           />
