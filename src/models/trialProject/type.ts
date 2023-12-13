@@ -32,3 +32,9 @@ export type PeriodLabel = {
   index: number
   startTime: string
 }
+
+export type CreditRanges = {
+  creditCategory: string
+  current: number
+  max: number
+}[]
