@@ -56,6 +56,13 @@ export const pagesPath = {
         }),
       }),
     },
+    settings: {
+      $url: (url?: { hash?: string }) => ({
+        hash: url?.hash,
+        path: `/trial-project/settings${buildSuffix(url)}`,
+        pathname: '/trial-project/settings' as const,
+      }),
+    },
     timetable: {
       $url: (url?: { hash?: string }) => ({
         hash: url?.hash,

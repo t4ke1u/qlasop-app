@@ -26,7 +26,7 @@ export const ResultPage = () => {
   ]
 
   return (
-    <Stack>
+    <Stack gap={0} maxH='calc(100vh - 80px)' overflow='auto' p='20px'>
       <Stack px='100px' py='10px'>
         <Stepper index={3} size='md'>
           {steps.map((step, index) => (

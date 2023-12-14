@@ -23,9 +23,11 @@ export const TimetableCell: React.FC<Props> = ({ title, time, isAssigned }) => {
       gridColumnStart={day + 2}
       gridRow={`${startPeriod + 2} / ${endPeriod + 3}`}
       h='full'
+      overflow='hidden'
       p={0}
       rounded='lg'
       textAlign='center'
+      textOverflow='ellipsis'
       w='full'
       whiteSpace='normal'
     >

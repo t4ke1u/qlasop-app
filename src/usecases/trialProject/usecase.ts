@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 
+import { DEFAULT_PERIODS } from '@/constants/project'
 import { useTrialProjectStore, type TrialProjectState } from '@/store/trialProject'
 
 import type { Course } from '@/models/course/type'
@@ -141,6 +142,18 @@ export const createTrialProjectUsecase = ({ store }: { store: TrialProjectState 
     return true
   }
 
+  const resetTrialProject = () => {
+    store.update({ cells: [], periodLabels: DEFAULT_PERIODS, stage: [] })
+  }
+
+  const resetCells = () => {
+    store.update({ ...store, cells: [] })
+  }
+
+  const resetPeriodLabels = () => {
+    store.update({ ...store, periodLabels: DEFAULT_PERIODS })
+  }
+
   return {
     addCell,
     addCells,
@@ -149,6 +162,9 @@ export const createTrialProjectUsecase = ({ store }: { store: TrialProjectState 
     deleteStageCourse,
     deleteStageCourses,
     getOverlapCells,
+    resetCells,
+    resetPeriodLabels,
+    resetTrialProject,
     updateCell,
     updatePeriodLabel,
     updateStageCourse,

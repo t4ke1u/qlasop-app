@@ -11,7 +11,7 @@ import {
   Text,
   Tooltip,
 } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { RxArrowRight } from 'react-icons/rx'
 
 import { useSolveRequest } from '@/usecases/solveRequest/reader'
@@ -29,12 +29,11 @@ type Props = {
 export const RequiredCreditFormView: React.FC<Props> = ({ changeNext }) => {
   const { creditRanges } = useTrialProjectCreditRanges()
   const { solveRequest } = useSolveRequest()
-  const { updateRequiredCredits } = useSolveRequestUsecase()
+  const { updateRequiredCredits, resetSolveRequest } = useSolveRequestUsecase()
 
   const {
     register,
     handleSubmit,
-    reset,
     formState: { isSubmitting },
   } = useRequiredCreditsRequestForm(solveRequest.requiredCredits, creditRanges)
 
@@ -43,12 +42,15 @@ export const RequiredCreditFormView: React.FC<Props> = ({ changeNext }) => {
     changeNext()
   }
 
+  const [stageCoursesLength, setStageCoursesLength] = useState<number>(0)
+  useEffect(() => setStageCoursesLength(solveRequest.stageCourses.length), [solveRequest])
+
   return (
     <Stack
       borderRight='1px'
       borderRightColor='gray.300'
-      maxH='calc(100vh - 185px)'
-      minH='calc(100vh - 185px)'
+      maxH='calc(100vh - 225px)'
+      minH='calc(100vh - 225px)'
       minW='400px'
       overflowY='auto'
       px='20px'
@@ -57,7 +59,7 @@ export const RequiredCreditFormView: React.FC<Props> = ({ changeNext }) => {
       <Text color='gray.400' fontSize='sm' fontWeight='bold' py='16px' w='100px'>
         必要単位数
       </Text>
-      <Stack maxH='calc(100vh - 285px)' overflow='auto'>
+      <Stack maxH='calc(100vh - 325px)' overflow='auto'>
         {creditRanges.map((creditRange, index) => (
           <HStack align='center' justify='space-between' key={index} spacing='md'>
             <Tooltip fontSize='xs' label={creditRange.creditCategory}>
@@ -97,13 +99,14 @@ export const RequiredCreditFormView: React.FC<Props> = ({ changeNext }) => {
         ))}
       </Stack>
       <HStack justify='end' py='20px' spacing='20px'>
-        <Button colorScheme='blackAlpha' onClick={() => reset()} size='md' variant='outline'>
+        <Button colorScheme='blackAlpha' onClick={resetSolveRequest} size='md' variant='outline'>
           リセット
         </Button>
         <Button
           _hover={{ backgroundColor: 'blue.200' }}
           bg='blue.100'
           color='blue.400'
+          isDisabled={stageCoursesLength === 0}
           isLoading={isSubmitting}
           minW='100px'
           onClick={handleSubmit(submit)}

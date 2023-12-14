@@ -14,6 +14,7 @@ export const TimetablePeriodLabel: React.FC<Props> = ({ periodLabel }) => {
       gridColumnStart={1}
       gridRowStart={periodLabel.index + 2}
       h='full'
+      minH='80px'
       outline='solid 0.5px'
       outlineColor='gray.200'
       p={1.5}

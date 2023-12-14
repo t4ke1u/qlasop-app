@@ -33,7 +33,7 @@ export const OptimizePage = () => {
   const { activeStep, setActiveStep } = useSteps({ count: steps.length, index: 0 })
 
   return (
-    <Stack>
+    <Stack gap={0} maxH='calc(100vh - 80px)' overflow='auto' p='20px'>
       <Stack px='100px' py='10px'>
         <Stepper index={activeStep} size='md'>
           {steps.map((step, index) => (

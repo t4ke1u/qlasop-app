@@ -57,7 +57,7 @@ export const SolverSelectView: React.FC<Props> = ({ changePrev }) => {
   }
 
   return (
-    <Stack maxH='calc(100vh - 185px)' px='50px' py='20px' spacing='30px'>
+    <Stack maxH='calc(100vh - 225px)' px='50px' py='20px' spacing='30px'>
       <Text>ソルバーを選択してください</Text>
       <RadioGroup
         isDisabled={isFetching}

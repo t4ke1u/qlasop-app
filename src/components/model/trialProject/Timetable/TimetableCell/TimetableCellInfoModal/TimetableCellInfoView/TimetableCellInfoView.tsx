@@ -157,8 +157,11 @@ const ListItem = ({ label, content }: { content: React.ReactNode; label: React.R
         fontSize='sm'
         fontWeight='medium'
         h={9}
+        overflow='hidden'
         p={2}
+        textOverflow='ellipsis'
         w='full'
+        whiteSpace='nowrap'
       >
         {content}
       </Text>

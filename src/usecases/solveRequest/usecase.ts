@@ -8,6 +8,10 @@ import {
 import type { FreetimePeriods, RequiredCredits, SolverType } from '@/models/solve/type'
 
 export const createSolveRequestUsecase = ({ store }: { store: SolveRequestState }) => ({
+  resetSolveRequest: () => {
+    store.update({ freetimePeriods: [], requiredCredits: [], solverType: 'AMPLIFY_AE' })
+  },
+
   updateFreetimePeriods: (freetimePeriods: FreetimePeriods) => {
     store.update({ ...store, freetimePeriods })
   },

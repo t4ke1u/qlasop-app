@@ -1,4 +1,4 @@
-import { Box, Button, Grid, HStack, Stack, Text } from '@chakra-ui/react'
+import { Box, Button, Flex, Grid, HStack, Stack, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -75,7 +75,7 @@ export const FreetimeSettingView: React.FC<Props> = ({ changePrev, changeNext })
   }, [trialProject.cells, solveRequest.freetimePeriods, updateFreetimePeriods])
 
   return (
-    <Stack maxH='calc(100vh - 185px)' px='50px' py='20px' spacing='sm'>
+    <Stack maxH='calc(100vh - 225px)' px='50px' py='20px' spacing='sm'>
       <Stack spacing='sm'>
         <Text>科目を入れない時限を選択してください</Text>
         <HStack py='20px' spacing='20px'>
@@ -94,27 +94,29 @@ export const FreetimeSettingView: React.FC<Props> = ({ changePrev, changeNext })
           </Button>
         </HStack>
       </Stack>
-      <Grid
-        gap={1}
-        gridTemplateColumns='0.5fr repeat(6, 1fr)'
-        gridTemplateRows='auto repeat(7, minmax(50px,auto))'
-        minH='full'
-        minW='full'
-      >
-        <Box gridColumnStart={1} gridRowStart={1} />
-        {/* 時間割ラベル */}
-        {trialProject.periodLabels
-          .sort((p1, p2) => p1.index - p2.index)
-          .map((periodLabel, index) => {
-            return <TimetablePeriodLabel key={index} periodLabel={periodLabel} />
+      <Flex minH='calc(100vh - 340px)' minW='full' overflow='auto'>
+        <Grid
+          gap={1}
+          gridTemplateColumns='0.5fr repeat(6, 1fr)'
+          gridTemplateRows='auto repeat(7, minmax(80px,auto))'
+          minH='max(600px, calc(100vh - 370px))'
+          minW='full'
+        >
+          <Box gridColumnStart={1} gridRowStart={1} />
+          {/* 時間割ラベル */}
+          {trialProject.periodLabels
+            .sort((p1, p2) => p1.index - p2.index)
+            .map((periodLabel, index) => {
+              return <TimetablePeriodLabel key={index} periodLabel={periodLabel} />
+            })}
+          {/* 曜日ラベル */}
+          {Object.keys(TIMETABLE_DAYS.jp).map((_, index) => {
+            return <TimetableDayLabel index={index} key={index} />
           })}
-        {/* 曜日ラベル */}
-        {Object.keys(TIMETABLE_DAYS.jp).map((_, index) => {
-          return <TimetableDayLabel index={index} key={index} />
-        })}
-        {/* 科目セル */}
-        {cells}
-      </Grid>
+          {/* 科目セル */}
+          {cells}
+        </Grid>
+      </Flex>
     </Stack>
   )
 }

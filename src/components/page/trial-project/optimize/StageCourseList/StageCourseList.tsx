@@ -62,7 +62,7 @@ export const StageCourseList: React.FC<Props> = () => {
   }, [mode, trialProject.stage, selectedIndexes])
 
   return (
-    <Stack maxH='calc(100vh - 185px)' px='20px'>
+    <Stack maxH='calc(100vh - 225px)' px='20px'>
       <HStack align='center' justify='space-between'>
         <Text color='gray.400' fontSize='sm' fontWeight='bold' h='50px' py='16px' w='180px'>
           科目候補 - {stageCourseLength}件
@@ -120,7 +120,7 @@ export const StageCourseList: React.FC<Props> = () => {
         </HStack>
       </HStack>
       {stageCourseLength !== 0 ? (
-        <HStack maxH='calc(100vh - 235px)' overflow='auto' py='10px' wrap='wrap'>
+        <HStack maxH='calc(100vh - 275px)' overflow='auto' py='10px' wrap='wrap'>
           {stageCourseList}
         </HStack>
       ) : (

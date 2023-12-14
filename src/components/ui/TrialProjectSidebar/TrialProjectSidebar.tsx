@@ -38,7 +38,12 @@ export const TrialProjectSidebar = () => {
           icon={RxLightningBolt}
           name='Optimize'
         />
-        <SidebarItem color='purple' icon={RxGear} name='Settings' />
+        <SidebarItem
+          color='purple'
+          href={pagesPath.trial_project.settings.$url().pathname}
+          icon={RxGear}
+          name='Settings'
+        />
       </Stack>
     </Stack>
   )
