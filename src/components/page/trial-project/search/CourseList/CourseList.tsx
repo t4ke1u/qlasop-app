@@ -27,15 +27,11 @@ export const CourseList: React.FC<Props> = ({ data }) => {
     }
   }
 
-  if (!data) {
-    return <></>
-  }
-
   return (
     <Stack maxH='calc(100vh - 120px)' px='20px'>
       <HStack align='center' justify='space-between'>
         <Text color='gray.400' fontSize='sm' fontWeight='bold' h='50px' py='16px' w='180px'>
-          検索結果 - {data.courses.length}件 {data.courses.length === 2500 ? '（上限）' : ''}
+          検索結果 - {data?.courses.length ?? 0}件 {data?.courses.length === 2500 ? '（上限）' : ''}
         </Text>
         <HStack>
           {mode === 'link' ? (
@@ -71,7 +67,9 @@ export const CourseList: React.FC<Props> = ({ data }) => {
             color={mode === 'select' ? 'teal.500' : 'gray.50'}
             h='32px'
             isDisabled={mode === 'link'}
-            onClick={() => setSelectedIndexes([...Array(data.courses.length)].map((_, i) => i))}
+            onClick={() =>
+              setSelectedIndexes([...Array(!!data ? data.courses.length : 0)].map((_, i) => i))
+            }
             px='24px'
             size='sm'
             variant='outline'
@@ -79,44 +77,45 @@ export const CourseList: React.FC<Props> = ({ data }) => {
             全選択
           </Button>
           <AddCellButton
-            courses={data.courses.map((course) => course.course)}
+            courses={!!data ? data.courses.map((course) => course.course) : []}
             isDisabled={mode === 'link'}
             onProcessed={toggleMode}
             selectedIndexes={selectedIndexes}
           />
           <AddStageCourseButton
-            courses={data.courses.map((course) => course.course)}
+            courses={!!data ? data.courses.map((course) => course.course) : []}
             isDisabled={mode === 'link'}
             onProcessed={toggleMode}
             selectedIndexes={selectedIndexes}
           />
         </HStack>
       </HStack>
-      {mode === 'link' ? (
+
+      {!!data ? (
         <HStack maxH='calc(100vh - 170px)' overflow='auto' py='10px' wrap='wrap'>
-          {data.courses.map((course, index) => {
-            return <CourseCell course={course} key={index} />
-          })}
+          {mode === 'link'
+            ? data.courses.map((course, index) => {
+                return <CourseCell course={course} key={index} />
+              })
+            : data.courses.map((course, index) => {
+                return (
+                  <CourseCellButton
+                    course={course}
+                    isSelected={selectedIndexes.includes(index)}
+                    key={index}
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                      if (e.target.checked) {
+                        setSelectedIndexes((prev) => [...prev, index])
+                      } else {
+                        setSelectedIndexes((prev) => prev.filter((i) => i !== index))
+                      }
+                    }}
+                  />
+                )
+              })}
         </HStack>
       ) : (
-        <HStack maxH='calc(100vh - 170px)' overflow='auto' py='10px' wrap='wrap'>
-          {data.courses.map((course, index) => {
-            return (
-              <CourseCellButton
-                course={course}
-                isSelected={selectedIndexes.includes(index)}
-                key={index}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                  if (e.target.checked) {
-                    setSelectedIndexes((prev) => [...prev, index])
-                  } else {
-                    setSelectedIndexes((prev) => prev.filter((i) => i !== index))
-                  }
-                }}
-              />
-            )
-          })}
-        </HStack>
+        <></>
       )}
     </Stack>
   )

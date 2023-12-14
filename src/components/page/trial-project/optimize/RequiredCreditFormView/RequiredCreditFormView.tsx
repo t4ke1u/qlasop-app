@@ -14,25 +14,34 @@ import {
 import React from 'react'
 import { RxArrowRight } from 'react-icons/rx'
 
+import { useSolveRequest } from '@/usecases/solveRequest/reader'
+import { useSolveRequestUsecase } from '@/usecases/solveRequest/usecase'
 import { useTrialProjectCreditRanges } from '@/usecases/trialProject/reader'
 
-import { useRequiredCreditRequestForm } from './RequiredCreditFormView.hooks'
+import { useRequiredCreditsRequestForm } from './RequiredCreditFormView.hooks'
 
-import type { RequiredCreditRequestSchemaType } from './RequiredCreditFormView.hooks'
+import type { RequiredCreditsRequestSchemaType } from './RequiredCreditFormView.hooks'
 
 type Props = {
-  onProcessed: (data: RequiredCreditRequestSchemaType) => void
+  changeNext: () => void
 }
 
-export const RequiredCreditFormView: React.FC<Props> = ({ onProcessed }) => {
+export const RequiredCreditFormView: React.FC<Props> = ({ changeNext }) => {
   const { creditRanges } = useTrialProjectCreditRanges()
+  const { solveRequest } = useSolveRequest()
+  const { updateRequiredCredits } = useSolveRequestUsecase()
 
   const {
     register,
     handleSubmit,
     reset,
     formState: { isSubmitting },
-  } = useRequiredCreditRequestForm(creditRanges)
+  } = useRequiredCreditsRequestForm(solveRequest.requiredCredits, creditRanges)
+
+  const submit = async (data: RequiredCreditsRequestSchemaType) => {
+    updateRequiredCredits(data.data)
+    changeNext()
+  }
 
   return (
     <Stack
@@ -72,7 +81,11 @@ export const RequiredCreditFormView: React.FC<Props> = ({ onProcessed }) => {
                 <Text color='gray.500'>{creditRange.current}</Text>
               </Center>
               <Icon as={RxArrowRight} color='gray.500' />
-              <Select maxW='80px' minW='80px' {...register(`data.${index}.credits`)}>
+              <Select
+                maxW='80px'
+                minW='80px'
+                {...register(`data.${index}.credits`, { valueAsNumber: true })}
+              >
                 {[...Array(creditRange.max - creditRange.current + 1)].map((_, i) => (
                   <option key={i} value={i + creditRange.current}>
                     {i + creditRange.current}
@@ -93,7 +106,7 @@ export const RequiredCreditFormView: React.FC<Props> = ({ onProcessed }) => {
           color='blue.400'
           isLoading={isSubmitting}
           minW='100px'
-          onClick={handleSubmit(onProcessed)}
+          onClick={handleSubmit(submit)}
           size='md'
         >
           次へ

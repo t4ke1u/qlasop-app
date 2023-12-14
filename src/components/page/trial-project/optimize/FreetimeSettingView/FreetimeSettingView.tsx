@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 import { TIMETABLE_DAYS } from '@/constants/project'
+import { useSolveRequest } from '@/usecases/solveRequest/reader'
+import { useSolveRequestUsecase } from '@/usecases/solveRequest/usecase'
 import { useTrialProject } from '@/usecases/trialProject/reader'
 
 import { FreetimeCell } from './FreetimeCell'
@@ -10,22 +12,15 @@ import { TimetableCell } from './TimetableCell'
 import { TimetableDayLabel } from './TimetableDayLabel'
 import { TimetablePeriodLabel } from './TimetablePeriodLabel'
 
-import type { FreetimePeriods } from '@/models/solver/type'
-
 type Props = {
-  freetimePeriods: FreetimePeriods
-  onClickBack: () => void
-  onProcessed: () => void
-  setFreetimePeriods: React.Dispatch<React.SetStateAction<FreetimePeriods>>
+  changeNext: () => void
+  changePrev: () => void
 }
 
-export const FreetimeSettingView: React.FC<Props> = ({
-  onClickBack,
-  onProcessed,
-  freetimePeriods,
-  setFreetimePeriods,
-}) => {
+export const FreetimeSettingView: React.FC<Props> = ({ changePrev, changeNext }) => {
   const { trialProject } = useTrialProject()
+  const { solveRequest } = useSolveRequest()
+  const { updateFreetimePeriods } = useSolveRequestUsecase()
 
   const [cells, setCells] = useState<Array<React.ReactNode>>([])
   useEffect(() => {
@@ -52,15 +47,23 @@ export const FreetimeSettingView: React.FC<Props> = ({
         if (!filledPeriods.includes(`${i}-${j}`)) {
           cells.push(
             <FreetimeCell
-              isSelected={!!freetimePeriods.find((fp) => fp.day === i && fp.period === j)}
+              isSelected={
+                !!solveRequest.freetimePeriods.find((fp) => fp.day === i && fp.period === j)
+              }
               key={uuidv4()}
               onClick={
-                !!freetimePeriods.find((fp) => fp.day === i && fp.period === j)
+                !!solveRequest.freetimePeriods.find((fp) => fp.day === i && fp.period === j)
                   ? () =>
-                      setFreetimePeriods((prev) =>
-                        prev.filter((fp) => fp.day !== i || fp.period !== j),
+                      updateFreetimePeriods(
+                        solveRequest.freetimePeriods.filter(
+                          (fp) => fp.day !== i || fp.period !== j,
+                        ),
                       )
-                  : () => setFreetimePeriods((prev) => [...prev, { day: i, period: j }])
+                  : () =>
+                      updateFreetimePeriods([
+                        ...solveRequest.freetimePeriods,
+                        { day: i, period: j },
+                      ])
               }
               time={{ day: i, period: j }}
             />,
@@ -69,14 +72,14 @@ export const FreetimeSettingView: React.FC<Props> = ({
       }
     }
     setCells(cells)
-  }, [trialProject.cells, freetimePeriods, setFreetimePeriods])
+  }, [trialProject.cells, solveRequest.freetimePeriods, updateFreetimePeriods])
 
   return (
-    <Stack maxH='calc(100vh - 185px)' px='50px' py='20px'>
+    <Stack maxH='calc(100vh - 185px)' px='50px' py='20px' spacing='sm'>
       <Stack spacing='sm'>
         <Text>科目を入れない時限を選択してください</Text>
         <HStack py='20px' spacing='20px'>
-          <Button colorScheme='blackAlpha' onClick={onClickBack} size='md' variant='outline'>
+          <Button colorScheme='blackAlpha' onClick={changePrev} size='md' variant='outline'>
             戻る
           </Button>
           <Button
@@ -84,7 +87,7 @@ export const FreetimeSettingView: React.FC<Props> = ({
             bg='blue.100'
             color='blue.400'
             minW='100px'
-            onClick={onProcessed}
+            onClick={changeNext}
             size='md'
           >
             次へ

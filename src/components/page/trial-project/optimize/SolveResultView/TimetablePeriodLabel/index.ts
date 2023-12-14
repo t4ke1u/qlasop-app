@@ -1,0 +1,1 @@
+export { TimetablePeriodLabel } from './TimetablePeriodLabel'

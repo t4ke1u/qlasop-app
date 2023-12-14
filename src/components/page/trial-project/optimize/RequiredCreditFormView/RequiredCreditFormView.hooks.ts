@@ -3,6 +3,7 @@ import { useEffect, useMemo } from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import type { RequiredCredits } from '@/models/solve/type'
 import type { CreditRanges } from '@/models/trialProject/type'
 
 const schema = z.object({
@@ -11,14 +12,23 @@ const schema = z.object({
 
 export type RequiredCreditsRequestSchemaType = z.infer<typeof schema>
 
-export const useRequiredCreditsRequestForm = (creditRanges: CreditRanges) => {
+export const useRequiredCreditsRequestForm = (
+  requiredCredits: RequiredCredits,
+  creditRanges: CreditRanges,
+) => {
   const defaultValues: RequiredCreditsRequestSchemaType = useMemo(() => {
     return {
       data: creditRanges.map((creditRange) => {
-        return { creditCategory: creditRange.creditCategory, credits: creditRange.current }
+        const requiredCredit = requiredCredits.find(
+          (rc) => rc.creditCategory === creditRange.creditCategory,
+        )
+        return {
+          creditCategory: creditRange.creditCategory,
+          credits: requiredCredit?.credits ?? creditRange.current,
+        }
       }),
     }
-  }, [creditRanges])
+  }, [creditRanges, requiredCredits])
 
   const form = useForm<RequiredCreditsRequestSchemaType>({
     defaultValues,
@@ -36,10 +46,16 @@ export const useRequiredCreditsRequestForm = (creditRanges: CreditRanges) => {
     () =>
       form.reset({
         data: creditRanges.map((creditRange) => {
-          return { creditCategory: creditRange.creditCategory, credits: creditRange.current }
+          const requiredCredit = requiredCredits.find(
+            (rc) => rc.creditCategory === creditRange.creditCategory,
+          )
+          return {
+            creditCategory: creditRange.creditCategory,
+            credits: requiredCredit?.credits ?? creditRange.current,
+          }
         }),
       }),
-    [creditRanges, form],
+    [creditRanges, requiredCredits, form],
   )
 
   return { ...form, fields }
