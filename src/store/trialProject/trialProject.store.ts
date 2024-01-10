@@ -14,10 +14,13 @@ export const useTrialProjectStore = create<TrialProjectState>()(
     (set) => ({
       cells: [],
       periodLabels: DEFAULT_PERIODS,
-      staged: [],
+      stage: [],
 
       update: (trialProject) => set({ ...trialProject }),
     }),
-    { name: 'trial-project', storage: createJSONStorage(() => sessionStorage) },
+    {
+      name: 'trial-project',
+      storage: createJSONStorage(() => sessionStorage),
+    },
   ),
 )

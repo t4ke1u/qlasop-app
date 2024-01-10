@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Grid } from '@chakra-ui/react'
+import { Box, Flex, Grid } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -47,26 +47,29 @@ export const Timetable = () => {
   }, [trialProject.cells])
 
   return (
-    <Grid
-      gap={1}
-      gridTemplateColumns='0.5fr repeat(6, 1fr)'
-      gridTemplateRows='auto repeat(7, minmax(50px,auto))'
-      minH='full'
-      minW='full'
-    >
-      <Box gridColumnStart={1} gridRowStart={1} />
-      {/* 時間割ラベル */}
-      {trialProject.periodLabels
-        .sort((p1, p2) => p1.index - p2.index)
-        .map((periodLabel, index) => {
-          return <TimetablePeriodLabel key={index} periodLabel={periodLabel} />
+    <Flex maxH='calc(100vh - 120px)' minH='full' minW='full' overflow='auto'>
+      <Grid
+        gap={1}
+        gridTemplateColumns='0.5fr repeat(6, 1fr)'
+        gridTemplateRows='auto repeat(7, minmax(80px,auto))'
+        h='full'
+        minH='max(600px, calc(100vh - 120px))'
+        minW='full'
+      >
+        <Box gridColumnStart={1} gridRowStart={1} />
+        {/* 時間割ラベル */}
+        {trialProject.periodLabels
+          .sort((p1, p2) => p1.index - p2.index)
+          .map((periodLabel, index) => {
+            return <TimetablePeriodLabel key={index} periodLabel={periodLabel} />
+          })}
+        {/* 曜日ラベル */}
+        {Object.keys(TIMETABLE_DAYS.jp).map((_, index) => {
+          return <TimetableDayLabel index={index} key={index} />
         })}
-      {/* 曜日ラベル */}
-      {Object.keys(TIMETABLE_DAYS.jp).map((_, index) => {
-        return <TimetableDayLabel index={index} key={index} />
-      })}
-      {/* 科目セル */}
-      {cells}
-    </Grid>
+        {/* 科目セル */}
+        {cells}
+      </Grid>
+    </Flex>
   )
 }

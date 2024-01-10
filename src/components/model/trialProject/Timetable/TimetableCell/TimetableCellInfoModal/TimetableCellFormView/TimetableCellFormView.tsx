@@ -73,10 +73,10 @@ export const TimetableCellFormView: React.FC<Props> = ({ time, cell, backView, o
     formState: { errors, isSubmitting },
   } = useCellForm(time, cell)
 
-  const { updateCell, createCell } = useTrialProjectUsecase()
+  const { updateCell, addCell } = useTrialProjectUsecase()
 
   const submit = (force: boolean) => async (data: CellSchemaType) => {
-    const result = cell ? updateCell(cell!, data, force) : createCell(data, force)
+    const result = cell ? updateCell(cell!, data, force) : addCell(data, force)
     if (result) {
       force && onClose()
       onModalClose()
