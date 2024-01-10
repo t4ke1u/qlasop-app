@@ -1,4 +1,4 @@
-import { Flex, Heading, Link, Stack, Text } from '@chakra-ui/react'
+import { Heading, Link, Stack, Text } from '@chakra-ui/react'
 
 import { pagesPath } from '@/generated/$path'
 
@@ -23,9 +23,7 @@ export const TopPage = () => {
         プロジェクトを始める
       </Link>
 
-      <Flex align='center' h='100vh' justify='center' left={0} pos='absolute' top={0} w='100vw'>
-        <LoadingAnimation />
-      </Flex>
+      <LoadingAnimation />
     </Stack>
   )
 }

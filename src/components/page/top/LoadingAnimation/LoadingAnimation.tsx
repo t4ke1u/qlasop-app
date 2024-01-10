@@ -13,13 +13,16 @@ export const LoadingAnimation = () => {
   return (
     <Flex
       align='center'
-      animate={{ opacity: 0, transition: { delay: 4, duration: 0.5 } }}
+      animate={{ display: 'none', transition: { delay: 4, duration: 0.5 } }}
       as={motion.div}
       bg='white'
-      h='full'
-      initial={{ opacity: 1 }}
+      h='100vh'
+      initial={{ display: 'normal' }}
       justify='center'
-      w='full'
+      left={0}
+      pos='absolute'
+      top={0}
+      w='100vw'
     >
       <motion.text>
         {text.split('').map((char, index) => (
