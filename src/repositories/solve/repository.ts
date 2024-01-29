@@ -4,7 +4,7 @@ import type { SolveRequest, SolveResponse, SolveResult } from '@/models/solve/ty
 
 export const createSolveRepository = () => ({
   async solve(body: SolveRequest): Promise<SolveResponse> {
-    const solveResult: SolveResult = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/solve`, {
+    const solveResult: SolveResult = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}`, {
       body: JSON.stringify(body),
       headers: {
         'Content-Type': 'application/json',
