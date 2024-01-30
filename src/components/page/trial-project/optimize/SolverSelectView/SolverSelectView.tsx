@@ -68,10 +68,6 @@ export const SolverSelectView: React.FC<Props> = ({ changePrev }) => {
       >
         <Stack spacing='20px'>
           <Radio value='AMPLIFY_AE'>Amplify AE</Radio>
-          <Radio value='QUBO_SA'>Simulated Annealing Sampler (QUBO SA)</Radio>
-          <Radio isDisabled value='NO_QUBO_SA'>
-            科目交換法
-          </Radio>
         </Stack>
       </RadioGroup>
       <HStack py='20px' spacing='20px'>
