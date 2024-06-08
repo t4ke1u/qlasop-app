@@ -83,9 +83,9 @@ export const AddCourseFormModal: React.FC<Props> = ({
     formState: { errors, isSubmitting },
   } = useCellForm(course)
 
-  const { createCell } = useTrialProjectUsecase()
+  const { addCell } = useTrialProjectUsecase()
   const submit = (force: boolean) => async (data: CellSchemaType) => {
-    const result = createCell(data, force)
+    const result = addCell(data, force)
     if (result) {
       force && onClose()
       onModalClose()

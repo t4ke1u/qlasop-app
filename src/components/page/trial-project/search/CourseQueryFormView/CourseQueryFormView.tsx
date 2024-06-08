@@ -16,8 +16,8 @@ const SelectItemProps: SelectProps = {
   display: 'inline-block',
   fontSize: 'sm',
   fontWeight: 'medium',
-  maxW: '150px',
-  minW: '150px',
+  maxW: '250px',
+  minW: '250px',
   rounded: 'base',
 }
 
@@ -27,8 +27,8 @@ const InputItemProps: InputProps = {
   display: 'inline-block',
   fontSize: 'sm',
   fontWeight: 'medium',
-  maxW: '150px',
-  minW: '150px',
+  maxW: '250px',
+  minW: '250px',
   rounded: 'base',
 }
 
@@ -65,7 +65,7 @@ export const CourseQueryFormView: React.FC<Props> = ({ data, isLoading }) => {
       borderRightColor='gray.300'
       maxH='calc(100vh - 120px)'
       minH='calc(100vh - 120px)'
-      minW='300px'
+      minW='400px'
       overflowY='auto'
       px='20px'
       spacing='8px'

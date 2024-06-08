@@ -1,8 +1,6 @@
 # Qlasop
 
-2023 年度 学士 4 年 太田岳 卒業研究 \
-量子アニーリングを用いた時間割最適化アプリ \
-[https://qlasop.vercel.app/](https://qlasop.vercel.app/)
+量子アニーリングを用いた時間割最適化アプリ
 
 ## Environment
 

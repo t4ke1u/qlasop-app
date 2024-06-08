@@ -5,14 +5,12 @@ import { Box, HStack } from '@chakra-ui/react'
 import { LoadingView } from '@/components/ui/LoadingView'
 import { useCourseList } from '@/usecases/course/reader'
 import { useCourseQuery, useCourseQueryCache } from '@/usecases/courseQuery/reader'
-import { useCourseQueryCacheUsecase } from '@/usecases/courseQuery/usecase'
 
 import { CourseList } from './CourseList'
 import { CourseQueryFormView } from './CourseQueryFormView'
 
 export const SearchPage = () => {
   const { courseQuery } = useCourseQueryCache()
-  const { updateCourseQueryCache } = useCourseQueryCacheUsecase()
   const { data: queryData } = useCourseQuery()
   const { data: coursesData, isLoading } = useCourseList(courseQuery)
 

@@ -42,6 +42,7 @@ export type DetailCourse = {
 export type DetailCourseGetResponse = { detailCourse?: DetailCourse }
 
 export type AbstractCourse = {
+  course: Course
   creditCategory: string
   credits: string
   day: string

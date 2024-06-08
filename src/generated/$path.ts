@@ -27,6 +27,20 @@ export const pagesPath = {
       path: `/trial-project${buildSuffix(url)}`,
       pathname: '/trial-project' as const,
     }),
+    optimize: {
+      $url: (url?: { hash?: string }) => ({
+        hash: url?.hash,
+        path: `/trial-project/optimize${buildSuffix(url)}`,
+        pathname: '/trial-project/optimize' as const,
+      }),
+      result: {
+        $url: (url?: { hash?: string }) => ({
+          hash: url?.hash,
+          path: `/trial-project/optimize/result${buildSuffix(url)}`,
+          pathname: '/trial-project/optimize/result' as const,
+        }),
+      },
+    },
     search: {
       $url: (url?: { hash?: string }) => ({
         hash: url?.hash,
@@ -40,6 +54,13 @@ export const pagesPath = {
           pathname: '/trial-project/search/[courseId]' as const,
           query: { courseId },
         }),
+      }),
+    },
+    settings: {
+      $url: (url?: { hash?: string }) => ({
+        hash: url?.hash,
+        path: `/trial-project/settings${buildSuffix(url)}`,
+        pathname: '/trial-project/settings' as const,
       }),
     },
     timetable: {

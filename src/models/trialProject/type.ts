@@ -3,7 +3,7 @@ import type { Course } from '@/models/course/type'
 export type TrialProject = {
   cells: Cell[]
   periodLabels: PeriodLabel[]
-  staged: Course[]
+  stage: Course[]
 }
 
 export type Cell = Course & {
@@ -32,3 +32,9 @@ export type PeriodLabel = {
   index: number
   startTime: string
 }
+
+export type CreditRanges = {
+  creditCategory: string
+  current: number
+  max: number
+}[]

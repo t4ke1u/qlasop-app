@@ -34,7 +34,9 @@ export const TimetableCell: React.FC<Props> = ({ time, cell }) => {
         onClick={onOpen}
         outline='solid 0.5px'
         outlineColor={`${color}.200`}
+        overflow='hidden'
         p={0}
+        textOverflow='ellipsis'
         w='full'
         whiteSpace='normal'
       >
