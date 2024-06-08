@@ -38,7 +38,7 @@ export const useCourseQueryForm = (
       mainLang: courseQuery?.mainLang ?? '2',
       period: courseQuery?.period ?? '',
       term: courseQuery?.term ?? '',
-      year: courseQuery?.year ?? courseQueryGetResponse.years[0].value,
+      year: courseQuery?.year ?? '',
     }
   }, [courseQueryGetResponse, courseQuery])
 

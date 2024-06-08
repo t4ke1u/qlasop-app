@@ -223,7 +223,7 @@ export const CourseQueryFormView: React.FC<Props> = ({ data, isLoading }) => {
               mainLang: '',
               period: '',
               term: '',
-              year: data.years[0].value,
+              year: '',
             })
           }}
           size='md'
