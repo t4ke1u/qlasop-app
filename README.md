@@ -1,6 +1,13 @@
 # Qlasop
 
 量子アニーリングを用いた時間割最適化アプリ
+[App Link](https://qlasop.vercel.app/)
+
+DBにはSupabaseの無料プランを使用しており，
+バックエンドの最適化計算にはFixstars Amplify AEの無料プランを使用しているため，
+長期間メンテナンスをしない場合，以下の問題が発生することがあります．
+- DBからの科目データの取得．
+- 履修科目の最適化
 
 ## Environment
 
