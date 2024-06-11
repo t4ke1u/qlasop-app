@@ -1,13 +1,15 @@
 # Qlasop
 
-量子アニーリングを用いた時間割最適化アプリ
-[App Link](https://qlasop.vercel.app/)
+量子コンピュータを用いた大学生の履修選択を支援する時間割アプリ\
+[https://qlasop.vercel.app/](https://qlasop.vercel.app/)
 
-DBにはSupabaseの無料プランを使用しており，
-バックエンドの最適化計算にはFixstars Amplify AEの無料プランを使用しているため，
+DB には Supabase の無料プラン，
+バックエンドの最適化計算には Fixstars Amplify AE の無料プラン
+を使用しているため，
 長期間メンテナンスをしない場合，以下の問題が発生することがあります．
-- DBからの科目データの取得．
-- 履修科目の最適化
+
+- DB からの科目データの取得失敗
+- 履修科目の最適化失敗
 
 ## Environment
 
